@@ -9,6 +9,7 @@ import java.util.TreeSet;
 import android.graphics.Color;
 
 public class GroupedData {
+	// TODO: create a color map, such that data with same name (movie-name, channel-name etc.) get same color in different charts.
 	public static final int[] COLORS = {Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA, Color.RED, Color.LTGRAY,  Color.BLUE, Color.WHITE, Color.YELLOW, Color.DKGRAY,
 		Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA, Color.RED, Color.LTGRAY,  Color.BLUE, Color.WHITE, Color.YELLOW, Color.DKGRAY,
 		Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA, Color.RED, Color.LTGRAY,  Color.BLUE, Color.WHITE, Color.YELLOW, Color.DKGRAY};

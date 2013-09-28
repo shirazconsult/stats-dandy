@@ -135,7 +135,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	
 	private GrouppedDataListAdapter lvAdapter;
 	private void displayDataList(Context context){
-		lvAdapter = new GrouppedDataListAdapter(getActivity(), getChartDataLoader().getCurrentRows());
+		lvAdapter = new GrouppedDataListAdapter(getActivity(), getChartDataLoader().getCurrentRows(), this);
 		thisListView.setAdapter(lvAdapter);
 	}
 		
@@ -243,5 +243,9 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		public void failure(Exception ex) {
 			Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
 		}	
+	}
+
+	public int getViewpage() {
+		return viewpage;
 	}
 }

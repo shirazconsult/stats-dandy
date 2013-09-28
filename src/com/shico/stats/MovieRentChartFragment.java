@@ -11,8 +11,7 @@ import com.shico.stats.loaders.ChartDataLoader;
 public class MovieRentChartFragment extends ChartFragment {	
 	private static final String EVENT_TYPE = "movieRent";
 	protected static final int FIRST_PAGE_WITH_GROUPED_COLUMN_CHART = 0;
-	protected static final int SECOND_PAGE_WITH_SIMPLE_COLUMN_CHART = 1;
-	protected static final int THIRD_PAGE_WITH_PIE_CHART = 2;
+	protected static final int SECOND_PAGE_WITH_PIE_CHART = 1;
 
 	protected void loadChartData() {
 		switch(viewpage){
@@ -28,8 +27,10 @@ public class MovieRentChartFragment extends ChartFragment {
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
-			return ChartUtil.CreateGroupedBarChartView(getActivity(), dataRows, 
+			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.viewersIdx, new ChartTitles("Time", "Number of Rentals", "Movie Rentals"));
+		case SECOND_PAGE_WITH_PIE_CHART:
+			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "Movie Rentals");
 		}
 		return null;
 	}

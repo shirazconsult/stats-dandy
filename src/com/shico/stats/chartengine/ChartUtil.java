@@ -7,6 +7,7 @@ import org.achartengine.GraphicalView;
 import org.achartengine.chart.BarChart.Type;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.XYMultipleSeriesDataset;
+import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
@@ -14,15 +15,32 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
-import android.text.style.TypefaceSpan;
 
 import com.shico.stats.loaders.ChartDataLoader;
 
 public class ChartUtil {
-		
-	public static GraphicalView CreateGroupedBarChartView(Context context, List<List<String>> rows, 
+
+	public static GraphicalView createGroupedBarChartViewForChannels(Context context, List<List<String>> rows, 
 			int valueIdx, ChartTitles titles){
-		GroupedData data = transform(rows, valueIdx);
+		return createGroupedBarChartView(context, rows, valueIdx, titles, false);
+	}
+
+	public static GraphicalView createGroupedBarChartViewForPrograms(Context context, List<List<String>> rows, 
+			int valueIdx, ChartTitles titles){
+		return createGroupedBarChartView(context, rows, valueIdx, titles, true);
+	}
+
+	public static GraphicalView createPieChartViewForPrograms(Context context, List<List<String>> rows, int valueIdx, String title){
+		return createPieChartView(context, rows, valueIdx, title, true);
+	}
+	
+	public static GraphicalView createPieChartView(Context context, List<List<String>> rows, int valueIdx, String title){
+		return createPieChartView(context, rows, valueIdx, title, false);
+	}
+	
+	private static GraphicalView createGroupedBarChartView(Context context, List<List<String>> rows, 
+			int valueIdx, ChartTitles titles, boolean forProgram){
+		GroupedData data = transform(rows, valueIdx, forProgram);
 	    XYMultipleSeriesRenderer renderer = buildBarRenderer(data.getColors());
 	    setChartSettings(renderer, titles.title, titles.xTitle, titles.yTitle, 0d,
 	        data.allXLabels.size()+1, 0d, data.getMaxValue()+(data.getMaxValue()/3), Color.GRAY, Color.LTGRAY);
@@ -47,6 +65,37 @@ public class ChartUtil {
 	    
 	    return ChartFactory.getBarChartView(context, buildBarDataset(data), renderer, Type.DEFAULT);								
 	}
+
+	private static GraphicalView createPieChartView(Context context, List<List<String>> rows, int valueIdx, String title, boolean forPrograms){
+		// build category-renderer
+	    DefaultRenderer renderer = new DefaultRenderer();
+	    renderer.setLabelsTextSize(15);
+	    renderer.setLegendTextSize(15);
+	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
+	    for (int i=0; i<rows.size(); i++) {
+	      SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+	      r.setColor(GroupedData.COLORS[i]);
+	      renderer.addSeriesRenderer(r);
+	    }
+	    
+	    renderer.setChartTitleTextSize(20);
+	    renderer.setDisplayValues(true);
+	    renderer.setShowLabels(true);
+	    SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
+	    r.setHighlighted(true);
+	    
+	    // dataset	    
+	    CategorySeries series = new CategorySeries(title);
+	    for (List<String> row : rows) {
+	    	if(forPrograms){
+	    		series.add(row.get(ChartDataLoader.titleIdx), Double.parseDouble(row.get(valueIdx)));
+	    	}else{
+	    		series.add(row.get(ChartDataLoader.nameIdx), Double.parseDouble(row.get(valueIdx)));
+	    	}
+		}
+
+	    return ChartFactory.getPieChartView(context, series, renderer);
+	}
 	
 	private static XYMultipleSeriesDataset buildBarDataset(GroupedData groupedData) {
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
@@ -60,11 +109,28 @@ public class ChartUtil {
 		return dataset;
 	}
 
-	private static GroupedData transform(List<List<String>> rows, int valueIdx){
+	private static XYMultipleSeriesDataset buildSimpleDataset(GroupedData groupedData) {
+		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
+		for (String title : groupedData.allTitles) {
+			CategorySeries series = new CategorySeries(title);
+			for (String xLabel : groupedData.allXLabels) {
+				series.add(groupedData.getValue(xLabel, title));
+			}
+			dataset.addSeries(series.toXYSeries());
+		}
+		return dataset;
+	}
+
+	private static GroupedData transform(List<List<String>> rows, int valueIdx, boolean forProgram){
 		GroupedData groupedData = new GroupedData(valueIdx);
 		for (List<String> row : rows) {
 			String time = row.get(ChartDataLoader.timeIdx);
-			String name = row.get(ChartDataLoader.nameIdx);
+			String name = null;
+			if(forProgram){
+				name = row.get(ChartDataLoader.titleIdx);
+			}else{
+				name = row.get(ChartDataLoader.nameIdx);
+			}
 			groupedData.addXLabel(time);
 			groupedData.addTitle(name);
 			groupedData.addValue(time, name, Double.valueOf(row.get(ChartDataLoader.viewersIdx)));

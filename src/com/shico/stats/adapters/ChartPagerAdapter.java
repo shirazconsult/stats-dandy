@@ -9,6 +9,7 @@ import com.shico.stats.ChartFragment;
 import com.shico.stats.LiveUsageChartFragment;
 import com.shico.stats.MainActivity;
 import com.shico.stats.MovieRentChartFragment;
+import com.shico.stats.ProgramChartFragment;
 import com.shico.stats.WidgetShowChartFragment;
 
 public class ChartPagerAdapter extends FragmentPagerAdapter {
@@ -33,7 +34,7 @@ public class ChartPagerAdapter extends FragmentPagerAdapter {
 		}else if(chartName.equalsIgnoreCase("movies")){
 			fragment = new MovieRentChartFragment();
 		}else if(chartName.equalsIgnoreCase("programs")){
-//			Toast.makeText(getActivity(), "No view for "+currentChartName+" is implemented yet.", Toast.LENGTH_LONG).show();				
+			fragment = new ProgramChartFragment();
 		}else if(chartName.equalsIgnoreCase("widgets")){
 			fragment = new WidgetShowChartFragment();
 		}
@@ -45,10 +46,11 @@ public class ChartPagerAdapter extends FragmentPagerAdapter {
 		
 	@Override
 	public int getCount() {
-		if(chartName.equalsIgnoreCase("channels")){
-			return 2;
+		if(chartName.equalsIgnoreCase("channels") || 
+			chartName.equalsIgnoreCase("programs")){
+			return 4;
 		}
-		return 1;
+		return 2;
 	}
 
 	@Override

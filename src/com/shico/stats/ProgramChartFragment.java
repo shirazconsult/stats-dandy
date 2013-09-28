@@ -8,7 +8,7 @@ import com.shico.stats.chartengine.ChartTitles;
 import com.shico.stats.chartengine.ChartUtil;
 import com.shico.stats.loaders.ChartDataLoader;
 
-public class LiveUsageChartFragment extends ChartFragment {	
+public class ProgramChartFragment extends ChartFragment {	
 	private static final String EVENT_TYPE = "LiveUsage";
 	protected static final int FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS = 0;
 	protected static final int SECOND_PAGE_WITH_COLUMN_CHART_DURATION = 1;
@@ -35,15 +35,15 @@ public class LiveUsageChartFragment extends ChartFragment {
 			if(currentChartOptions.startsWith("duration")){
 				options = "viewers"+currentChartOptions.substring(currentChartOptions.indexOf(','));
 			}
-			return options;
+			return options+",title";
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
 			options = currentChartOptions;
 			if(currentChartOptions.startsWith("viewers")){
 				options = "duration"+currentChartOptions.substring(currentChartOptions.indexOf(','));
 			}
-			return options;
+			return options+",title";
 		default:
-			return currentChartOptions;
+			return currentChartOptions+",title";
 		}
 	}
 	
@@ -51,15 +51,15 @@ public class LiveUsageChartFragment extends ChartFragment {
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
-			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.viewersIdx, new ChartTitles("Time", "Number of Viewers", "TV Channels"));
+			return ChartUtil.createGroupedBarChartViewForPrograms(getActivity(), dataRows, 
+					ChartDataLoader.viewersIdx, new ChartTitles("Time", "Number of Viewers", "TV Programs"));
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.durationIdx, new ChartTitles("Time", "Total Watched Hours", "TV Channels"));
+			return ChartUtil.createGroupedBarChartViewForPrograms(getActivity(), dataRows, 
+					ChartDataLoader.durationIdx, new ChartTitles("Time", "Total Watched Hours", "TV Programs"));
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
-			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "TV Channels - Number of Viewers");
+			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.viewersIdx, "TV Programs - Number of Viewers");
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
-			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.durationIdx, "TV Channels - Total Watched Hours");
+			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.durationIdx, "TV Programs - Total Watched Hours");
 		}
 		return null;
 	}  
