@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:dividerPadding="20dp"
+    android:orientation="vertical">    
+    
+	<LinearLayout
+	    android:id="@+id/chartview"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_gravity="top"
+	    android:orientation="vertical"
+	    android:background="@color/Black"
+	    android:layout_weight="1" />
+
+	<ListView 
+    	android:id="@+id/groupped_data_list"
+    	android:layout_width="match_parent"
+    	android:paddingTop="@dimen/datalistPaddingTop"
+    	android:paddingBottom="@dimen/datalistPaddingBottom"
+    	android:layout_height="@dimen/datalistHeight"/>
+	
+</LinearLayout>
