@@ -20,10 +20,10 @@ public class LiveUsageChartFragment extends ChartFragment {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			getChartDataLoader().getTopViewInBatch("/viewbatch/"+EVENT_TYPE, "2013-02", "2013-05", getLoadOptions());
+			getChartDataLoader().getTopViewInBatch("/viewbatch/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 			break;
 		default:
-			getChartDataLoader().getTopView("/view/"+EVENT_TYPE, "2013-02", "2013-05", getLoadOptions());
+			getChartDataLoader().getTopView("/view/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 		}		
 	}
 
@@ -31,17 +31,9 @@ public class LiveUsageChartFragment extends ChartFragment {
 	public String getLoadOptions(){
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
-			String options = currentChartOptions;
-			if(currentChartOptions.startsWith("duration")){
-				options = "viewers"+currentChartOptions.substring(currentChartOptions.indexOf(','));
-			}
-			return options;
+			return "viewers,"+currentChartOptions;
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			options = currentChartOptions;
-			if(currentChartOptions.startsWith("viewers")){
-				options = "duration"+currentChartOptions.substring(currentChartOptions.indexOf(','));
-			}
-			return options;
+			return "duration,"+currentChartOptions;
 		default:
 			return currentChartOptions;
 		}
@@ -52,10 +44,10 @@ public class LiveUsageChartFragment extends ChartFragment {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.viewersIdx, new ChartTitles("Time", "Number of Viewers", "TV Channels"));
+					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Viewers", "TV Channels"));
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.durationIdx, new ChartTitles("Time", "Total Watched Hours", "TV Channels"));
+					ChartDataLoader.durationIdx, new ChartTitles("", "Total Watched Hours", "TV Channels"));
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "TV Channels - Number of Viewers");
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:

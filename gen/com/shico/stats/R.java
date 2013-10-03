@@ -15,8 +15,11 @@ public final class R {
         public static final int slide_up_dialog=0x7f040003;
     }
     public static final class array {
+        public static final int choose_date=0x7f090007;
+        public static final int dataload_options=0x7f090005;
         public static final int menu_chart_items=0x7f090001;
         public static final int menu_items=0x7f090000;
+        public static final int months=0x7f090006;
         public static final int num_of_score_items=0x7f090004;
         public static final int scoreType=0x7f090003;
         public static final int y_axis=0x7f090002;
@@ -217,44 +220,52 @@ public final class R {
         public static final int simple_border=0x7f020006;
     }
     public static final class id {
-        public static final int cancel_settings_btn=0x7f0b0015;
-        public static final int chart_menu_item=0x7f0b001a;
+        public static final int cancel_settings_btn=0x7f0b001b;
+        public static final int chart_menu_item=0x7f0b0020;
         public static final int chart_pager=0x7f0b0001;
-        public static final int chartview=0x7f0b000d;
+        public static final int chartview=0x7f0b0013;
+        public static final int choose_date_spinner=0x7f0b0004;
+        public static final int dataload_options_spinner=0x7f0b0003;
         public static final int drawer_layout=0x7f0b0000;
-        public static final int drawer_menu_item=0x7f0b000f;
-        public static final int duration=0x7f0b0019;
-        public static final int event_name=0x7f0b0016;
-        public static final int event_time=0x7f0b0017;
-        public static final int groupped_data_list=0x7f0b000e;
+        public static final int drawer_menu_item=0x7f0b0015;
+        public static final int duration=0x7f0b001f;
+        public static final int event_name=0x7f0b001c;
+        public static final int event_time=0x7f0b001d;
+        public static final int from_month_spinner=0x7f0b0005;
+        public static final int from_year_spinner=0x7f0b0006;
+        public static final int groupped_data_list=0x7f0b0014;
         public static final int menu_drawer=0x7f0b0002;
-        public static final int radio_btn_10=0x7f0b000c;
-        public static final int radio_btn_3=0x7f0b000a;
-        public static final int radio_btn_5=0x7f0b000b;
-        public static final int radio_btn_bottom=0x7f0b0008;
-        public static final int radio_btn_duration=0x7f0b0005;
-        public static final int radio_btn_top=0x7f0b0007;
-        public static final int radio_btn_viewer=0x7f0b0004;
-        public static final int radio_gr_score_num=0x7f0b0009;
-        public static final int radio_gr_score_type=0x7f0b0006;
-        public static final int radio_gr_yaxis=0x7f0b0003;
-        public static final int save_settings_btn=0x7f0b0014;
-        public static final int server_addr=0x7f0b0010;
-        public static final int server_port=0x7f0b0011;
-        public static final int user_id=0x7f0b0012;
-        public static final int user_pwd=0x7f0b0013;
-        public static final int viewers=0x7f0b0018;
+        public static final int radio_btn_10=0x7f0b0012;
+        public static final int radio_btn_3=0x7f0b0010;
+        public static final int radio_btn_5=0x7f0b0011;
+        public static final int radio_btn_bottom=0x7f0b000e;
+        public static final int radio_btn_duration=0x7f0b000b;
+        public static final int radio_btn_top=0x7f0b000d;
+        public static final int radio_btn_viewer=0x7f0b000a;
+        public static final int radio_gr_score_num=0x7f0b000f;
+        public static final int radio_gr_score_type=0x7f0b000c;
+        public static final int radio_gr_yaxis=0x7f0b0009;
+        public static final int save_settings_btn=0x7f0b001a;
+        public static final int server_addr=0x7f0b0016;
+        public static final int server_port=0x7f0b0017;
+        public static final int to_month_spinner=0x7f0b0007;
+        public static final int to_year_spinner=0x7f0b0008;
+        public static final int user_id=0x7f0b0018;
+        public static final int user_pwd=0x7f0b0019;
+        public static final int viewers=0x7f0b001e;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int chart_settings=0x7f030001;
-        public static final int chart_view_pager=0x7f030002;
-        public static final int chartview=0x7f030003;
-        public static final int drawer_menu_item=0x7f030004;
-        public static final int global_settings=0x7f030005;
-        public static final int groupped_data_list=0x7f030006;
-        public static final int liveusage_groupped_data_list=0x7f030007;
-        public static final int menu_chart_item=0x7f030008;
+        public static final int chart_settings_old=0x7f030002;
+        public static final int chart_view_pager=0x7f030003;
+        public static final int chartview=0x7f030004;
+        public static final int drawer_menu_item=0x7f030005;
+        public static final int global_settings=0x7f030006;
+        public static final int groupped_data_list=0x7f030007;
+        public static final int liveusage_groupped_data_list=0x7f030008;
+        public static final int menu_chart_item=0x7f030009;
+        public static final int month_chooser=0x7f03000a;
     }
     public static final class string {
         public static final int action_settings=0x7f080001;
@@ -264,21 +275,28 @@ public final class R {
          */
         public static final int app_name=0x7f080000;
         public static final int bottom=0x7f080018;
-        public static final int cancel=0x7f080022;
+        public static final int cancel=0x7f080026;
         public static final int chart_settings_title=0x7f08000f;
+        public static final int currentDay=0x7f080022;
+        public static final int currentMonth=0x7f080024;
+        public static final int currentWeek=0x7f080023;
         public static final int drawer_close=0x7f080003;
         public static final int drawer_open=0x7f080002;
         public static final int duration=0x7f080016;
         /**  Buttons 
  ####### 
          */
-        public static final int fetch=0x7f080021;
+        public static final int fetch=0x7f080025;
         public static final int five=0x7f08001a;
+        /**  miscalaneous 
+         */
+        public static final int from=0x7f080028;
         /**  Preferences 
  ########### 
          */
         public static final int global_settings_title=0x7f080005;
         public static final int num_of_score_items_title=0x7f080014;
+        public static final int popular=0x7f080021;
         /**  reset preference dialog 
          */
         public static final int reset_msg=0x7f08001c;
@@ -286,7 +304,7 @@ public final class R {
         public static final int reset_positiv=0x7f08001e;
         public static final int reset_summery=0x7f08001f;
         public static final int reset_title=0x7f080020;
-        public static final int save=0x7f080023;
+        public static final int save=0x7f080027;
         public static final int score_type_sum=0x7f080013;
         public static final int score_type_title=0x7f080012;
         public static final int server_addr_dialog_title=0x7f080007;
@@ -298,6 +316,7 @@ public final class R {
         public static final int server_settings_title=0x7f080006;
         public static final int ten=0x7f08001b;
         public static final int three=0x7f080019;
+        public static final int to=0x7f080029;
         public static final int top=0x7f080017;
         public static final int user_id=0x7f08000d;
         public static final int user_pwd=0x7f08000e;

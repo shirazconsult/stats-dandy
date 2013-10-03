@@ -2,68 +2,55 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/WhiteSmoke"
+    android:background="@color/DarkGray"
     android:orientation="vertical" >
 
-    <Spinner
-        android:id="@+id/dataload_options_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <Spinner
-        android:id="@+id/choose_date_spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
-    <GridLayout
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:columnCount="3"
-        android:rowCount="2" >
+        android:background="@color/DarkGray"
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="0"
             android:text="@string/from"
+            android:textColor="@color/White"
             android:textSize="@dimen/radioGroupTextSize" />
 
         <Spinner
             android:id="@+id/from_month_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="0" />
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/from_year_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:layout_row="0" />
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/DarkGray"
+        android:orientation="horizontal" >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_column="0"
-            android:layout_row="1"
             android:text="@string/to"
+            android:textColor="@color/White"
             android:textSize="@dimen/radioGroupTextSize" />
 
         <Spinner
             android:id="@+id/to_month_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="1"
-            android:layout_row="1" />
+            android:layout_height="wrap_content" />
 
         <Spinner
             android:id="@+id/to_year_spinner"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_column="2"
-            android:layout_row="1" />
-    </GridLayout>
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

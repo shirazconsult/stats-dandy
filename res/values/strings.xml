@@ -67,9 +67,48 @@
     <string name="reset_summery">Reset all settings to their initial values.</string>
     <string name="reset_title">Reset to default</string>
     
+    <string name="popular">popular</string>
+	<string name="currentDay">Current Day</string>
+	<string name="currentWeek">Current Week</string>
+	<string name="currentMonth">Current Month</string>
+    
+	<string-array name="dataload_options">
+	    <item>Three Most Popular</item>
+	    <item>Five Most Popular</item>
+	    <item>Ten Most Popular</item>
+	    <item>Three Least Popular</item>
+	    <item>Five Least Popular</item>
+	    <item>Ten Least Popular</item>
+	</string-array>
+	<string-array name="months">
+	    <item>January</item>
+	    <item>February</item>
+	    <item>March</item>
+	    <item>April</item>
+	    <item>May</item>
+	    <item>June</item>
+	    <item>July</item>
+	    <item>August</item>
+	    <item>September</item>
+	    <item>October</item>
+	    <item>November</item>
+	    <item>December</item>
+	</string-array>
+	
     <!-- Buttons -->
     <!-- ####### -->
     <string name="fetch">Fetch</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+    
+    <!-- miscalaneous -->
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string-array name="choose_date">
+        <item>Choose Date</item>
+        <item>Current Day</item>
+        <item>Current Week</item>
+        <item>Current Month</item>
+        <item>Current Year</item>
+    </string-array>
 </resources>

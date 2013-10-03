@@ -58,7 +58,7 @@ public class ChartUtil {
 	    renderer.setXLabels(0);
 	    renderer.setMargins(new int[]{45,45,45,25});
 	    renderer.setLegendHeight(100);
-	    renderer.setZoomRate(1.1f);
+//	    renderer.setZoomRate(1.1f);
 	    // TODO: bar width and spacing must be a function of numOfTitles and numOfXLabels
 	    renderer.setBarSpacing(0.2f);
 	    renderer.setBarWidth(10f);
@@ -77,12 +77,14 @@ public class ChartUtil {
 	      r.setColor(GroupedData.COLORS[i]);
 	      renderer.addSeriesRenderer(r);
 	    }
-	    
+	    if(!rows.isEmpty()){	    	
+	    	SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
+	    	r.setHighlighted(true);
+	    }
+	    renderer.setPanEnabled(false);	    
 	    renderer.setChartTitleTextSize(20);
 	    renderer.setDisplayValues(true);
 	    renderer.setShowLabels(true);
-	    SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
-	    r.setHighlighted(true);
 	    
 	    // dataset	    
 	    CategorySeries series = new CategorySeries(title);
@@ -157,6 +159,7 @@ public class ChartUtil {
 			r.setColor(colors[i]);
 			renderer.addSeriesRenderer(r);
 		}
+		renderer.setPanEnabled(false, false);
 		return renderer;
 	}
 

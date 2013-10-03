@@ -16,10 +16,10 @@ public class MovieRentChartFragment extends ChartFragment {
 	protected void loadChartData() {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
-			getChartDataLoader().getTopViewInBatch("/viewbatch/"+EVENT_TYPE, "2013-02", "2013-05", getLoadOptions());
+			getChartDataLoader().getTopViewInBatch("/viewbatch/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 			break;
 		default:
-			getChartDataLoader().getTopView("/view/"+EVENT_TYPE, "2013-02", "2013-05", getLoadOptions());
+			getChartDataLoader().getTopView("/view/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 		}		
 	}
 
@@ -28,7 +28,7 @@ public class MovieRentChartFragment extends ChartFragment {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.viewersIdx, new ChartTitles("Time", "Number of Rentals", "Movie Rentals"));
+					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Rentals", "Movie Rentals"));
 		case SECOND_PAGE_WITH_PIE_CHART:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "Movie Rentals");
 		}

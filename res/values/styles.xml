@@ -23,10 +23,17 @@
 		<item name="android:windowBackground">@null</item> 
 		<item name="android:windowFrame">@null</item> 
 		<item name="android:gravity">bottom</item>
+		<item name="android:background">@color/Gray</item>
 	</style>
 	
     <!-- Animation for dialog box -->
     <style name="DialogSlideAnim" parent="@android:style/Theme.Dialog">
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>
+    
+    <!-- Text style -->
+<!-- 	<style name="You.EditText.Style" parent="@android:style/Widget.EditText"> -->
+<!--     	<item name="android:textColor">@color/White</item> -->
+<!--     	<item name="android:gravity">center</item> -->
+<!-- 	</style>     -->
 </resources>

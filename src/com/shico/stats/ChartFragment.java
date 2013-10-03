@@ -27,7 +27,7 @@ import android.widget.Toast;
 import com.shico.stats.adapters.GrouppedDataListAdapter;
 import com.shico.stats.event.ChartEvent;
 import com.shico.stats.loaders.ChartDataLoader;
-import com.shico.stats.settings.ChartSettingsDialogFragment;
+import com.shico.stats.settings.ChartSettings;
 import com.shico.stats.util.MyGestureDetectorListener;
 
 public abstract class ChartFragment extends Fragment implements OnSharedPreferenceChangeListener{
@@ -37,14 +37,18 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	public static final String CHART_NAME = "chart_name";
 	private static final String CHART_OPTIONS = "chart_options";
 	
-	public static final String Y_AXIS_OPTION_SUFFIX = ".yAxis";
-	public static final String SCORE_NUM_OPTION_SUFFIX = ".scoreNum";
-	public static final String SCORE_TYPE_OPTION_SUFFIX = ".scoreType";
+	public static final String FROM_DATE_SUFFIX = ".from";
+	public static final String TO_DATE_SUFFIX = ".to";
+	public static final String DATE_SPEC_SUFFIX = ".dateSpec";
+	public static final String NUMBER_SUFFIX = ".number";
+	public static final String TOP_BOT_SUFFIX = ".topBot";
 	
 	protected ListView thisListView;
 	protected LinearLayout chartview;
 	protected String currentChartName;
 	protected String currentChartOptions;
+	protected String currentFrom;
+	protected String currentTo;
 	private ProgressDialog progressDiag;
 	
 	protected int viewpage;
@@ -84,13 +88,12 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		thisListView = (ListView) v.findViewById(R.id.groupped_data_list);
 		chartview = (LinearLayout)v.findViewById(R.id.chartview);
 		
-		setGestureListener(v);
+//		setGestureListener(v, chartview);
 		
 		currentChartName = getArguments().getString(MainActivity.ARG_MENU_CHART_ITEM_NAME);
 		viewpage = getArguments().getInt(ARG_CHART_VIEWPAGE);
 		updateCurrentChartOptions(PreferenceManager.getDefaultSharedPreferences(getActivity()));
 		if(currentChartName != null){
-			Log.d("WVF.onCreateView", ">>>>>>>>>>>> Loading chart "+viewpage+"<<<<<<<<<<<<");
 			loadChartView();
 		}
 		
@@ -122,10 +125,10 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 
 	}
 
-	private ChartSettingsDialogFragment chartSettingsDialog;
+	private ChartSettings chartSettingsDialog;
 	private void showSettings(){
 		if(chartSettingsDialog == null){
-			chartSettingsDialog = new ChartSettingsDialogFragment();
+			chartSettingsDialog = new ChartSettings();
 		}
 		Bundle args = new Bundle();
 		args.putString(CHART_NAME, currentChartName);
@@ -165,15 +168,17 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	}
 	
 	private String updateCurrentChartOptions(SharedPreferences prefs){
-		String viewersOrDuration = prefs.getString(currentChartName+Y_AXIS_OPTION_SUFFIX, "viewers");
-		String topOrBottom = prefs.getString(currentChartName+SCORE_TYPE_OPTION_SUFFIX, "top");
-		int num = prefs.getInt(currentChartName+SCORE_NUM_OPTION_SUFFIX, 5);
+		String topOrBottom = prefs.getString(currentChartName+TOP_BOT_SUFFIX, "top");
+		int num = prefs.getInt(currentChartName+NUMBER_SUFFIX, 5);
 		
-		currentChartOptions = new StringBuilder(viewersOrDuration).
-				append(",").append(topOrBottom.equals("bottom") ? "low" : "top").
+		currentChartOptions = new StringBuilder(topOrBottom.equals("bottom") ? "low" : "top").
 				append(",").append(num).toString();
 		
-		Log.d("WebViewFragment", viewpage+": Updating current chart options to: "+currentChartOptions);
+		String[] dates = ChartSettings.getDates(prefs, currentChartName);
+		currentFrom = dates[0];
+		currentTo = dates[1];
+		Log.d("WebViewFragment", viewpage+": Updating current chart options to: "+
+				currentChartOptions+" -- date-range is "+currentFrom+" / "+currentTo);
 		return currentChartOptions;
 	}
 	
@@ -187,7 +192,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	protected abstract GraphicalView createChartView(List<List<String>> dataRows);
 	
 	protected String getLoadOptions(){
-		return currentChartOptions;
+		return "viewers,"+currentChartOptions;
 	}
 	
 	protected boolean match(Intent intent) {
@@ -225,10 +230,10 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 				}
 
 				// chart
-				// TODO: create the appropriate GraphicView, add the view to chartview and call upon displayDataList
 				GraphicalView view = createChartView(result);
 				chartview.removeAllViews();
 				chartview.addView(view);
+				setGestureListener(view);
 				
 				// table
 				if(isPortrait()){
@@ -237,6 +242,9 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 			}finally{
 				progressDiag.dismiss();
 			}		
+			if(result.isEmpty()){
+				Toast.makeText(getActivity(), "No data is returned from server.", Toast.LENGTH_LONG).show();
+			}				
 		}
 
 		@Override
