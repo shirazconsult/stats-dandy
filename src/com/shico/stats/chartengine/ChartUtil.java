@@ -43,7 +43,7 @@ public class ChartUtil {
 	private static GraphicalView createGroupedBarChartView(Context context, List<List<String>> rows, 
 			int valueIdx, ChartTitles titles, boolean forProgram){
 		GroupedData data = transform(rows, valueIdx, forProgram);
-	    XYMultipleSeriesRenderer renderer = buildBarRenderer(getColorScheme(context));
+	    XYMultipleSeriesRenderer renderer = buildBarRenderer(data.getColors(context));
 	    setChartSettings(renderer, titles.title, titles.xTitle, titles.yTitle, 0d,
 	        data.allXLabels.size()+1, 0d, data.getMaxValue()+(data.getMaxValue()/3), Color.GRAY, Color.LTGRAY);
 	    renderer.setDisplayValues(false);
