@@ -41,19 +41,19 @@ public class LiveUsageChartFragment extends ChartFragment {
 	
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
+		String dateLegend = currentFrom+" / "+currentTo;
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Viewers", "TV Channels"));
+					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Viewers", "TV Channels\n"+dateLegend));
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.durationIdx, new ChartTitles("", "Total Watched Hours", "TV Channels"));
+					ChartDataLoader.durationIdx, new ChartTitles("", "Total Watched Hours", "TV Channels\n"+dateLegend));
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
-			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "TV Channels - Number of Viewers");
+			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "TV Channels - Number of Viewers\n"+dateLegend);
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
-			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.durationIdx, "TV Channels - Total Watched Hours");
+			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.durationIdx, "TV Channels - Total Watched Hours\n"+dateLegend);
 		}
 		return null;
-	}  
-	
+	}  	
 }

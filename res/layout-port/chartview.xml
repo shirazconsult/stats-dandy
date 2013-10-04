@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Black"
+    android:background="@color/DarkSlateGray"
     android:dividerPadding="20dp"
     android:orientation="vertical">    
     
@@ -14,7 +14,7 @@
 	    android:layout_height="0dp"
 	    android:layout_gravity="top"
 	    android:orientation="vertical"
-	    android:background="@color/Black"
+	    android:background="@color/DarkSlateGray"
 	    android:layout_weight="1" />
 
 	<ListView 
@@ -23,6 +23,6 @@
     	android:paddingTop="@dimen/datalistPaddingTop"
     	android:paddingBottom="@dimen/datalistPaddingBottom"
     	android:layout_height="@dimen/datalistHeight"
-    	android:background="@color/Black" />
+    	android:background="@color/DarkSlateGray" />
 	
 </LinearLayout>

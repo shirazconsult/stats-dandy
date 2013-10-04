@@ -1,5 +1,6 @@
 package com.shico.stats.util;
 
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
@@ -47,6 +48,7 @@ public class MyGestureDetectorListener extends GestureDetector.SimpleOnGestureLi
 		velocityX = Math.abs(velocityX);
 		velocityY = Math.abs(velocityY);
 		boolean result = false;
+
 		if (velocityX > swipe_Min_Velocity
 				&& xDistance > swipe_Min_Distance) {
 			if (e1.getX() > e2.getX()){ // right to left
@@ -62,7 +64,7 @@ public class MyGestureDetectorListener extends GestureDetector.SimpleOnGestureLi
 			if (e1.getY() > e2.getY()){
 				// swipe up
 				if(callback != null) callback.onUp();
-			}else if(e1.getY() < 200){
+			}else if(e1.getY() < 400){
 				// swipe down
 				if(callback != null) callback.onDown();
 				if(downCallback != null) downCallback.onDown();

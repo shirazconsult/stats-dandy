@@ -26,12 +26,13 @@ public class WidgetShowChartFragment extends ChartFragment {
 
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
+		String dateLegend = currentFrom+" / "+currentTo;		
 		switch(viewpage){
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Activations", "Widget Activations"));
+					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Activations", "Widget Activations\n"+dateLegend));
 		case SECOND_PAGE_WITH_PIE_CHART:
-			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "Movie Rentals");
+			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "Movie Rentals\n"+dateLegend);
 		}
 		return null;
 	}	

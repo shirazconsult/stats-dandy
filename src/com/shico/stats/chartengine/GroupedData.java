@@ -6,13 +6,9 @@ import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import android.graphics.Color;
+import android.content.Context;
 
 public class GroupedData {
-	// TODO: create a color map, such that data with same name (movie-name, channel-name etc.) get same color in different charts.
-	public static final int[] COLORS = {Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA, Color.RED, Color.LTGRAY,  Color.BLUE, Color.WHITE, Color.YELLOW, Color.DKGRAY,
-		Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA, Color.RED, Color.LTGRAY,  Color.BLUE, Color.WHITE, Color.YELLOW, Color.DKGRAY,
-		Color.CYAN, Color.GRAY, Color.GREEN, Color.MAGENTA, Color.RED, Color.LTGRAY,  Color.BLUE, Color.WHITE, Color.YELLOW, Color.DKGRAY};
 	private double maxValue;
 	
 	SortedSet<String> allTitles = new TreeSet<String>(new Comparator<String>() {
@@ -66,11 +62,11 @@ public class GroupedData {
 		return maxValue;
 	}
 	
-	public int[] getColors(){
+	public int[] getColors(Context ctx){
 		int size = allTitles.size();
 		int[] res = new int[size];
 		for (int i=0; i<size; i++) {
-			res[i] = COLORS[i];
+			res[i] = ChartUtil.getColorScheme(ctx)[i];
 		}
 		return res;
 	}

@@ -15,7 +15,9 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
+import android.util.Log;
 
+import com.shico.stats.R;
 import com.shico.stats.loaders.ChartDataLoader;
 
 public class ChartUtil {
@@ -41,7 +43,7 @@ public class ChartUtil {
 	private static GraphicalView createGroupedBarChartView(Context context, List<List<String>> rows, 
 			int valueIdx, ChartTitles titles, boolean forProgram){
 		GroupedData data = transform(rows, valueIdx, forProgram);
-	    XYMultipleSeriesRenderer renderer = buildBarRenderer(data.getColors());
+	    XYMultipleSeriesRenderer renderer = buildBarRenderer(getColorScheme(context));
 	    setChartSettings(renderer, titles.title, titles.xTitle, titles.yTitle, 0d,
 	        data.allXLabels.size()+1, 0d, data.getMaxValue()+(data.getMaxValue()/3), Color.GRAY, Color.LTGRAY);
 	    renderer.setDisplayValues(false);
@@ -58,12 +60,16 @@ public class ChartUtil {
 	    renderer.setXLabels(0);
 	    renderer.setMargins(new int[]{45,45,45,25});
 	    renderer.setLegendHeight(100);
-//	    renderer.setZoomRate(1.1f);
-	    // TODO: bar width and spacing must be a function of numOfTitles and numOfXLabels
+	    Log.d("ChartUtil", ">>>> data.allTitles.size = "+(data.allTitles == null ?  0 : data.allTitles.size()));
+	    renderer.setBarWidth((data.allTitles != null && data.allTitles.size() >= 10) ? 2f : 5f);
 	    renderer.setBarSpacing(0.2f);
-	    renderer.setBarWidth(10f);
+	    renderer.setFitLegend(true);
+	    renderer.setApplyBackgroundColor(true);
+	    renderer.setBackgroundColor(context.getResources().getColor(R.color.DarkSlateGray));
+	    renderer.setMarginsColor(context.getResources().getColor(R.color.DarkSlateGray));
 	    
-	    return ChartFactory.getBarChartView(context, buildBarDataset(data), renderer, Type.DEFAULT);								
+	    GraphicalView barChartView = ChartFactory.getBarChartView(context, buildBarDataset(data), renderer, Type.DEFAULT);
+	    return barChartView;
 	}
 
 	private static GraphicalView createPieChartView(Context context, List<List<String>> rows, int valueIdx, String title, boolean forPrograms){
@@ -71,10 +77,12 @@ public class ChartUtil {
 	    DefaultRenderer renderer = new DefaultRenderer();
 	    renderer.setLabelsTextSize(15);
 	    renderer.setLegendTextSize(15);
+	    renderer.setChartTitle(title);
+	    renderer.setChartTitleTextSize(20);
 	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
 	    for (int i=0; i<rows.size(); i++) {
 	      SimpleSeriesRenderer r = new SimpleSeriesRenderer();
-	      r.setColor(GroupedData.COLORS[i]);
+	      r.setColor(ChartUtil.getColorScheme(context)[i]);
 	      renderer.addSeriesRenderer(r);
 	    }
 	    if(!rows.isEmpty()){	    	
@@ -82,10 +90,12 @@ public class ChartUtil {
 	    	r.setHighlighted(true);
 	    }
 	    renderer.setPanEnabled(false);	    
-	    renderer.setChartTitleTextSize(20);
 	    renderer.setDisplayValues(true);
 	    renderer.setShowLabels(true);
-	    
+	    renderer.setFitLegend(true);
+	    renderer.setApplyBackgroundColor(true);
+	    renderer.setBackgroundColor(context.getResources().getColor(R.color.DarkSlateGray));
+
 	    // dataset	    
 	    CategorySeries series = new CategorySeries(title);
 	    for (List<String> row : rows) {
@@ -95,23 +105,11 @@ public class ChartUtil {
 	    		series.add(row.get(ChartDataLoader.nameIdx), Double.parseDouble(row.get(valueIdx)));
 	    	}
 		}
-
-	    return ChartFactory.getPieChartView(context, series, renderer);
+	    GraphicalView pieChartView = ChartFactory.getPieChartView(context, series, renderer);
+	    return pieChartView;
 	}
 	
 	private static XYMultipleSeriesDataset buildBarDataset(GroupedData groupedData) {
-		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-		for (String title : groupedData.allTitles) {
-			CategorySeries series = new CategorySeries(title);
-			for (String xLabel : groupedData.allXLabels) {
-				series.add(groupedData.getValue(xLabel, title));
-			}
-			dataset.addSeries(series.toXYSeries());
-		}
-		return dataset;
-	}
-
-	private static XYMultipleSeriesDataset buildSimpleDataset(GroupedData groupedData) {
 		XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		for (String title : groupedData.allTitles) {
 			CategorySeries series = new CategorySeries(title);
@@ -177,5 +175,54 @@ public class ChartUtil {
 		renderer.setLabelsColor(labelsColor);
 	}
 
+	private static int[] colorScheme;
+	public static int[] getColorScheme(Context ctx){
+		if(colorScheme == null){
+			colorScheme = new int[]{
+					ctx.getResources().getColor(R.color.AliceBlue),
+					ctx.getResources().getColor(R.color.AntiqueWhite),
+					ctx.getResources().getColor(R.color.Aqua),
+					ctx.getResources().getColor(R.color.Beige),
+					ctx.getResources().getColor(R.color.Black),
+					ctx.getResources().getColor(R.color.Brown),
+					ctx.getResources().getColor(R.color.Coral),
+					ctx.getResources().getColor(R.color.Crimson),
+					ctx.getResources().getColor(R.color.Cyan),
+					ctx.getResources().getColor(R.color.DarkGoldenrod),
+					ctx.getResources().getColor(R.color.DarkGray),
+					ctx.getResources().getColor(R.color.DarkKhaki),
+					ctx.getResources().getColor(R.color.DarkMagenta),
+					ctx.getResources().getColor(R.color.DarkOrange),
+					ctx.getResources().getColor(R.color.Gold),
+					ctx.getResources().getColor(R.color.LightBlue),
+					ctx.getResources().getColor(R.color.LightCoral),
+					ctx.getResources().getColor(R.color.LightYellow),
+					ctx.getResources().getColor(R.color.MistyRose),
+					ctx.getResources().getColor(R.color.Moccasin),
+					ctx.getResources().getColor(R.color.Navy),
+					ctx.getResources().getColor(R.color.Plum),
+					ctx.getResources().getColor(R.color.Salmon),
+					ctx.getResources().getColor(R.color.Violet),
+					ctx.getResources().getColor(R.color.White),
+					// More colors
+					ctx.getResources().getColor(R.color.GreenYellow),
+					ctx.getResources().getColor(R.color.Goldenrod),
+					ctx.getResources().getColor(R.color.DeepSkyBlue),
+					ctx.getResources().getColor(R.color.FireBrick),
+					ctx.getResources().getColor(R.color.Ivory),
+					ctx.getResources().getColor(R.color.Khaki),
+					ctx.getResources().getColor(R.color.LightBlue),
+					ctx.getResources().getColor(R.color.MediumVioletRed),
+					// More colors
+					ctx.getResources().getColor(R.color.Magenta),
+					ctx.getResources().getColor(R.color.Linen),
+					ctx.getResources().getColor(R.color.MistyRose),
+					ctx.getResources().getColor(R.color.WhiteSmoke),
+					ctx.getResources().getColor(R.color.MediumTurquoise),
+					ctx.getResources().getColor(R.color.Seashell)					
+			};
+		}
+		return colorScheme;
+	}
 	
 }

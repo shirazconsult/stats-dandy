@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:baselineAligned="false"
-    android:background="@color/Black"
+    android:background="@color/DarkSlateGray"
     android:dividerPadding="20dp"
     android:orientation="horizontal">    
     
@@ -15,7 +15,7 @@
 	    android:layout_marginTop="20dp"
 	    android:layout_gravity="top"
 	    android:orientation="vertical"
-	    android:background="@color/Black"
+	    android:background="@color/DarkSlateGray"
 	    android:layout_weight="1" />
 	
 </LinearLayout>
