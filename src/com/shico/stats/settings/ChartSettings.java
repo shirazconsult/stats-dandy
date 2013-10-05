@@ -23,6 +23,7 @@ import com.shico.stats.ChartFragment;
 import com.shico.stats.R;
 
 public class ChartSettings extends DialogFragment {
+	public final static Boolean UNIFIED_CHART_SETTINGS = true;
 	public final static String DEFAULT_DATE_SPEC = "chooseDate";
 	
 	private static Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
@@ -89,6 +90,12 @@ public class ChartSettings extends DialogFragment {
 					
 					View thisView = ChartSettings.this.view;
 					
+					// pref keys
+					String numPref = UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : chartName + "." + ChartPref.number.name();
+					String posPref = UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : chartName + "." + ChartPref.position.name();
+					String dateSpecPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_spec.name() : chartName + "." + ChartPref.date_spec.name();
+					String dateFromPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_from.name() : chartName + "." + ChartPref.date_from.name();
+					String dateToPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_to.name() : chartName + "." + ChartPref.date_to.name();
 					
 					Spinner optSpinner = (Spinner)thisView.findViewById(R.id.dataload_options_spinner);
 					int selected = optSpinner.getSelectedItemPosition();
@@ -113,8 +120,8 @@ public class ChartSettings extends DialogFragment {
 						score = "bottom";
 						break;
 					}
-					editor.putInt(chartName+ChartFragment.NUMBER_SUFFIX, num);
-					editor.putString(chartName+ChartFragment.TOP_BOT_SUFFIX, score);
+					editor.putInt(numPref, num);
+					editor.putString(posPref, score);
 					
 					Spinner chooser = (Spinner)thisView.findViewById(R.id.choose_date_spinner);
 					int selectedIdx = chooser.getSelectedItemPosition();
@@ -123,29 +130,29 @@ public class ChartSettings extends DialogFragment {
 						// Take the date from month-chooser
 						Spinner fromMonth = (Spinner)thisView.findViewById(R.id.from_month_spinner);
 						Spinner fromYear = (Spinner)thisView.findViewById(R.id.from_year_spinner);
-						editor.putString(chartName+ChartFragment.FROM_DATE_SUFFIX, fromYear.getSelectedItem()+"-"+(fromMonth.getSelectedItemPosition()));
+						editor.putString(dateFromPref, fromYear.getSelectedItem()+"-"+(fromMonth.getSelectedItemPosition()+1));
 
 						Spinner toMonth = (Spinner)thisView.findViewById(R.id.to_month_spinner);
 						Spinner toYear = (Spinner)thisView.findViewById(R.id.to_year_spinner);
-						editor.putString(chartName+ChartFragment.TO_DATE_SUFFIX, toYear.getSelectedItem()+"-"+(toMonth.getSelectedItemPosition()));
+						editor.putString(dateToPref, toYear.getSelectedItem()+"-"+(toMonth.getSelectedItemPosition()+1));
 
-						editor.putString(chartName+ChartFragment.DATE_SPEC_SUFFIX, DEFAULT_DATE_SPEC);
+						editor.putString(dateSpecPref, DEFAULT_DATE_SPEC);
 						break;
 					case 1:
 						// current day
-						editor.putString(chartName+ChartFragment.DATE_SPEC_SUFFIX, "currentDay");
+						editor.putString(dateSpecPref, "currentDay");
 						break;
 					case 2:
 						// current week
-						editor.putString(chartName+ChartFragment.DATE_SPEC_SUFFIX, "currentWeek");
+						editor.putString(dateSpecPref, "currentWeek");
 						break;
 					case 3:
 						// current month
-						editor.putString(chartName+ChartFragment.DATE_SPEC_SUFFIX, "currentMonth");
+						editor.putString(dateSpecPref, "currentMonth");
 						break;
 					case 4:
 						// current month
-						editor.putString(chartName+ChartFragment.DATE_SPEC_SUFFIX, "currentYear");
+						editor.putString(dateSpecPref, "currentYear");
 						break;						
 					}
 					
@@ -190,9 +197,14 @@ public class ChartSettings extends DialogFragment {
 	private void readChartPreferences(View view, String chartName){
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
+		// pref keys
+		String numPref = UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : chartName + "." + ChartPref.number.name();
+		String posPref = UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : chartName + "." + ChartPref.position.name();
+		String dateSpecPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_spec.name() : chartName + "." + ChartPref.date_spec.name();
+
 		Spinner optSpinner = (Spinner)view.findViewById(R.id.dataload_options_spinner);
-		int num = prefs.getInt(chartName+ChartFragment.NUMBER_SUFFIX, 3);
-		String topBot = prefs.getString(chartName+ChartFragment.TOP_BOT_SUFFIX, "top");		
+		int num = prefs.getInt(numPref, 3);
+		String topBot = prefs.getString(posPref, "top");		
 		switch(num){
 		case 3:
 			if(topBot.equals("top")){
@@ -210,15 +222,15 @@ public class ChartSettings extends DialogFragment {
 			break;
 		case 10:
 			if(topBot.equals("top")){
-				optSpinner.setSelection(1);
+				optSpinner.setSelection(2);
 			}else{
-				optSpinner.setSelection(4);
+				optSpinner.setSelection(5);
 			}
 			break;
 		}
 		
 		// Initialize date spinners		
-		String dateSpec = prefs.getString(chartName+ChartFragment.DATE_SPEC_SUFFIX, DEFAULT_DATE_SPEC);
+		String dateSpec = prefs.getString(dateSpecPref, DEFAULT_DATE_SPEC);
 		Spinner chooser = (Spinner)view.findViewById(R.id.choose_date_spinner);
 		if(dateSpec.equals(DEFAULT_DATE_SPEC)){
 			chooser.setSelection(0);
@@ -240,14 +252,18 @@ public class ChartSettings extends DialogFragment {
 	
 	private void setChooserDateSpinners(SharedPreferences prefs, View view, String chartName, boolean from){
 		int year = calendar.get(Calendar.YEAR);
+		
+		String dateFromPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_from.name() : chartName + "." + ChartPref.date_from.name();
+		String dateToPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_to.name() : chartName + "." + ChartPref.date_to.name();
+
 		String date;
 		Spinner yearSpinner, monthSpinner;
 		if(from){
-			date = prefs.getString(chartName+ChartFragment.FROM_DATE_SUFFIX, null);
+			date = prefs.getString(dateFromPref, null);
 			yearSpinner = (Spinner)view.findViewById(R.id.from_year_spinner);
 			monthSpinner = (Spinner)view.findViewById(R.id.from_month_spinner);
 		}else{
-			date = prefs.getString(chartName+ChartFragment.TO_DATE_SUFFIX, null);
+			date = prefs.getString(dateToPref, null);
 			yearSpinner = (Spinner)view.findViewById(R.id.to_year_spinner);
 			monthSpinner = (Spinner)view.findViewById(R.id.to_month_spinner);			
 		}
@@ -261,7 +277,7 @@ public class ChartSettings extends DialogFragment {
 			}else{
 				yearSpinner.setSelection(1);
 			}
-			monthSpinner.setSelection(Integer.parseInt(split[1]));
+			monthSpinner.setSelection(Integer.parseInt(split[1])-1);
 		}
 	}
 	
@@ -292,16 +308,24 @@ public class ChartSettings extends DialogFragment {
 	}	
 	
 	public static String getOptions(SharedPreferences prefs, String chart){
-		int num = prefs.getInt(chart+ChartFragment.NUMBER_SUFFIX, 3);
-		String topBot = prefs.getString(chart+ChartFragment.TOP_BOT_SUFFIX, "top");		
+		// pref keys
+		String numPref = UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : chart + "." + ChartPref.number.name();
+		String posPref = UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : chart + "." + ChartPref.position.name();
+
+		int num = prefs.getInt(numPref, 3);
+		String topBot = prefs.getString(posPref, "top");		
 		return topBot+","+num;
 	}
 	
 	public static String[] getDates(SharedPreferences prefs, String chart){
-		String dateSpec = prefs.getString(chart+ChartFragment.DATE_SPEC_SUFFIX, "currentDay");
+		String dateSpecPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_spec.name() : chart + "." + ChartPref.date_spec.name();
+		String dateFromPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_from.name() : chart + "." + ChartPref.date_from.name();
+		String dateToPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_to.name() : chart + "." + ChartPref.date_to.name();
+
+		String dateSpec = prefs.getString(dateSpecPref, "currentDay");
 		if(dateSpec.equals(DEFAULT_DATE_SPEC)){
-			String from = prefs.getString(chart+ChartFragment.FROM_DATE_SUFFIX, "-");
-			String to = prefs.getString(chart+ChartFragment.TO_DATE_SUFFIX, "-");
+			String from = prefs.getString(dateFromPref, "-");
+			String to = prefs.getString(dateToPref, "-");
 			return new String[]{from, to};
 		}else{
 			int year = calendar.get(Calendar.YEAR);
@@ -338,4 +362,8 @@ public class ChartSettings extends DialogFragment {
 			return new String[]{daySt+"00Z", daySt+hour+"Z"};
 		}
 	}	
+	
+	public static String getChartPrefName(ChartPref key, String chartName){
+		return UNIFIED_CHART_SETTINGS ? key.name() : chartName + "." + key;
+	}
 }

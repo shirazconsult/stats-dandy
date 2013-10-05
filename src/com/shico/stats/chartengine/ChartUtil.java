@@ -95,6 +95,7 @@ public class ChartUtil {
 	    renderer.setFitLegend(true);
 	    renderer.setApplyBackgroundColor(true);
 	    renderer.setBackgroundColor(context.getResources().getColor(R.color.DarkSlateGray));
+	    renderer.setLegendHeight(100);
 
 	    // dataset	    
 	    CategorySeries series = new CategorySeries(title);
@@ -180,18 +181,18 @@ public class ChartUtil {
 		if(colorScheme == null){
 			colorScheme = new int[]{
 					ctx.getResources().getColor(R.color.AliceBlue),
-					ctx.getResources().getColor(R.color.AntiqueWhite),
 					ctx.getResources().getColor(R.color.Aqua),
-					ctx.getResources().getColor(R.color.Beige),
 					ctx.getResources().getColor(R.color.Black),
 					ctx.getResources().getColor(R.color.Brown),
 					ctx.getResources().getColor(R.color.Coral),
 					ctx.getResources().getColor(R.color.Crimson),
 					ctx.getResources().getColor(R.color.Cyan),
+					ctx.getResources().getColor(R.color.AntiqueWhite),
 					ctx.getResources().getColor(R.color.DarkGoldenrod),
 					ctx.getResources().getColor(R.color.DarkGray),
 					ctx.getResources().getColor(R.color.DarkKhaki),
 					ctx.getResources().getColor(R.color.DarkMagenta),
+					ctx.getResources().getColor(R.color.Beige),
 					ctx.getResources().getColor(R.color.DarkOrange),
 					ctx.getResources().getColor(R.color.Gold),
 					ctx.getResources().getColor(R.color.LightBlue),

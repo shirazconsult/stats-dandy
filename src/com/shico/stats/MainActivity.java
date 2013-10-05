@@ -1,8 +1,6 @@
 package com.shico.stats;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -17,13 +15,22 @@ import android.widget.ExpandableListView;
 
 import com.shico.stats.adapters.ChartPagerAdapter;
 import com.shico.stats.adapters.MenuAdapter;
-import com.shico.stats.settings.SettingsFragment;
 
 public class MainActivity extends Activity {
 	public final static String ARG_MENU_ITEM_IDX = "menu.item.idx";
 	public final static String ARG_MENU_CHART_ITEM_IDX = "menu.chart.item.idx";
 	public final static String ARG_MENU_CHART_ITEM_NAME = "menu.chart.item.name";
 
+	// Chart ids should correspond to their position inside the charts-list
+	public final static int CHANNELS_FRAGMENT_ID = 0;
+	public final static int MOVIES_FRAGMENT_ID = 1;
+	public final static int PROGRAMS_FRAGMENT_ID = 2;
+	public final static int WIDGETS_FRAGMENT_ID = 3;
+	
+	public final static int SETTINGS_FRAGMENT_ID = 101;
+	public final static int ABOUT_FRAGMENT_ID = 102;
+	public final static int HELP_FRAGMENT_ID = 103;
+	
 	private DrawerLayout mDrawerLayout;
 	private ExpandableListView mMenuDrawer;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -89,7 +96,7 @@ public class MainActivity extends Activity {
 			lastSelectedChildItem = savedInstanceState.getString(ARG_MENU_CHART_ITEM_NAME);
 			lastSelectedChildPosition = savedInstanceState.getInt(ARG_MENU_CHART_ITEM_IDX);
 			if(lastSelectedGroupPosition == MenuAdapter.CHARTS_MENU_IDX){
-				newChartViewPager(lastSelectedChildItem, lastSelectedChildPosition);				
+				newViewPager(lastSelectedChildItem, lastSelectedChildPosition);				
 			}
 		}
 	}
@@ -125,20 +132,20 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	private ChartPagerAdapter chartPagerAdapter;
-	private ViewPager chartViewPager;
-	private void newChartViewPager(String chartName, int chartId){
-		if(chartViewPager == null){
-			chartViewPager = (ViewPager)findViewById(R.id.chart_pager);
-			chartPagerAdapter = new ChartPagerAdapter(getFragmentManager(), chartName, chartId);
-			chartViewPager.setAdapter(chartPagerAdapter);
-			chartViewPager.setOffscreenPageLimit(1);
+	private ChartPagerAdapter pagerAdapter;
+	private ViewPager viewPager;
+	private void newViewPager(String name, int fragmentId){		
+		if(viewPager == null){
+			viewPager = (ViewPager)findViewById(R.id.chart_pager);
+			pagerAdapter = new ChartPagerAdapter(getFragmentManager(), name, fragmentId);
+			viewPager.setAdapter(pagerAdapter);
+			viewPager.setOffscreenPageLimit(1);
 		}else{
-			chartPagerAdapter.setChartName(chartName);
-			chartPagerAdapter.setChartId(chartId);
-			chartPagerAdapter.notifyDataSetChanged();
+			pagerAdapter.setName(name);
+			pagerAdapter.setId(fragmentId);
+			pagerAdapter.notifyDataSetChanged();
 		}
-		chartViewPager.setCurrentItem(0);
+		viewPager.setCurrentItem(0);
 	}
 	
 	/* The click listner for ListView in the navigation drawer */
@@ -152,15 +159,16 @@ public class MainActivity extends Activity {
 					.getStringArray(R.array.menu_chart_items);
 			String chartName = chartItems[childPosition];
 
-			Bundle args = new Bundle();
-			args.putInt(ARG_MENU_ITEM_IDX, groupPosition);
-			args.putString(ARG_MENU_CHART_ITEM_NAME, chartName);
-			newChartViewPager(chartName, childPosition);
-
 			// update selected item and title, then close the drawer
 			mMenuDrawer.setItemChecked(childPosition + groupPosition + 1, true);
 			setTitle(chartName);
 			mDrawerLayout.closeDrawer(mMenuDrawer);
+
+			Bundle args = new Bundle();
+			args.putInt(ARG_MENU_ITEM_IDX, groupPosition);
+			args.putString(ARG_MENU_CHART_ITEM_NAME, chartName);
+			newViewPager(chartName, childPosition);
+
 
 			lastSelectedGroupPosition = groupPosition;
 			lastSelectedChildItem = chartName;
@@ -172,8 +180,6 @@ public class MainActivity extends Activity {
 		@Override
 		public boolean onGroupClick(ExpandableListView parent, View v,
 				int groupPosition, long id) {
-			Bundle args = new Bundle();
-			Fragment fragment = null;
 			switch (groupPosition) {
 			case MenuAdapter.CHARTS_MENU_IDX:
 				if (mMenuDrawer.isGroupExpanded(groupPosition)) {
@@ -184,26 +190,17 @@ public class MainActivity extends Activity {
 				mMenuDrawer.setItemChecked(groupPosition, true);
 				return true;
 			case MenuAdapter.SETTINGS_MENU_IDX:
-				args.putString("temp.html",
-						"<html><body><h1>Here comes Settings.</h1></body></html>");
-				fragment = new SettingsFragment();
+				newViewPager("Settings", SETTINGS_FRAGMENT_ID);
 				break;
 			case MenuAdapter.HELP_MENU_IDX:
-				args.putString("temp.html",
-						"<html><body><h1>Here comes Help/Manual info.</h1></body></html>");
-//				fragment = new WebViewFragment();
+				newViewPager("Help", HELP_FRAGMENT_ID);
 				break;
 			case MenuAdapter.ABOUT_MENU_IDX:
-				args.putString("temp.html",
-						"<html><body><h1>Here comes About info.</h1></body></html>");
-//				fragment = new WebViewFragment();
+				newViewPager("About", ABOUT_FRAGMENT_ID);
 				break;
 			default:
 				throw new IllegalArgumentException("No such menu item.");
 			}
-			args.putInt(ARG_MENU_ITEM_IDX, groupPosition);
-
-			setFragment(args, fragment);				
 			
 			// update selected item and title, then close the drawer
 			mMenuDrawer.collapseGroup(MenuAdapter.CHARTS_MENU_IDX);
@@ -215,15 +212,6 @@ public class MainActivity extends Activity {
 
 			lastSelectedGroupPosition = groupPosition;
 			return true;
-		}
-
-		private void setFragment(Bundle args, Fragment fragment) {
-			// update the main content by replacing fragments
-			fragment.setArguments(args);
-
-			FragmentManager fragmentManager = getFragmentManager();
-//			fragmentManager.beginTransaction()
-//					.replace(R.id.content_frame, fragment).commit();
 		}
 	}
 

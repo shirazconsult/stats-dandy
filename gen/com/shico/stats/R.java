@@ -355,6 +355,9 @@ public final class R {
         /**  Animation for dialog box 
          */
         public static final int DialogSlideAnim=0x7f0a0003;
+        /**      	<item name="android:listViewStyle">@style/listViewPrefs</item> 
+         */
+        public static final int PrefsTheme=0x7f0a0004;
     }
     public static final class xml {
         public static final int preferences=0x7f050000;

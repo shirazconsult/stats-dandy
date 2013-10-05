@@ -31,6 +31,17 @@
         <item name="android:windowAnimationStyle">@style/DialogAnimation</item>
     </style>
     
+    <style name="PrefsTheme" parent="@android:style/Theme.Black.NoTitleBar">
+<!--     	<item name="android:windowBackground">@color/prefs_bg</item> -->
+    	<item name="android:textColor">@color/White</item>
+<!--     	<item name="android:listViewStyle">@style/listViewPrefs</item> -->
+	</style>
+    
+<!--     <style name="listViewPrefs" parent="@android:style/Widget.ListView"> -->
+<!--     	<item name="android:background">@color/prefs_bg</item> -->
+<!--     	<item name="android:cacheColorHint">@color/prefs_bg</item> -->
+<!-- 	</style> -->
+
     <!-- Text style -->
 <!-- 	<style name="You.EditText.Style" parent="@android:style/Widget.EditText"> -->
 <!--     	<item name="android:textColor">@color/White</item> -->

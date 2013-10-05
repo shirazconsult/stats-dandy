@@ -11,61 +11,75 @@ import com.shico.stats.MainActivity;
 import com.shico.stats.MovieRentChartFragment;
 import com.shico.stats.ProgramChartFragment;
 import com.shico.stats.WidgetShowChartFragment;
+import com.shico.stats.settings.SettingsFragment;
 
 public class ChartPagerAdapter extends FragmentPagerAdapter {
-	private String chartName;
-	private int chartId;
+	private String name;
+	private int id;
 
-	public ChartPagerAdapter(FragmentManager fm, String chartName, int chartId) {
+	public ChartPagerAdapter(FragmentManager fm, String name, int fragmentId) {
 		super(fm);
-		this.chartId = chartId;
-		setChartName(chartName);
+		this.id = fragmentId;
+		setName(name);
 	}
 
 	@Override
 	public Fragment getItem(int page) {
-		Bundle args = new Bundle();
-		args.putString(MainActivity.ARG_MENU_CHART_ITEM_NAME, chartName);
-		args.putInt(ChartFragment.ARG_CHART_VIEWPAGE, page);
-		
 		ChartFragment fragment = null;
-		if(chartName.equalsIgnoreCase("channels")){				
+		
+		switch(id){
+		case MainActivity.SETTINGS_FRAGMENT_ID:
+			return new SettingsFragment();
+		case MainActivity.ABOUT_FRAGMENT_ID:
+		case MainActivity.HELP_FRAGMENT_ID:
+			throw new IllegalStateException("Not implemented");
+		case MainActivity.CHANNELS_FRAGMENT_ID:
 			fragment = new LiveUsageChartFragment();
-		}else if(chartName.equalsIgnoreCase("movies")){
+			break;
+		case MainActivity.MOVIES_FRAGMENT_ID:
 			fragment = new MovieRentChartFragment();
-		}else if(chartName.equalsIgnoreCase("programs")){
+			break;
+		case MainActivity.PROGRAMS_FRAGMENT_ID:
 			fragment = new ProgramChartFragment();
-		}else if(chartName.equalsIgnoreCase("widgets")){
+			break;
+		case MainActivity.WIDGETS_FRAGMENT_ID:
 			fragment = new WidgetShowChartFragment();
-		}
-		
-		fragment.setArguments(args);
-		
+			break;
+		}	
+		Bundle args = new Bundle();
+		args.putString(MainActivity.ARG_MENU_CHART_ITEM_NAME, name);
+		args.putInt(ChartFragment.ARG_CHART_VIEWPAGE, page);
+		fragment.setArguments(args);			
 		return fragment;		
 	}
 		
 	@Override
 	public int getCount() {
-		if(chartName.equalsIgnoreCase("channels") || 
-			chartName.equalsIgnoreCase("programs")){
+		switch(id){
+		case MainActivity.CHANNELS_FRAGMENT_ID:
+		case MainActivity.PROGRAMS_FRAGMENT_ID:
 			return 4;
-		}
-		return 2;
+		case MainActivity.MOVIES_FRAGMENT_ID:
+		case MainActivity.WIDGETS_FRAGMENT_ID:
+			return 2;
+		default:
+			return 1;
+		}	
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return (chartId*100)+position;
+		return (id*100)+position;
 	}	
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
-	public void setChartName(String chartName) {
-		this.chartName = chartName;
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	public void setChartId(int chartId) {
-		this.chartId = chartId;
-	}
-	
+
 	@Override
 	public int getItemPosition(Object object) {
 		return POSITION_NONE;

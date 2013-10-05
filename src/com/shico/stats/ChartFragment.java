@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.shico.stats.adapters.GrouppedDataListAdapter;
 import com.shico.stats.event.ChartEvent;
 import com.shico.stats.loaders.ChartDataLoader;
+import com.shico.stats.settings.ChartPref;
 import com.shico.stats.settings.ChartSettings;
 import com.shico.stats.util.MyGestureDetectorListener;
 
@@ -36,13 +37,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	public final static String ARG_CHART_VIEWPAGE = "chart.viewpage";
 	public static final String CHART_NAME = "chart_name";
 	private static final String CHART_OPTIONS = "chart_options";
-	
-	public static final String FROM_DATE_SUFFIX = ".from";
-	public static final String TO_DATE_SUFFIX = ".to";
-	public static final String DATE_SPEC_SUFFIX = ".dateSpec";
-	public static final String NUMBER_SUFFIX = ".number";
-	public static final String TOP_BOT_SUFFIX = ".topBot";
-	
+		
 	protected ListView thisListView;
 	protected LinearLayout chartview;
 	protected String currentChartName;
@@ -152,7 +147,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		if(key.startsWith(currentChartName)){
+		if(ChartSettings.UNIFIED_CHART_SETTINGS || key.startsWith(currentChartName)){
 			updateCurrentChartOptions(sharedPreferences);
 			loadChartView();
 			return;
@@ -168,8 +163,12 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	}
 	
 	private String updateCurrentChartOptions(SharedPreferences prefs){
-		String topOrBottom = prefs.getString(currentChartName+TOP_BOT_SUFFIX, "top");
-		int num = prefs.getInt(currentChartName+NUMBER_SUFFIX, 5);
+		// pref keys
+		String numPref = ChartSettings.UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : currentChartName + "." + ChartPref.number.name();
+		String posPref = ChartSettings.UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : currentChartName + "." + ChartPref.position.name();
+
+		String topOrBottom = prefs.getString(posPref, "top");
+		int num = prefs.getInt(numPref, 5);
 		
 		currentChartOptions = new StringBuilder(topOrBottom.equals("bottom") ? "low" : "top").
 				append(",").append(num).toString();
