@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+		PreferenceManager.setDefaultValues(this, R.xml.preferences_obsolete, false);
 
 		mTitle = mDrawerMenuTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -97,6 +97,8 @@ public class MainActivity extends Activity {
 			lastSelectedChildPosition = savedInstanceState.getInt(ARG_MENU_CHART_ITEM_IDX);
 			if(lastSelectedGroupPosition == MenuAdapter.CHARTS_MENU_IDX){
 				newViewPager(lastSelectedChildItem, lastSelectedChildPosition);				
+			}else if(lastSelectedGroupPosition == MenuAdapter.SETTINGS_MENU_IDX){
+				newViewPager("Settings", SETTINGS_FRAGMENT_ID);
 			}
 		}
 	}

@@ -23,7 +23,7 @@
 		<item name="android:windowFrame">@null</item> 
 		<item name="android:gravity">bottom</item>
 <!-- 		<item name="android:windowBackground">@null</item> -->
-    	<item name="android:colorBackground">@color/DarkSlateGray</item>	
+    	<item name="android:colorBackground">@color/SlateGray</item>	
     </style>
 	
     <!-- Animation for dialog box -->

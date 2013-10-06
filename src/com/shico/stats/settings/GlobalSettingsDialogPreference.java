@@ -32,7 +32,7 @@ public class GlobalSettingsDialogPreference extends DialogPreference {
 		
 		if(which == DialogInterface.BUTTON_POSITIVE){
 			PreferenceManager.getDefaultSharedPreferences(this.context).edit().clear().commit();
-			PreferenceManager.setDefaultValues(context, R.xml.preferences, true);
+			PreferenceManager.setDefaultValues(context, R.xml.preferences_obsolete, true);
 			getOnPreferenceChangeListener().onPreferenceChange(this, true);
 			
 			Toast.makeText(context, "Saved preferences", Toast.LENGTH_SHORT).show();

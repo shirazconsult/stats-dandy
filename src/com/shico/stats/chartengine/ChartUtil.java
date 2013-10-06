@@ -65,8 +65,8 @@ public class ChartUtil {
 	    renderer.setBarSpacing(0.2f);
 	    renderer.setFitLegend(true);
 	    renderer.setApplyBackgroundColor(true);
-	    renderer.setBackgroundColor(context.getResources().getColor(R.color.DarkSlateGray));
-	    renderer.setMarginsColor(context.getResources().getColor(R.color.DarkSlateGray));
+	    renderer.setBackgroundColor(context.getResources().getColor(R.color.SlateGray));
+	    renderer.setMarginsColor(context.getResources().getColor(R.color.SlateGray));
 	    
 	    GraphicalView barChartView = ChartFactory.getBarChartView(context, buildBarDataset(data), renderer, Type.DEFAULT);
 	    return barChartView;
@@ -94,7 +94,7 @@ public class ChartUtil {
 	    renderer.setShowLabels(true);
 	    renderer.setFitLegend(true);
 	    renderer.setApplyBackgroundColor(true);
-	    renderer.setBackgroundColor(context.getResources().getColor(R.color.DarkSlateGray));
+	    renderer.setBackgroundColor(context.getResources().getColor(R.color.SlateGray));
 	    renderer.setLegendHeight(100);
 
 	    // dataset	    

@@ -49,9 +49,6 @@ public class ChartDataLoader {
 	public ChartDataLoader(Context context, Callback callback) {
 		this.context = context;
 		this.callback = callback;
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-		host = prefs.getString("host", "10.0.2.2");
-		port = Integer.parseInt(prefs.getString("port", "9119"));
 	}
 	
 	public void onSaveInstanceState(Bundle outState) {
@@ -72,7 +69,11 @@ public class ChartDataLoader {
 		List<List<String>> cached = getTemporaryCache().get(url);
 		if(cached == null){
 			Log.d("ChartDataLoader", "Loading data from server: "+url);
+			try{
 			loadChartTopViewData(url);
+			}catch(Throwable t){
+				Log.e("ChartDataLoader", "****** Client error ****");				
+			}
 		}else{
 			currentRows = getTemporaryCache().get(url);
 			Log.d("ChartDataLoader", "Loading data from cache: "+url);
@@ -91,7 +92,11 @@ public class ChartDataLoader {
 		List<List<String>> cached = getTemporaryCache().get(url);
 		if(cached == null){
 			Log.d("ChartDataLoader", "Loading data from server: "+url);
+			try{
 			loadChartTopViewDataInBatch(url);
+			}catch(Throwable t){
+				Log.e("ChartDataLoader", "****** Client error ****");
+			}
 		}else{
 			currentRows = getTemporaryCache().get(url);
 			Log.d("ChartDataLoader", "Loading data from cache: "+url);
@@ -206,4 +211,11 @@ public class ChartDataLoader {
 		public void failure(Exception ex);
 	}
 
+	public void setupHostAndPort(){
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+		host = prefs.getString("host", "10.0.2.2");
+		port = Integer.parseInt(prefs.getString("port", "9119"));		
+		
+		baseUrl = new StringBuilder("http://").append(host).append(":").append(port).append(REST_PATH).toString();
+	}
 }

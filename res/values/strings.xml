@@ -31,8 +31,12 @@
     <string name="server_port_dialog_title">Server Port</string>
     <string name="server_port_title">Port</string>
     <string name="server_port_sum">Port number of the statistics REST service</string>
+    <string name="user_creds_title">User Credentials</string>
     <string name="user_id">User name</string>
     <string name="user_pwd">Password</string>
+    <string name="user_id_sum">User ID or name</string>
+    <string name="user_pwd_sum">User Password</string>
+    <string name="only_wifi">Only Wifi</string>
     <string name="chart_settings_title">Default Chart Settings</string>
     <string name="y_axis_title">Y Axis</string>
     <string name="y_axis_sum">Whether data should be retrieved based on the number of viewers or the total usage time</string>

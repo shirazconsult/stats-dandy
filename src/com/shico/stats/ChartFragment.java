@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.achartengine.GraphicalView;
 
-import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -12,6 +11,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -70,24 +71,30 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		super.onSaveInstanceState(outState);
 	}
 
-	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = inflater.inflate(R.layout.chartview, container, false);
 		
+		thisListView = (ListView) v.findViewById(R.id.groupped_data_list);
+		chartview = (LinearLayout)v.findViewById(R.id.chartview);
+		
+		currentChartName = getArguments().getString(MainActivity.ARG_MENU_CHART_ITEM_NAME);
+		viewpage = getArguments().getInt(ARG_CHART_VIEWPAGE);
+		
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		if(!isNetAvailable(prefs)){
+			Toast.makeText(getActivity(), 
+					"Cannot retrieve data from server when not on WiFi.", Toast.LENGTH_LONG).show();
+			return v;
+		}
+
 		progressDiag = new ProgressDialog(getActivity(), ProgressDialog.STYLE_HORIZONTAL); 
 		progressDiag.setMessage("Loading chart library ...");
 		progressDiag.show();
 
-		thisListView = (ListView) v.findViewById(R.id.groupped_data_list);
-		chartview = (LinearLayout)v.findViewById(R.id.chartview);
-		
-//		setGestureListener(v, chartview);
-		
-		currentChartName = getArguments().getString(MainActivity.ARG_MENU_CHART_ITEM_NAME);
-		viewpage = getArguments().getInt(ARG_CHART_VIEWPAGE);
-		updateCurrentChartOptions(PreferenceManager.getDefaultSharedPreferences(getActivity()));
+		updateCurrentChartOptions(prefs);
+		getChartDataLoader().setupHostAndPort();
 		if(currentChartName != null){
 			loadChartView();
 		}
@@ -147,18 +154,12 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 
 	@Override
 	public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-		if(ChartSettings.UNIFIED_CHART_SETTINGS || key.startsWith(currentChartName)){
+		if(key.equals("port") || key.equals("host")){
+			getChartDataLoader().setupHostAndPort();
+		}else if(ChartSettings.UNIFIED_CHART_SETTINGS || key.startsWith(currentChartName)){
 			updateCurrentChartOptions(sharedPreferences);
 			loadChartView();
 			return;
-		}
-		if(key.equals("host") || key.equals("port")){
-			String host = sharedPreferences.getString("host", "localhost");
-			int port = sharedPreferences.getInt("port", 9119);
-			if(getChartDataLoader() != null){
-				getChartDataLoader().setHost(host);
-				getChartDataLoader().setPort(port);
-			}
 		}
 	}
 	
@@ -180,7 +181,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 				currentChartOptions+" -- date-range is "+currentFrom+" / "+currentTo);
 		return currentChartOptions;
 	}
-	
+		
 	private void loadChartView(){
 		loadChartData();
 	}
@@ -254,5 +255,21 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 
 	public int getViewpage() {
 		return viewpage;
+	}
+	
+	public Boolean isNetAvailable(SharedPreferences prefs) {
+		if(prefs.getBoolean("only_wifi", false)){
+			try {
+				ConnectivityManager conMan = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+				NetworkInfo wifiInfo = conMan.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+				if(wifiInfo.isConnected()) {
+					return true;
+				}
+			}catch(Exception e){
+				Log.e("ChartFragment", e.getMessage());
+			}
+			return false;
+		}
+		return true;
 	}
 }
