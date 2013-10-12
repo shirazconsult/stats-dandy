@@ -3,7 +3,7 @@
 
     <!-- Main Menu -->
     <!-- ######### -->
-    <string name="app_name">MobileStats</string>
+    <string name="app_name">Nordija Statistics</string>
     <string name="action_settings">Settings</string>
     <string-array name="menu_items">
         <item>Charts</item>

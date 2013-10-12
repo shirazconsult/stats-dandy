@@ -7,6 +7,7 @@ import org.achartengine.GraphicalView;
 import com.shico.stats.chartengine.ChartTitles;
 import com.shico.stats.chartengine.ChartUtil;
 import com.shico.stats.loaders.ChartDataLoader;
+import com.shico.stats.util.ChartType;
 
 public class WidgetShowChartFragment extends ChartFragment {	
 	private static final String EVENT_TYPE = "widgetShow";	
@@ -36,4 +37,14 @@ public class WidgetShowChartFragment extends ChartFragment {
 		}
 		return null;
 	}	
+	
+	@Override
+	protected ChartType getChartType(int pos) {
+		switch(pos){
+		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
+			return ChartType.COLUMN_CHART;
+		default:
+			return ChartType.PIE_CHART;
+		}
+	} 	
 }

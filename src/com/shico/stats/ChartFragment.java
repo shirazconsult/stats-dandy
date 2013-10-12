@@ -34,6 +34,7 @@ import com.shico.stats.event.ChartEvent;
 import com.shico.stats.loaders.ChartDataLoader;
 import com.shico.stats.settings.ChartPref;
 import com.shico.stats.settings.ChartSettings;
+import com.shico.stats.util.ChartType;
 import com.shico.stats.util.MyGestureDetectorListener;
 
 public abstract class ChartFragment extends Fragment implements OnSharedPreferenceChangeListener{
@@ -194,6 +195,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	// ----------------------------------------------
 	protected abstract void loadChartData();
 	protected abstract GraphicalView createChartView(List<List<String>> dataRows);
+	protected abstract ChartType getChartType(int position); 
 	
 	protected String getLoadOptions(){
 		return "viewers,"+currentChartOptions;

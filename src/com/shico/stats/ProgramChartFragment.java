@@ -7,6 +7,7 @@ import org.achartengine.GraphicalView;
 import com.shico.stats.chartengine.ChartTitles;
 import com.shico.stats.chartengine.ChartUtil;
 import com.shico.stats.loaders.ChartDataLoader;
+import com.shico.stats.util.ChartType;
 
 public class ProgramChartFragment extends ChartFragment {	
 	private static final String EVENT_TYPE = "LiveUsage";
@@ -57,4 +58,15 @@ public class ProgramChartFragment extends ChartFragment {
 		return null;
 	}  
 	
+	@Override
+	protected ChartType getChartType(int pos) {
+		switch(pos){
+		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
+		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
+			return ChartType.COLUMN_CHART;
+		default:
+			return ChartType.PIE_CHART;
+		}
+	}  		
+
 }

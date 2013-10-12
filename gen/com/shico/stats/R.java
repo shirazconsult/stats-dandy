@@ -215,11 +215,15 @@ public final class R {
         public static final int action_search=0x7f020000;
         public static final int divider=0x7f020001;
         public static final int drawer_shadow=0x7f020002;
-        public static final int ic_drawer=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int nordija=0x7f020005;
-        public static final int rounded_corners=0x7f020006;
-        public static final int simple_border=0x7f020007;
+        public static final int ic_barchart=0x7f020003;
+        public static final int ic_drawer=0x7f020004;
+        public static final int ic_help=0x7f020005;
+        public static final int ic_launcher=0x7f020006;
+        public static final int ic_piechart=0x7f020007;
+        public static final int ic_settings=0x7f020008;
+        public static final int nordija=0x7f020009;
+        public static final int rounded_corners=0x7f02000a;
+        public static final int simple_border=0x7f02000b;
     }
     public static final class id {
         public static final int chart_menu_item=0x7f0b0014;
@@ -360,7 +364,6 @@ public final class R {
         public static final int PrefsTheme=0x7f0a0004;
     }
     public static final class xml {
-        public static final int preferences_obsolete=0x7f050000;
-        public static final int prefs=0x7f050001;
+        public static final int prefs=0x7f050000;
     }
 }

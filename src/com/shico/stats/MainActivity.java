@@ -1,6 +1,7 @@
 package com.shico.stats;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.widget.ExpandableListView;
 
 import com.shico.stats.adapters.ChartPagerAdapter;
 import com.shico.stats.adapters.MenuAdapter;
+import com.shico.stats.util.ChartType;
 
 public class MainActivity extends Activity {
 	public final static String ARG_MENU_ITEM_IDX = "menu.item.idx";
@@ -48,7 +50,7 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		PreferenceManager.setDefaultValues(this, R.xml.preferences_obsolete, false);
+		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 
 		mTitle = mDrawerMenuTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -144,6 +146,30 @@ public class MainActivity extends Activity {
 			pagerAdapter = new ChartPagerAdapter(getFragmentManager(), name, fragmentId);
 			viewPager.setAdapter(pagerAdapter);
 			viewPager.setOffscreenPageLimit(1);
+			viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+				@Override
+				public void onPageSelected(int position) {
+					Fragment item = pagerAdapter.getItem(position);
+					if(item instanceof ChartFragment){
+						ChartType ct = ((ChartFragment)item).getChartType(position);
+						switch(ct){
+						case COLUMN_CHART: 
+							getActionBar().setIcon(R.drawable.ic_barchart);
+							break;
+						case PIE_CHART:
+							getActionBar().setIcon(R.drawable.ic_piechart);
+							break;							
+						}
+					}
+				}				
+				@Override
+				public void onPageScrolled(int position, float positionOffset,
+						int positionOffsetPixels) {
+				}				
+				@Override
+				public void onPageScrollStateChanged(int state) {					
+				}
+			});
 		}else{
 			pagerAdapter.setName(name);
 			pagerAdapter.setId(fragmentId);
@@ -165,7 +191,6 @@ public class MainActivity extends Activity {
 
 			// update selected item and title, then close the drawer
 			mMenuDrawer.setItemChecked(childPosition + groupPosition + 1, true);
-			setTitle(chartName);
 			mDrawerLayout.closeDrawer(mMenuDrawer);
 
 			Bundle args = new Bundle();
@@ -177,6 +202,8 @@ public class MainActivity extends Activity {
 			lastSelectedGroupPosition = groupPosition;
 			lastSelectedChildItem = chartName;
 			lastSelectedChildPosition = childPosition;
+			setTitle(chartName);
+			getActionBar().setIcon(R.drawable.ic_barchart);
 			
 			return true;
 		}
@@ -209,19 +236,33 @@ public class MainActivity extends Activity {
 			// update selected item and title, then close the drawer
 			mMenuDrawer.collapseGroup(MenuAdapter.CHARTS_MENU_IDX);
 			mMenuDrawer.setItemChecked(groupPosition, true);
-			setTitle(mDrawerMenuItems[groupPosition]);
 			if (groupPosition != MenuAdapter.CHARTS_MENU_IDX) {
 				mDrawerLayout.closeDrawer(mMenuDrawer);
 			}
 
 			lastSelectedGroupPosition = groupPosition;
+			setTitle(mDrawerMenuItems[groupPosition]);
 			return true;
 		}
 	}
 
+	
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
+		switch(lastSelectedGroupPosition){
+		case 1:
+			getActionBar().setIcon(R.drawable.ic_settings);
+			break;
+		case 2:
+			getActionBar().setIcon(R.drawable.ic_help);
+			break;
+		case 3:
+			mTitle = mTitle + " "+ getResources().getString(R.string.app_name);
+		default:
+			getActionBar().setIcon(R.drawable.ic_launcher);
+			break;
+		}
 		getActionBar().setTitle(mTitle);
 	}
 
