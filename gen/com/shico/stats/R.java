@@ -9,10 +9,11 @@ package com.shico.stats;
 
 public final class R {
     public static final class anim {
-        public static final int slide_down_dialog=0x7f040000;
-        public static final int slide_out_down=0x7f040001;
-        public static final int slide_out_up=0x7f040002;
-        public static final int slide_up_dialog=0x7f040003;
+        public static final int barchart_anim=0x7f040000;
+        public static final int slide_down_dialog=0x7f040001;
+        public static final int slide_out_down=0x7f040002;
+        public static final int slide_out_up=0x7f040003;
+        public static final int slide_up_dialog=0x7f040004;
     }
     public static final class array {
         public static final int choose_date=0x7f090007;
@@ -216,56 +217,44 @@ public final class R {
         public static final int drawer_shadow=0x7f020002;
         public static final int ic_drawer=0x7f020003;
         public static final int ic_launcher=0x7f020004;
-        public static final int rounded_corners=0x7f020005;
-        public static final int simple_border=0x7f020006;
+        public static final int nordija=0x7f020005;
+        public static final int rounded_corners=0x7f020006;
+        public static final int simple_border=0x7f020007;
     }
     public static final class id {
-        public static final int cancel_settings_btn=0x7f0b001b;
-        public static final int chart_menu_item=0x7f0b0020;
-        public static final int chart_pager=0x7f0b0001;
-        public static final int chartview=0x7f0b0013;
-        public static final int choose_date_spinner=0x7f0b0004;
-        public static final int dataload_options_spinner=0x7f0b0003;
-        public static final int drawer_layout=0x7f0b0000;
-        public static final int drawer_menu_item=0x7f0b0015;
-        public static final int duration=0x7f0b001f;
-        public static final int event_name=0x7f0b001c;
-        public static final int event_time=0x7f0b001d;
-        public static final int from_month_spinner=0x7f0b0005;
-        public static final int from_year_spinner=0x7f0b0006;
-        public static final int groupped_data_list=0x7f0b0014;
-        public static final int menu_drawer=0x7f0b0002;
-        public static final int radio_btn_10=0x7f0b0012;
-        public static final int radio_btn_3=0x7f0b0010;
-        public static final int radio_btn_5=0x7f0b0011;
-        public static final int radio_btn_bottom=0x7f0b000e;
-        public static final int radio_btn_duration=0x7f0b000b;
-        public static final int radio_btn_top=0x7f0b000d;
-        public static final int radio_btn_viewer=0x7f0b000a;
-        public static final int radio_gr_score_num=0x7f0b000f;
-        public static final int radio_gr_score_type=0x7f0b000c;
-        public static final int radio_gr_yaxis=0x7f0b0009;
-        public static final int save_settings_btn=0x7f0b001a;
-        public static final int server_addr=0x7f0b0016;
-        public static final int server_port=0x7f0b0017;
-        public static final int to_month_spinner=0x7f0b0007;
-        public static final int to_year_spinner=0x7f0b0008;
-        public static final int user_id=0x7f0b0018;
-        public static final int user_pwd=0x7f0b0019;
-        public static final int viewers=0x7f0b001e;
+        public static final int chart_menu_item=0x7f0b0014;
+        public static final int chart_pager=0x7f0b0005;
+        public static final int chartview=0x7f0b000d;
+        public static final int choose_date_spinner=0x7f0b0008;
+        public static final int dataload_options_spinner=0x7f0b0007;
+        public static final int drawer_layout=0x7f0b0004;
+        public static final int drawer_menu_item=0x7f0b000f;
+        public static final int duration=0x7f0b0013;
+        public static final int event_name=0x7f0b0010;
+        public static final int event_time=0x7f0b0011;
+        public static final int from_month_spinner=0x7f0b0009;
+        public static final int from_year_spinner=0x7f0b000a;
+        public static final int groupped_data_list=0x7f0b000e;
+        public static final int menu_drawer=0x7f0b0006;
+        public static final int nordija_stats_title=0x7f0b0000;
+        public static final int powered_by=0x7f0b0002;
+        public static final int shico_writer=0x7f0b0003;
+        public static final int to_month_spinner=0x7f0b000b;
+        public static final int to_year_spinner=0x7f0b000c;
+        public static final int version_title=0x7f0b0001;
+        public static final int viewers=0x7f0b0012;
     }
     public static final class layout {
-        public static final int activity_main=0x7f030000;
-        public static final int chart_settings=0x7f030001;
-        public static final int chart_settings_old=0x7f030002;
+        public static final int about=0x7f030000;
+        public static final int activity_main=0x7f030001;
+        public static final int chart_settings=0x7f030002;
         public static final int chart_view_pager=0x7f030003;
         public static final int chartview=0x7f030004;
         public static final int drawer_menu_item=0x7f030005;
-        public static final int global_settings=0x7f030006;
-        public static final int groupped_data_list=0x7f030007;
-        public static final int liveusage_groupped_data_list=0x7f030008;
-        public static final int menu_chart_item=0x7f030009;
-        public static final int month_chooser=0x7f03000a;
+        public static final int groupped_data_list=0x7f030006;
+        public static final int liveusage_groupped_data_list=0x7f030007;
+        public static final int menu_chart_item=0x7f030008;
+        public static final int month_chooser=0x7f030009;
     }
     public static final class string {
         public static final int action_settings=0x7f080001;
@@ -295,9 +284,12 @@ public final class R {
  ########### 
          */
         public static final int global_settings_title=0x7f080005;
+        public static final int nordija_logo=0x7f080032;
+        public static final int nordija_stats=0x7f08002f;
         public static final int num_of_score_items_title=0x7f080018;
         public static final int only_wifi=0x7f080012;
         public static final int popular=0x7f080025;
+        public static final int powered_by=0x7f080031;
         /**  reset preference dialog 
          */
         public static final int reset_msg=0x7f080020;
@@ -315,6 +307,9 @@ public final class R {
         public static final int server_port_sum=0x7f08000c;
         public static final int server_port_title=0x7f08000b;
         public static final int server_settings_title=0x7f080006;
+        /**  About page 
+         */
+        public static final int shiraz_consult=0x7f08002e;
         public static final int ten=0x7f08001f;
         public static final int three=0x7f08001d;
         public static final int to=0x7f08002d;
@@ -324,6 +319,7 @@ public final class R {
         public static final int user_id_sum=0x7f080010;
         public static final int user_pwd=0x7f08000f;
         public static final int user_pwd_sum=0x7f080011;
+        public static final int version=0x7f080030;
         public static final int viewers=0x7f080019;
         public static final int y_axis_sum=0x7f080015;
         public static final int y_axis_title=0x7f080014;

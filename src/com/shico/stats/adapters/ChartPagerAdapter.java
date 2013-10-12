@@ -5,6 +5,7 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 
+import com.shico.stats.AboutFragment;
 import com.shico.stats.ChartFragment;
 import com.shico.stats.LiveUsageChartFragment;
 import com.shico.stats.MainActivity;
@@ -31,6 +32,7 @@ public class ChartPagerAdapter extends FragmentPagerAdapter {
 		case MainActivity.SETTINGS_FRAGMENT_ID:
 			return new SettingsFragment();
 		case MainActivity.ABOUT_FRAGMENT_ID:
+			return new AboutFragment();
 		case MainActivity.HELP_FRAGMENT_ID:
 			throw new IllegalStateException("Not implemented");
 		case MainActivity.CHANNELS_FRAGMENT_ID:

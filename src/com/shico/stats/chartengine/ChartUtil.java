@@ -16,6 +16,7 @@ import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 import android.util.Log;
+import android.view.ViewPropertyAnimator;
 
 import com.shico.stats.R;
 import com.shico.stats.loaders.ChartDataLoader;

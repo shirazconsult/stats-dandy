@@ -90,15 +90,17 @@ public class MainActivity extends Activity {
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
 
 		if (savedInstanceState == null) {
-			mMenuDrawer.setSelectedGroup(0);
+			mMenuDrawer.performItemClick(mMenuDrawer, 3, mMenuDrawer.getItemIdAtPosition(3));
 		}else{
 			lastSelectedGroupPosition = savedInstanceState.getInt(ARG_MENU_ITEM_IDX);
 			lastSelectedChildItem = savedInstanceState.getString(ARG_MENU_CHART_ITEM_NAME);
 			lastSelectedChildPosition = savedInstanceState.getInt(ARG_MENU_CHART_ITEM_IDX);
 			if(lastSelectedGroupPosition == MenuAdapter.CHARTS_MENU_IDX){
 				newViewPager(lastSelectedChildItem, lastSelectedChildPosition);				
-			}else if(lastSelectedGroupPosition == MenuAdapter.SETTINGS_MENU_IDX){
-				newViewPager("Settings", SETTINGS_FRAGMENT_ID);
+			}else{
+				mMenuDrawer.performItemClick(mMenuDrawer, 
+						lastSelectedGroupPosition, 
+						mMenuDrawer.getItemIdAtPosition(lastSelectedGroupPosition));				
 			}
 		}
 	}

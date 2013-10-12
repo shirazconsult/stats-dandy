@@ -115,4 +115,11 @@
         <item>Current Month</item>
         <item>Current Year</item>
     </string-array>
+    
+    <!-- About page -->
+    <string name="shiraz_consult">Shiraz Consult</string>
+    <string name="nordija_stats">Nordija Statistics</string>
+    <string name="version">Version 1.0</string>
+    <string name="powered_by">Powered by</string>
+    <string name="nordija_logo">Nordija logo</string>
 </resources>
