@@ -1,13 +1,13 @@
-package com.shico.stats;
+package com.shico.stats.charts;
 
 import java.util.List;
 
 import org.achartengine.GraphicalView;
 
-import com.shico.stats.chartengine.ChartTitles;
-import com.shico.stats.chartengine.ChartUtil;
+import com.shico.stats.charts.chartengine.ChartTitles;
+import com.shico.stats.charts.chartengine.ChartType;
+import com.shico.stats.charts.chartengine.ChartUtil;
 import com.shico.stats.loaders.ChartDataLoader;
-import com.shico.stats.util.ChartType;
 
 public class ProgramChartFragment extends ChartFragment {	
 	private static final String EVENT_TYPE = "LiveUsage";

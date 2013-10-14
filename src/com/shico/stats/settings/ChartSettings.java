@@ -19,8 +19,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.shico.stats.ChartFragment;
 import com.shico.stats.R;
+import com.shico.stats.charts.ChartFragment;
 
 public class ChartSettings extends DialogFragment {
 	public final static Boolean UNIFIED_CHART_SETTINGS = true;

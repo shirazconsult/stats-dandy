@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.shico.stats.ChartFragment;
 import com.shico.stats.R;
+import com.shico.stats.charts.ChartFragment;
 import com.shico.stats.loaders.ChartDataLoader;
 
 public class GrouppedDataListAdapter extends ArrayAdapter<List<String>> {

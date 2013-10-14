@@ -1,4 +1,4 @@
-package com.shico.stats;
+package com.shico.stats.charts;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,8 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shico.stats.MainActivity;
+import com.shico.stats.R;
+import com.shico.stats.R.drawable;
+import com.shico.stats.R.id;
+import com.shico.stats.R.layout;
 import com.shico.stats.adapters.ChartPagerAdapter;
-import com.shico.stats.util.ChartType;
+import com.shico.stats.charts.chartengine.ChartType;
 
 public class ChartContainerFragment extends Fragment {
 	private final static String CURRENT_PAGE = "current.page";
@@ -20,7 +25,7 @@ public class ChartContainerFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		view = inflater.inflate(R.layout.viewpager, container, false);
+		view = inflater.inflate(R.layout.chart_viewpager, container, false);
 		
 		Bundle args = getArguments();
 		if(args != null){

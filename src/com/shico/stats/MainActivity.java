@@ -14,16 +14,13 @@ import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.shico.stats.adapters.MenuAdapter;
+import com.shico.stats.charts.ChartContainerFragment;
 import com.shico.stats.settings.SettingsFragment;
 
 public class MainActivity extends Activity {
 	public final static String ARG_MENU_ITEM_IDX = "menu.item.idx";
 	public final static String ARG_MENU_CHART_ITEM_IDX = "menu.chart.item.idx";
 	public final static String ARG_MENU_CHART_ITEM_NAME = "menu.chart.item.name";
-	public final static String ARG_LAST_SELECTED_CHILD_ITEM = "last.selected.child.item";
-	public final static String ARG_LAST_SELECTED_CHILD_POS = "last.selected.child.pos";
-	public final static String ACTIONBAR_TITLE = "actionbar.title";
-	public final static String ACTIONBAR_ICON = "actionbar.icon";
 	
 	// Chart ids should correspond to their position inside the charts-list
 	public final static int CHANNELS_FRAGMENT_ID = 0;
@@ -31,18 +28,10 @@ public class MainActivity extends Activity {
 	public final static int PROGRAMS_FRAGMENT_ID = 2;
 	public final static int WIDGETS_FRAGMENT_ID = 3;
 	
-	public final static int SETTINGS_FRAGMENT_ID = 101;
-	public final static int ABOUT_FRAGMENT_ID = 102;
-	public final static int HELP_FRAGMENT_ID = 103;
-	
 	private DrawerLayout mDrawerLayout;
 	private ExpandableListView mMenuDrawer;
 	private ActionBarDrawerToggle mDrawerToggle;
 
-	private CharSequence mDrawerMenuTitle;
-	private CharSequence mTitle;
-	private String[] mDrawerMenuItems;
-	
 	private int lastSelectedGroupPosition;
 	private int lastSelectedChildPosition;
 	private String lastSelectedChildItem;
@@ -54,10 +43,8 @@ public class MainActivity extends Activity {
 
 		PreferenceManager.setDefaultValues(this, R.xml.prefs, false);
 
-		mTitle = mDrawerMenuTitle = getTitle();
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mMenuDrawer = (ExpandableListView) findViewById(R.id.menu_drawer);
-		mDrawerMenuItems = getResources().getStringArray(R.array.menu_items);
 
 		mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, Gravity.START);
 		mMenuDrawer.setAdapter(new MenuAdapter(this));
@@ -123,7 +110,7 @@ public class MainActivity extends Activity {
 		outState.putInt(ARG_MENU_ITEM_IDX, lastSelectedGroupPosition);
 		outState.putString(ARG_MENU_CHART_ITEM_NAME, lastSelectedChildItem);
 		outState.putInt(ARG_MENU_CHART_ITEM_IDX, lastSelectedChildPosition);
-//		outState.putCharSequence(ACTIONBAR_TITLE, getActionBar().getTitle());
+
 		super.onSaveInstanceState(outState);
 	}
 

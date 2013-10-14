@@ -1,4 +1,4 @@
-package com.shico.stats.chartengine;
+package com.shico.stats.charts.chartengine;
 
 import java.util.Comparator;
 import java.util.HashMap;

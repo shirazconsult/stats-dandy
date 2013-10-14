@@ -1,4 +1,4 @@
-package com.shico.stats.chartengine;
+package com.shico.stats.charts.chartengine;
 
 public class ChartTitles {
 	public String xTitle, yTitle, title;

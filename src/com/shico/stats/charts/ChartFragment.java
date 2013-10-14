@@ -1,4 +1,4 @@
-package com.shico.stats;
+package com.shico.stats.charts;
 
 import java.util.List;
 
@@ -27,12 +27,17 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.shico.stats.MainActivity;
+import com.shico.stats.R;
+import com.shico.stats.R.anim;
+import com.shico.stats.R.id;
+import com.shico.stats.R.layout;
 import com.shico.stats.adapters.GrouppedDataListAdapter;
-import com.shico.stats.event.ChartEvent;
+import com.shico.stats.charts.chartengine.ChartType;
 import com.shico.stats.loaders.ChartDataLoader;
+import com.shico.stats.loaders.DataLoadEvent;
 import com.shico.stats.settings.ChartPref;
 import com.shico.stats.settings.ChartSettings;
-import com.shico.stats.util.ChartType;
 import com.shico.stats.util.MyGestureDetectorListener;
 
 public abstract class ChartFragment extends Fragment implements OnSharedPreferenceChangeListener{
@@ -200,8 +205,8 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	}
 	
 	protected boolean match(Intent intent) {
-		return (Integer)intent.getExtras().get(ChartEvent.DATA_LOADER_ID) == viewpage && 
-			((String)intent.getExtras().get(ChartEvent.DATA_LOAD_OPTIONS)).equals(getLoadOptions());
+		return (Integer)intent.getExtras().get(DataLoadEvent.DATA_LOADER_ID) == viewpage && 
+			((String)intent.getExtras().get(DataLoadEvent.DATA_LOAD_OPTIONS)).equals(getLoadOptions());
 	}
 
 	// Gesture listener

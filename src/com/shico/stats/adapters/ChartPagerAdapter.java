@@ -5,14 +5,12 @@ import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 
-import com.shico.stats.AboutFragment;
-import com.shico.stats.ChartFragment;
-import com.shico.stats.LiveUsageChartFragment;
 import com.shico.stats.MainActivity;
-import com.shico.stats.MovieRentChartFragment;
-import com.shico.stats.ProgramChartFragment;
-import com.shico.stats.WidgetShowChartFragment;
-import com.shico.stats.settings.SettingsFragment;
+import com.shico.stats.charts.ChartFragment;
+import com.shico.stats.charts.LiveUsageChartFragment;
+import com.shico.stats.charts.MovieRentChartFragment;
+import com.shico.stats.charts.ProgramChartFragment;
+import com.shico.stats.charts.WidgetShowChartFragment;
 
 public class ChartPagerAdapter extends FragmentPagerAdapter {
 	private String name;
@@ -29,12 +27,6 @@ public class ChartPagerAdapter extends FragmentPagerAdapter {
 		ChartFragment fragment = null;
 		
 		switch(id){
-		case MainActivity.SETTINGS_FRAGMENT_ID:
-			return new SettingsFragment();
-		case MainActivity.ABOUT_FRAGMENT_ID:
-			return new AboutFragment();
-		case MainActivity.HELP_FRAGMENT_ID:
-			throw new IllegalStateException("Not implemented");
 		case MainActivity.CHANNELS_FRAGMENT_ID:
 			fragment = new LiveUsageChartFragment();
 			break;
