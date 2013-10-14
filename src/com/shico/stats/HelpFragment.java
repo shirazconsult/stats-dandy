@@ -1,6 +1,7 @@
 package com.shico.stats;
 
 import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ public class HelpFragment extends Fragment implements OnClickListener {
 	public static final String ARG_TEXT_ID = "ARG_TEXT_ID";
 	public static final String ARG_TITLE = "ARG_TITLE";
 	public static final String ARG_ICON_ID = "ARG_ICON_ID";
+	public static final String HELP_TOPIC_FRAGMENT_TAG = "help.topic.fragment";
 		
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,8 +64,12 @@ public class HelpFragment extends Fragment implements OnClickListener {
 			args.putString(ARG_TITLE, title);
 			
 			Fragment f = new HelpTopicFragment();
-			f.setArguments(args);
-			getFragmentManager().beginTransaction().replace(R.id.container_frame, f).commit();
+			f.setArguments(args);			
+			FragmentTransaction ft = getFragmentManager().beginTransaction();
+		    ft.replace(R.id.container_frame, f, HELP_TOPIC_FRAGMENT_TAG);
+		    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+		    ft.addToBackStack(null);
+		    ft.commit();
 		}
 	}
 }

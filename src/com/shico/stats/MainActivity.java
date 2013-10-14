@@ -1,6 +1,7 @@
 package com.shico.stats;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -218,7 +219,15 @@ public class MainActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
+		// do nothing
+		if(chartContainerFragment != null && chartContainerFragment.isVisible()){
+			chartContainerFragment.onBackPressed();
+			return;
+		}
+		Fragment f = getFragmentManager().findFragmentByTag(HelpFragment.HELP_TOPIC_FRAGMENT_TAG);
+		if(f != null && f.isVisible()){
+			((HelpTopicFragment)f).onBackPressed();
+		}
 	}	
 	
 	

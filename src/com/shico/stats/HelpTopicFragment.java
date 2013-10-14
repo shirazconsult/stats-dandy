@@ -29,12 +29,8 @@ public class HelpTopicFragment extends Fragment {
 		return view;
 	}
 
-//	@Override
-//	public void onBackPressed() {
-//		super.onBackPressed();
-//		getActionBar().setTitle(R.string.help_title);
-//		getActionBar().setIcon(R.drawable.ic_help);
-//	}
-//	
+	public void onBackPressed() {
+		getFragmentManager().popBackStackImmediate();		
+	}
 	
 }
