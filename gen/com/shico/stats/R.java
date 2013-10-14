@@ -274,7 +274,6 @@ public final class R {
         public static final int viewpager=0x7f03000c;
     }
     public static final class string {
-        public static final int action_settings=0x7f080001;
         public static final int action_websearch=0x7f080004;
         /**  Main Menu 
  ######### 
@@ -337,6 +336,7 @@ public final class R {
         public static final int server_port_sum=0x7f08000c;
         public static final int server_port_title=0x7f08000b;
         public static final int server_settings_title=0x7f080006;
+        public static final int settings_title=0x7f080001;
         /**  About page 
          */
         public static final int shiraz_consult=0x7f08002e;

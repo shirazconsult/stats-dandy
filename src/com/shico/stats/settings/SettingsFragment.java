@@ -22,6 +22,10 @@ public class SettingsFragment extends PreferenceFragment {
 		View v = super.onCreateView(inflater, container, savedInstanceState);
 		v.setPadding(10, 30, 0, 0);
 		v.setBackgroundColor(getResources().getColor(R.color.OldLace));
+		
+		getActivity().getActionBar().setTitle(R.string.settings_title);
+		getActivity().getActionBar().setIcon(R.drawable.ic_settings);
+		
 		return v;
 	}
 	

@@ -3,7 +3,6 @@ package com.shico.stats;
 import java.util.List;
 
 import org.achartengine.GraphicalView;
-import org.achartengine.chart.BarChart;
 
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -22,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewPropertyAnimator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;

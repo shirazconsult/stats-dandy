@@ -2,7 +2,6 @@ package com.shico.stats;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -23,6 +22,8 @@ public class MainActivity extends Activity {
 	public final static String ARG_MENU_CHART_ITEM_NAME = "menu.chart.item.name";
 	public final static String ARG_LAST_SELECTED_CHILD_ITEM = "last.selected.child.item";
 	public final static String ARG_LAST_SELECTED_CHILD_POS = "last.selected.child.pos";
+	public final static String ACTIONBAR_TITLE = "actionbar.title";
+	public final static String ACTIONBAR_ICON = "actionbar.icon";
 	
 	// Chart ids should correspond to their position inside the charts-list
 	public final static int CHANNELS_FRAGMENT_ID = 0;
@@ -79,13 +80,11 @@ public class MainActivity extends Activity {
 				R.drawable.ic_drawer, R.string.drawer_open,
 				R.string.drawer_close) {
 			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
 				invalidateOptionsMenu(); // creates call to
 											// onPrepareOptionsMenu()
 			}
 
 			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mDrawerMenuTitle);
 				invalidateOptionsMenu(); // creates call to
 											// onPrepareOptionsMenu()
 			}
@@ -124,7 +123,7 @@ public class MainActivity extends Activity {
 		outState.putInt(ARG_MENU_ITEM_IDX, lastSelectedGroupPosition);
 		outState.putString(ARG_MENU_CHART_ITEM_NAME, lastSelectedChildItem);
 		outState.putInt(ARG_MENU_CHART_ITEM_IDX, lastSelectedChildPosition);
-		
+//		outState.putCharSequence(ACTIONBAR_TITLE, getActionBar().getTitle());
 		super.onSaveInstanceState(outState);
 	}
 
@@ -174,8 +173,6 @@ public class MainActivity extends Activity {
 			lastSelectedGroupPosition = groupPosition;
 			lastSelectedChildItem = chartName;
 			lastSelectedChildPosition = childPosition;
-			setTitle(chartName);
-			getActionBar().setIcon(R.drawable.ic_barchart);
 			
 			return true;
 		}
@@ -213,31 +210,11 @@ public class MainActivity extends Activity {
 			}
 
 			lastSelectedGroupPosition = groupPosition;
-			setTitle(mDrawerMenuItems[groupPosition]);
 			
 			return true;
 		}
 	}
 	
-	@Override
-	public void setTitle(CharSequence title) {
-		mTitle = title;
-		switch(lastSelectedGroupPosition){
-		case 1:
-			getActionBar().setIcon(R.drawable.ic_settings);
-			break;
-		case 2:
-			getActionBar().setIcon(R.drawable.ic_help);
-			break;
-		case 3:
-			mTitle = mTitle + " "+ getResources().getString(R.string.app_name);
-		default:
-			getActionBar().setIcon(R.drawable.ic_launcher);
-			break;
-		}
-		getActionBar().setTitle(mTitle);
-	}
-
 	@Override
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);

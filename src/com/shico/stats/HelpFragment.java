@@ -18,12 +18,17 @@ public class HelpFragment extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.help, container, false);
 		
+		getActivity().getActionBar().setTitle(R.string.help_title);
+		getActivity().getActionBar().setIcon(R.drawable.ic_help);
+
 		((ImageButton)view.findViewById(R.id.help_chart_btn)).setOnClickListener(this);
 		((ImageButton)view.findViewById(R.id.help_pie_btn)).setOnClickListener(this);
 		((ImageButton)view.findViewById(R.id.help_chartsettings_btn)).setOnClickListener(this);
 		
+
 		return view;
 	}
+
 
 	@Override
 	public void onClick(View v) {

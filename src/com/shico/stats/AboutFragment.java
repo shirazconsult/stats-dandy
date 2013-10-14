@@ -27,6 +27,9 @@ public class AboutFragment extends Fragment {
 		
 		View view = inflater.inflate(R.layout.about, container, false);
 						
+		getActivity().getActionBar().setTitle(R.string.nordija_stats);
+		getActivity().getActionBar().setIcon(R.drawable.ic_launcher);
+		
 		if(savedInstanceState == null){
 			startAnimation(view);
 		}else{

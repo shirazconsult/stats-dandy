@@ -21,9 +21,6 @@ public class ChartContainerFragment extends Fragment {
 			Bundle savedInstanceState) {
 		
 		view = inflater.inflate(R.layout.viewpager, container, false);
-		if(savedInstanceState != null){
-			currentPage = savedInstanceState.getInt(CURRENT_PAGE);
-		}
 		
 		Bundle args = getArguments();
 		if(args != null){
@@ -32,7 +29,16 @@ public class ChartContainerFragment extends Fragment {
 				args.getInt(MainActivity.ARG_MENU_CHART_ITEM_IDX));
 		}
 		
-		viewPager.setCurrentItem(currentPage);
+		if(savedInstanceState != null){
+			currentPage = savedInstanceState.getInt(CURRENT_PAGE);
+			viewPager.setCurrentItem(currentPage);
+			getActivity().getActionBar().setTitle(
+					savedInstanceState.getCharSequence("actionbar.title"));
+			setIcon(currentPage);			
+		}else{
+			getActivity().getActionBar().setTitle(args.getString(MainActivity.ARG_MENU_CHART_ITEM_NAME));
+			setIcon(0);
+		}
 		
 		return view;
 	}
@@ -41,9 +47,27 @@ public class ChartContainerFragment extends Fragment {
 	@Override
 	public void onSaveInstanceState(Bundle outState) {
 		outState.putInt(CURRENT_PAGE, viewPager.getCurrentItem());
+		outState.putCharSequence("actionbar.title", getActivity().getActionBar().getTitle());
+		
 		super.onSaveInstanceState(outState);
 	}
 
+	private void setIcon(int page){
+		if(pagerAdapter != null){
+			Fragment item = pagerAdapter.getItem(page);
+			if(item instanceof ChartFragment){
+				ChartType ct = ((ChartFragment)item).getChartType(page);
+				switch(ct){
+				case COLUMN_CHART: 
+					getActivity().getActionBar().setIcon(R.drawable.ic_barchart);
+					break;
+				case PIE_CHART:
+					getActivity().getActionBar().setIcon(R.drawable.ic_piechart);
+					break;							
+				}
+			}		
+		}
+	}
 
 	private ChartPagerAdapter pagerAdapter;
 	private ViewPager viewPager;
@@ -56,18 +80,7 @@ public class ChartContainerFragment extends Fragment {
 			viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 				@Override
 				public void onPageSelected(int position) {
-					Fragment item = pagerAdapter.getItem(position);
-					if(item instanceof ChartFragment){
-						ChartType ct = ((ChartFragment)item).getChartType(position);
-						switch(ct){
-						case COLUMN_CHART: 
-							getActivity().getActionBar().setIcon(R.drawable.ic_barchart);
-							break;
-						case PIE_CHART:
-							getActivity().getActionBar().setIcon(R.drawable.ic_piechart);
-							break;							
-						}
-					}
+					setIcon(position);
 				}				
 				@Override
 				public void onPageScrolled(int position, float positionOffset,
