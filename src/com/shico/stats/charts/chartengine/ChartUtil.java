@@ -1,5 +1,6 @@
 package com.shico.stats.charts.chartengine;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.achartengine.ChartFactory;
@@ -10,13 +11,12 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
-import android.util.Log;
-import android.view.ViewPropertyAnimator;
 
 import com.shico.stats.R;
 import com.shico.stats.loaders.ChartDataLoader;
@@ -47,25 +47,15 @@ public class ChartUtil {
 	    XYMultipleSeriesRenderer renderer = buildBarRenderer(data.getColors(context));
 	    setChartSettings(renderer, titles.title, titles.xTitle, titles.yTitle, 0d,
 	        data.allXLabels.size()+1, 0d, data.getMaxValue()+(data.getMaxValue()/3), Color.GRAY, Color.LTGRAY);
-	    renderer.setDisplayValues(false);
 	    renderer.setXLabels(data.allXLabels.size()+1);
 	    renderer.setYLabels(Math.min(10, data.allTitles.size()));
 	    double i=1;				
 	    for(String label : data.allXLabels){
 	    	renderer.addXTextLabel(i++, label);
 	    }
-	    renderer.setXLabelsAlign(Align.LEFT);
-	    renderer.setYLabelsAlign(Align.LEFT);
-	    renderer.setXLabelsAngle(45f);
-	    renderer.setXLabelsPadding(10f);
-	    renderer.setXLabels(0);
-	    renderer.setMargins(new int[]{45,45,45,25});
-	    renderer.setLegendHeight(100);
-	    Log.d("ChartUtil", ">>>> data.allTitles.size = "+(data.allTitles == null ?  0 : data.allTitles.size()));
 	    renderer.setBarWidth((data.allTitles != null && data.allTitles.size() >= 10) ? 2f : 5f);
-	    renderer.setBarSpacing(0.2f);
-	    renderer.setFitLegend(true);
-	    renderer.setApplyBackgroundColor(true);
+	    renderer.setXLabels(0);
+
 	    renderer.setBackgroundColor(context.getResources().getColor(R.color.SlateGray));
 	    renderer.setMarginsColor(context.getResources().getColor(R.color.SlateGray));
 	    
@@ -74,15 +64,11 @@ public class ChartUtil {
 	}
 
 	private static GraphicalView createPieChartView(Context context, List<List<String>> rows, int valueIdx, String title, boolean forPrograms){
-		// build category-renderer
-	    DefaultRenderer renderer = new DefaultRenderer();
-	    renderer.setLabelsTextSize(15);
-	    renderer.setLegendTextSize(15);
+		DefaultRenderer renderer = buildPieRenderer();
+		
 	    renderer.setChartTitle(title);
-	    renderer.setChartTitleTextSize(20);
-	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
-	    for (int i=0; i<rows.size(); i++) {
-	      SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+	    for (int i=0; i<rows.size(); i++) {	    	
+	      XYSeriesRenderer r = new XYSeriesRenderer();
 	      r.setColor(ChartUtil.getColorScheme(context)[i]);
 	      renderer.addSeriesRenderer(r);
 	    }
@@ -90,23 +76,27 @@ public class ChartUtil {
 	    	SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
 	    	r.setHighlighted(true);
 	    }
-	    renderer.setPanEnabled(false);	    
-	    renderer.setDisplayValues(true);
-	    renderer.setShowLabels(true);
-	    renderer.setFitLegend(true);
-	    renderer.setApplyBackgroundColor(true);
 	    renderer.setBackgroundColor(context.getResources().getColor(R.color.SlateGray));
-	    renderer.setLegendHeight(100);
 
 	    // dataset	    
-	    CategorySeries series = new CategorySeries(title);
+	    double sum = 0;
 	    for (List<String> row : rows) {
+	    	sum += Double.parseDouble(row.get(valueIdx));
+	    }
+	    CategorySeries series = new CategorySeries(title);
+	    String cat = null;
+	    for (List<String> row : rows) {
+	    	double val = Double.parseDouble(row.get(valueIdx));
+	    	BigDecimal percent = new BigDecimal((val * 100) / sum);
+	    	BigDecimal rounded = percent.setScale(1, BigDecimal.ROUND_HALF_UP);
 	    	if(forPrograms){
-	    		series.add(row.get(ChartDataLoader.titleIdx), Double.parseDouble(row.get(valueIdx)));
+	    		cat = row.get(ChartDataLoader.titleIdx) + " ("+rounded.doubleValue()+" %)";
 	    	}else{
-	    		series.add(row.get(ChartDataLoader.nameIdx), Double.parseDouble(row.get(valueIdx)));
+	    		cat = row.get(ChartDataLoader.nameIdx) + " ("+rounded.doubleValue()+" %)";
 	    	}
+	    	series.add(cat, val);
 		}
+	    renderer.setDisplayValues(true);
 	    GraphicalView pieChartView = ChartFactory.getPieChartView(context, series, renderer);
 	    return pieChartView;
 	}
@@ -140,12 +130,24 @@ public class ChartUtil {
 		return groupedData;
 	}
 
-	/**
-	 * Builds a bar multiple series renderer to use the provided colors.
-	 * 
-	 * @param colors the series renderers colors
-	 * @return the bar multiple series renderer
-	 */
+	// Create and set general characteristics for a Pie renderer
+	private static DefaultRenderer buildPieRenderer(){
+	    DefaultRenderer renderer = new DefaultRenderer();
+	    renderer.setLabelsTextSize(15);
+	    renderer.setLegendTextSize(15);
+	    renderer.setChartTitleTextSize(20);
+	    renderer.setMargins(new int[] { 20, 30, 15, 0 });
+	    renderer.setPanEnabled(false);	    
+	    renderer.setDisplayValues(true);
+	    renderer.setShowLabels(true);
+	    renderer.setFitLegend(true);
+	    renderer.setApplyBackgroundColor(true);
+	    renderer.setLegendHeight(100);
+
+	    return renderer;
+	}
+
+	// Create and set general characteristics for a Bar renderer
 	private static XYMultipleSeriesRenderer buildBarRenderer(int[] colors) {
 		XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		renderer.setTextTypeface(Typeface.create(Typeface.DEFAULT, Typeface.BOLD));
@@ -155,11 +157,26 @@ public class ChartUtil {
 		renderer.setLegendTextSize(15);
 		int length = colors.length;
 		for (int i = 0; i < length; i++) {
-			SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+			XYSeriesRenderer r = new XYSeriesRenderer();
 			r.setColor(colors[i]);
 			renderer.addSeriesRenderer(r);
 		}
+	    renderer.setBarSpacing(0.2f);
+	    renderer.setDisplayValues(false);
+	    renderer.setXLabelsAlign(Align.LEFT);
+	    renderer.setYLabelsAlign(Align.LEFT);
+	    renderer.setXLabelsAngle(45f);
+	    renderer.setXLabelsPadding(10f);
+	    renderer.setMargins(new int[]{45,45,45,25});
+		
+	    renderer.setLegendHeight(100);
+	    renderer.setFitLegend(true);
+	    renderer.setApplyBackgroundColor(true);
+		
 		renderer.setPanEnabled(false, false);
+//	    renderer.setZoomEnabled(true, true);
+//	    renderer.setZoomButtonsVisible(true);
+
 		return renderer;
 	}
 
