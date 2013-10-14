@@ -21,10 +21,19 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <!-- 
+        <activity
+            android:name="com.shico.stats.HelpFragment"
+            android:label="@string/help_title">
+        </activity>
+        <activity
+            android:name="com.shico.stats.HelpTopicFragment"
+            android:label="@string/help_title">
+        </activity>
+         -->
+	</application>
 
 </manifest>

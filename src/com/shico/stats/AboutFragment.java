@@ -27,7 +27,11 @@ public class AboutFragment extends Fragment {
 		
 		View view = inflater.inflate(R.layout.about, container, false);
 						
-		startAnimation(view);
+		if(savedInstanceState == null){
+			startAnimation(view);
+		}else{
+			setTexts(view);
+		}
 		
 		return view;
 	}
@@ -90,4 +94,13 @@ public class AboutFragment extends Fragment {
 			poweredByView.startAnimation(sa3);	
 	}
 	
+	private void setTexts(View view){
+		TextView verstionView = (TextView)view.findViewById(R.id.version_title);
+		TextView poweredByView = (TextView)view.findViewById(R.id.powered_by);
+		TextView shicoView = (TextView)view.findViewById(R.id.shico_writer);
+		
+		verstionView.setText(R.string.version);				
+		poweredByView.setText(R.string.powered_by);
+		shicoView.setText(R.string.shiraz_consult);
+	}
 }

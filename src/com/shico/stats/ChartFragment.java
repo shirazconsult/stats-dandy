@@ -238,8 +238,16 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 				// chart
 				GraphicalView view = createChartView(result);
 				chartview.removeAllViews();
-				Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.barchart_anim);
-				chartview.startAnimation(anim);
+				switch(getChartType(viewpage)){
+				case COLUMN_CHART:
+					Animation anim = AnimationUtils.loadAnimation(getActivity(), R.anim.barchart_anim);
+					chartview.startAnimation(anim);
+					break;
+				case PIE_CHART:
+					anim = AnimationUtils.loadAnimation(getActivity(), R.anim.piechart_anim);
+					chartview.startAnimation(anim);
+					break;
+				}
 				chartview.addView(view);
 				
 				setGestureListener(view);

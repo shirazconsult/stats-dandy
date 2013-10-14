@@ -10,11 +10,22 @@
     android:background="@color/SlateGray"
     tools:context=".MainActivity" >
 
-    <android.support.v4.view.ViewPager
-    	android:id="@+id/chart_pager"
-    	android:layout_width="match_parent"
-    	android:layout_height="match_parent" />
- 
+<!--     <android.support.v4.view.ViewPager -->
+<!--     	android:id="@+id/chart_pager" -->
+<!--     	android:layout_width="match_parent" -->
+<!--     	android:layout_height="match_parent" /> -->
+
+<!-- 	<fragment -->
+<!--          android:id="@+id/container_fragment" -->
+<!--          android:name="com.shico.stats.ChartContainerFragment" -->
+<!--          android:layout_width="match_parent" -->
+<!--          android:layout_height="match_parent" /> -->
+
+	<FrameLayout android:id="@+id/container_frame" 
+            android:layout_width="match_parent" 
+            android:layout_height="match_parent"
+            android:background="?android:attr/detailsElementBackground" />
+	 
     <ExpandableListView
         android:id="@+id/menu_drawer"
         android:layout_width="160dp"

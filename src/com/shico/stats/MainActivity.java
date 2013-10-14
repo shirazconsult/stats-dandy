@@ -1,12 +1,12 @@
 package com.shico.stats;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.Menu;
@@ -14,15 +14,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ExpandableListView;
 
-import com.shico.stats.adapters.ChartPagerAdapter;
 import com.shico.stats.adapters.MenuAdapter;
-import com.shico.stats.util.ChartType;
+import com.shico.stats.settings.SettingsFragment;
 
 public class MainActivity extends Activity {
 	public final static String ARG_MENU_ITEM_IDX = "menu.item.idx";
 	public final static String ARG_MENU_CHART_ITEM_IDX = "menu.chart.item.idx";
 	public final static String ARG_MENU_CHART_ITEM_NAME = "menu.chart.item.name";
-
+	public final static String ARG_LAST_SELECTED_CHILD_ITEM = "last.selected.child.item";
+	public final static String ARG_LAST_SELECTED_CHILD_POS = "last.selected.child.pos";
+	
 	// Chart ids should correspond to their position inside the charts-list
 	public final static int CHANNELS_FRAGMENT_ID = 0;
 	public final static int MOVIES_FRAGMENT_ID = 1;
@@ -98,15 +99,26 @@ public class MainActivity extends Activity {
 			lastSelectedChildItem = savedInstanceState.getString(ARG_MENU_CHART_ITEM_NAME);
 			lastSelectedChildPosition = savedInstanceState.getInt(ARG_MENU_CHART_ITEM_IDX);
 			if(lastSelectedGroupPosition == MenuAdapter.CHARTS_MENU_IDX){
-				newViewPager(lastSelectedChildItem, lastSelectedChildPosition);				
+				// Do nothing. The ChartContainerFragment and ChartFragment takes care of restoring the state.
 			}else{
-				mMenuDrawer.performItemClick(mMenuDrawer, 
-						lastSelectedGroupPosition, 
-						mMenuDrawer.getItemIdAtPosition(lastSelectedGroupPosition));				
+//				mMenuDrawer.performItemClick(mMenuDrawer, 
+//						lastSelectedGroupPosition, 
+//						mMenuDrawer.getItemIdAtPosition(lastSelectedGroupPosition));				
 			}
 		}
 	}
 
+	private ChartContainerFragment chartContainerFragment;
+	private void setChartContainerFragment(String chart, int idx){
+		chartContainerFragment = new ChartContainerFragment();
+		Bundle args = new Bundle();
+		args.putString(ARG_MENU_CHART_ITEM_NAME, chart);
+		args.putInt(ARG_MENU_CHART_ITEM_IDX, idx);
+		chartContainerFragment.setArguments(args);
+		FragmentTransaction ft = getFragmentManager().beginTransaction().replace(R.id.container_frame, chartContainerFragment);
+		ft.commit();
+	}
+	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putInt(ARG_MENU_ITEM_IDX, lastSelectedGroupPosition);
@@ -137,46 +149,6 @@ public class MainActivity extends Activity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
-
-	private ChartPagerAdapter pagerAdapter;
-	private ViewPager viewPager;
-	private void newViewPager(String name, int fragmentId){		
-		if(viewPager == null){
-			viewPager = (ViewPager)findViewById(R.id.chart_pager);
-			pagerAdapter = new ChartPagerAdapter(getFragmentManager(), name, fragmentId);
-			viewPager.setAdapter(pagerAdapter);
-			viewPager.setOffscreenPageLimit(1);
-			viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-				@Override
-				public void onPageSelected(int position) {
-					Fragment item = pagerAdapter.getItem(position);
-					if(item instanceof ChartFragment){
-						ChartType ct = ((ChartFragment)item).getChartType(position);
-						switch(ct){
-						case COLUMN_CHART: 
-							getActionBar().setIcon(R.drawable.ic_barchart);
-							break;
-						case PIE_CHART:
-							getActionBar().setIcon(R.drawable.ic_piechart);
-							break;							
-						}
-					}
-				}				
-				@Override
-				public void onPageScrolled(int position, float positionOffset,
-						int positionOffsetPixels) {
-				}				
-				@Override
-				public void onPageScrollStateChanged(int state) {					
-				}
-			});
-		}else{
-			pagerAdapter.setName(name);
-			pagerAdapter.setId(fragmentId);
-			pagerAdapter.notifyDataSetChanged();
-		}
-		viewPager.setCurrentItem(0);
-	}
 	
 	/* The click listner for ListView in the navigation drawer */
 	private class MenuItemClickListener implements
@@ -196,7 +168,7 @@ public class MainActivity extends Activity {
 			Bundle args = new Bundle();
 			args.putInt(ARG_MENU_ITEM_IDX, groupPosition);
 			args.putString(ARG_MENU_CHART_ITEM_NAME, chartName);
-			newViewPager(chartName, childPosition);
+			setChartContainerFragment(chartName, childPosition);
 
 
 			lastSelectedGroupPosition = groupPosition;
@@ -221,13 +193,13 @@ public class MainActivity extends Activity {
 				mMenuDrawer.setItemChecked(groupPosition, true);
 				return true;
 			case MenuAdapter.SETTINGS_MENU_IDX:
-				newViewPager("Settings", SETTINGS_FRAGMENT_ID);
+				getFragmentManager().beginTransaction().replace(R.id.container_frame, new SettingsFragment()).commit();
 				break;
 			case MenuAdapter.HELP_MENU_IDX:
-				newViewPager("Help", HELP_FRAGMENT_ID);
+				getFragmentManager().beginTransaction().replace(R.id.container_frame, new HelpFragment()).commit();
 				break;
 			case MenuAdapter.ABOUT_MENU_IDX:
-				newViewPager("About", ABOUT_FRAGMENT_ID);
+				getFragmentManager().beginTransaction().replace(R.id.container_frame, new AboutFragment()).commit();
 				break;
 			default:
 				throw new IllegalArgumentException("No such menu item.");
@@ -242,10 +214,10 @@ public class MainActivity extends Activity {
 
 			lastSelectedGroupPosition = groupPosition;
 			setTitle(mDrawerMenuItems[groupPosition]);
+			
 			return true;
 		}
 	}
-
 	
 	@Override
 	public void setTitle(CharSequence title) {
@@ -278,5 +250,12 @@ public class MainActivity extends Activity {
 		super.onConfigurationChanged(newConfig);
 		// Pass any configuration change to the drawer toggls
 		mDrawerToggle.onConfigurationChanged(newConfig);
+	}
+
+	@Override
+	public void onBackPressed() {
+		super.onBackPressed();
 	}	
+	
+	
 }

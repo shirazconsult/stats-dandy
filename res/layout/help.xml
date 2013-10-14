@@ -1,0 +1,106 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/OldLace"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/help_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="6dip" >
+
+            <TextView
+                android:id="@+id/help_page_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="2dip"
+                android:text="@string/help_page_intro" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" 
+                android:paddingRight="8dip"
+                android:paddingTop="20dip">
+
+                <ImageButton
+                    android:id="@+id/help_chart_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_barchart_help"
+                    android:background="@android:drawable/list_selector_background"
+                    android:contentDescription="@string/barchart_help_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/help_chart_btn"
+                    android:padding="8dip"
+                    android:text="@string/barchart_help_intro" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" 
+                android:paddingRight="8dip"
+                android:paddingTop="20dip">
+
+                <ImageButton
+                    android:id="@+id/help_pie_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_piechart_help"
+                    android:background="@android:drawable/list_selector_background"
+                    android:contentDescription="@string/piechart_help_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/help_pie_btn"
+                    android:padding="8dip"
+                    android:text="@string/piechart_help_intro" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:paddingLeft="8dip" 
+                android:paddingRight="8dip"
+                android:paddingTop="20dip">
+
+                <ImageButton
+                    android:id="@+id/help_chartsettings_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:src="@drawable/ic_settings"
+                    android:background="@android:drawable/list_selector_background"
+                    android:contentDescription="@string/chartsettings_help_title" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@id/help_chartsettings_btn"
+                    android:padding="8dip"
+                    android:text="@string/chartsettings_help_intro" />
+            </RelativeLayout>
+            
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -122,4 +122,79 @@
     <string name="version">Version 1.0</string>
     <string name="powered_by">Powered by</string>
     <string name="nordija_logo">Nordija logo</string>
+    
+    <!-- Help page -->
+    <string name="help_title">Help</string>
+    <string name="help_page_intro">The position parameter indicates where a given page is located 
+        relative to the center of the screen. It is a dynamic property that changes as the user 
+        scrolls through the pages. When a page fills the screen, its position value is 0. When 
+        a page is drawn just off the right side of the screen, its position value is 1.</string>
+     <string name="barchart_help_intro">This section explains the various bar charts and how to
+         understand them. This section explains the various bar charts and how to
+         understand them.</string>
+     <string name="barchart_help_title">Bar Charts</string>
+     <string name="piechart_help_intro">This section explains the various pie charts and how to
+         understand them. This section explains the various pie charts and how to
+         understand them.</string>
+     <string name="piechart_help_title">Pie Charts</string>
+     <string name="chartsettings_help_intro">This section explains how you may define the chart data which
+         are to be retrieved from the server. This section explains how you may define the chart data which
+         are to be retrieved from the server.</string>
+     <string name="chartsettings_help_title">Chart Settings</string>
+     <string name="barchart_help_topic">
+		 <![CDATA[
+		 <p>
+		 You can display simple forms of Html in a text view.
+		 You use the Html class and its fromHtml static method.
+		 See
+		 <a href="http://developer.android.com/reference/android/text/Html.html">Html
+		  on Android Developers</a>.
+		 </p>
+		 <p>
+		 As shown here, paragraphs are supported,
+		 as are <b>bold text</b> and <i>italics</i>.
+		 The preceding paragraph has a link in it.
+		 </p>
+		 <p><b>Return to the previous screen by touching the Back button.</b>
+		 </p>
+		 ]]>
+	 </string>
+     <string name="piechart_help_topic">
+		 <![CDATA[
+		 <p>
+		 You can display simple forms of Html in a text view.
+		 You use the Html class and its fromHtml static method.
+		 See
+		 <a href="http://developer.android.com/reference/android/text/Html.html">Html
+		  on Android Developers</a>.
+		 </p>
+		 <p>
+		 As shown here, paragraphs are supported,
+		 as are <b>bold text</b> and <i>italics</i>.
+		 The preceding paragraph has a link in it.
+		 </p>
+		 <p><b>Return to the previous screen by touching the Back button.</b>
+		 </p>
+		 ]]>
+	 </string>
+     <string name="chartsettings_help_topic">
+		 <![CDATA[
+		 <p>
+		 You can display simple forms of Html in a text view.
+		 You use the Html class and its fromHtml static method.
+		 See
+		 <a href="http://developer.android.com/reference/android/text/Html.html">Html
+		  on Android Developers</a>.
+		 </p>
+		 <p>
+		 As shown here, paragraphs are supported,
+		 as are <b>bold text</b> and <i>italics</i>.
+		 The preceding paragraph has a link in it.
+		 </p>
+		 <p><b>Return to the previous screen by touching the Back button.</b>
+		 </p>
+		 ]]>
+	 </string>
+     
+     
 </resources>
