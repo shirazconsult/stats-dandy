@@ -59,13 +59,7 @@ public class GrouppedDataListAdapter extends ArrayAdapter<List<String>> {
 		}
 		evTime.setText((String)data.get(position).get(ChartDataLoader.timeIdx));
 		int numOfViewers = Integer.parseInt(data.get(position).get(ChartDataLoader.viewersIdx));
-		if(numOfViewers <= 1000){			
-			viewers.setText(numOfViewers+" viewers");
-		}else{
-			int kv = numOfViewers / 1000;
-			int rest = numOfViewers % 1000;
-			viewers.setText(kv+" thousands and "+rest+" viewers");
-		}
+		viewers.setText(numberFormatter.format(numOfViewers)+" viewers");
 		
 		if(position % 2 == 0){
 			rowView.setBackgroundColor(context.getResources().getColor(R.color.DarkGray));
