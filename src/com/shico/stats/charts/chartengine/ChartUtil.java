@@ -14,12 +14,14 @@ import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
 
 import com.shico.stats.R;
 import com.shico.stats.loaders.ChartDataLoader;
+import com.shico.stats.util.DisplayUtil;
 
 public class ChartUtil {
 
@@ -53,7 +55,25 @@ public class ChartUtil {
 	    for(String label : data.allXLabels){
 	    	renderer.addXTextLabel(i++, label);
 	    }
-	    renderer.setBarWidth((data.allTitles != null && data.allTitles.size() >= 10) ? 2f : 5f);
+	    
+	    // determine width of the bars
+	    float barWidth = 10f;
+    	switch(DisplayUtil.getResolution(context)){
+    	case MEDIUM: 
+    	case HIGH:
+	    	barWidth = 7f;
+	    	break;
+    	case XHIGH:
+	    	barWidth = 12f;
+	    	break;
+	    }
+    	if(data.allTitles != null && data.allTitles.size() >= 10){
+    		barWidth -= 4f;
+	    }
+    	if(DisplayUtil.getOritentation(context) == Configuration.ORIENTATION_LANDSCAPE){
+    		barWidth += 4f;
+    	}
+	    renderer.setBarWidth(barWidth);
 	    renderer.setXLabels(0);
 
 	    renderer.setBackgroundColor(context.getResources().getColor(R.color.SlateGray));

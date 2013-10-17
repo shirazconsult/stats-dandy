@@ -42,18 +42,25 @@ public class ProgramChartFragment extends ChartFragment {
 	
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
-		String dateLegend = currentFrom+" / "+currentTo;
+		StringBuilder titleBuilder = new StringBuilder().
+				append(currentFrom).append(" / ").append(currentTo).append(" (").
+				append(Character.toUpperCase(topBottomOption.charAt(0))+topBottomOption.substring(1)).
+				append(" ").append(numberOption).append(")");
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 			return ChartUtil.createGroupedBarChartViewForPrograms(getActivity(), dataRows, 
-					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Viewers", "TV Programs\n"+dateLegend));
+					ChartDataLoader.viewersIdx, 
+					new ChartTitles("", "Number of Viewers", "TV Programs\n"+titleBuilder.toString()));
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
 			return ChartUtil.createGroupedBarChartViewForPrograms(getActivity(), dataRows, 
-					ChartDataLoader.durationIdx, new ChartTitles("", "Total Watched Hours", "TV Programs\n"+dateLegend));
+					ChartDataLoader.durationIdx, 
+					new ChartTitles("", "Total Watched Hours", "TV Programs\n"+titleBuilder.toString()));
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
-			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.viewersIdx, "TV Programs - Number of Viewers\n"+dateLegend);
+			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
+					"TV Programs - Number of Viewers\n"+titleBuilder.toString());
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
-			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.durationIdx, "TV Programs - Total Watched Hours\n"+dateLegend);
+			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.durationIdx, 
+					"TV Programs - Total Watched Hours\n"+titleBuilder.toString());
 		}
 		return null;
 	}  

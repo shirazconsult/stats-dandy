@@ -53,6 +53,8 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	protected String currentChartOptions;
 	protected String currentFrom;
 	protected String currentTo;
+	protected String topBottomOption;
+	protected int numberOption;
 	private ProgressDialog progressDiag;
 	
 	protected int viewpage;
@@ -176,11 +178,11 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		String numPref = ChartSettings.UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : currentChartName + "." + ChartPref.number.name();
 		String posPref = ChartSettings.UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : currentChartName + "." + ChartPref.position.name();
 
-		String topOrBottom = prefs.getString(posPref, "top");
-		int num = prefs.getInt(numPref, 5);
-		
-		currentChartOptions = new StringBuilder(topOrBottom.equals("bottom") ? "low" : "top").
-				append(",").append(num).toString();
+		topBottomOption = prefs.getString(posPref, "top");
+		numberOption = prefs.getInt(numPref, 5);
+		String topOrBottom = topBottomOption.equals("bottom") ? "low" : "top";
+		currentChartOptions = new StringBuilder().append(topOrBottom).
+				append(",").append(numberOption).toString();
 		
 		String[] dates = ChartSettings.getDates(prefs, currentChartName);
 		currentFrom = dates[0];

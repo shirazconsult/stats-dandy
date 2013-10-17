@@ -27,13 +27,18 @@ public class WidgetShowChartFragment extends ChartFragment {
 
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
-		String dateLegend = currentFrom+" / "+currentTo;		
+		StringBuilder titleBuilder = new StringBuilder().
+				append(currentFrom).append(" / ").append(currentTo).append(" (").
+				append(Character.toUpperCase(topBottomOption.charAt(0))+topBottomOption.substring(1)).
+				append(" ").append(numberOption).append(")");
 		switch(viewpage){
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
-					ChartDataLoader.viewersIdx, new ChartTitles("", "Number of Activations", "Widget Activations\n"+dateLegend));
+					ChartDataLoader.viewersIdx, 
+					new ChartTitles("", "Number of Activations", "Widget Activations\n"+titleBuilder.toString()));
 		case SECOND_PAGE_WITH_PIE_CHART:
-			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, "Movie Rentals\n"+dateLegend);
+			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
+					"Widget Activations\n"+titleBuilder.toString());
 		}
 		return null;
 	}	
