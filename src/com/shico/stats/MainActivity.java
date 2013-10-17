@@ -16,6 +16,8 @@ import android.widget.ExpandableListView;
 
 import com.shico.stats.adapters.MenuAdapter;
 import com.shico.stats.charts.ChartContainerFragment;
+import com.shico.stats.charts.ChartFragment;
+import com.shico.stats.settings.ChartSettings;
 import com.shico.stats.settings.SettingsFragment;
 
 public class MainActivity extends Activity {
@@ -230,5 +232,15 @@ public class MainActivity extends Activity {
 		}
 	}	
 	
-	
+	private ChartSettings chartSettingsDialog;
+	public void showSettings(String chartName){
+		if(chartSettingsDialog == null){
+			chartSettingsDialog = new ChartSettings();
+		}
+		Bundle args = new Bundle();
+		args.putString(ChartFragment.CHART_NAME, chartName);
+		chartSettingsDialog.setArguments(args);
+		chartSettingsDialog.show(getFragmentManager(), "ChartSettingsDialog");
+	}
+
 }

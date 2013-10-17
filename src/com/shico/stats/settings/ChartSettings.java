@@ -3,14 +3,18 @@ package com.shico.stats.settings;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,18 +62,8 @@ public class ChartSettings extends DialogFragment {
 				case 0:
 					setEnabledMonthChooser(true);
 					break;
-				case 1:
+				default:
 					setEnabledMonthChooser(false);
-					// current day
-					break;
-				case 2:
-					setEnabledMonthChooser(false);
-					// current week
-					break;
-				case 3: 
-					setEnabledMonthChooser(false);
-					// current month
-					break;
 				}
 			}
 
@@ -365,5 +359,23 @@ public class ChartSettings extends DialogFragment {
 	
 	public static String getChartPrefName(ChartPref key, String chartName){
 		return UNIFIED_CHART_SETTINGS ? key.name() : chartName + "." + key;
+	}
+
+	// Avoid multiple calls to super.show, when multiple chart-fragments call to showSettings 
+	// at the same time as in ChartFragment.MyCallback class.
+	private boolean showInProgress;
+	@Override
+	public void show(FragmentManager manager, String tag) {
+		if(showInProgress){
+			return;
+		}
+		super.show(manager, tag);
+		showInProgress = true;
+	}
+
+	@Override
+	public void onDismiss(DialogInterface dialog) {
+		super.onDismiss(dialog);
+		showInProgress = false;
 	}
 }

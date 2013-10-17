@@ -112,4 +112,8 @@ public class ChartContainerFragment extends Fragment {
 			viewPager.setCurrentItem(page - 1);
 		}
 	}
+	
+	public ChartFragment getCurrentChartFragment(){
+		return viewPager != null && pagerAdapter != null ? (ChartFragment)pagerAdapter.getItem(viewPager.getCurrentItem()) : null;
+	}
 }

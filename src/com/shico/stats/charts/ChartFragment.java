@@ -136,17 +136,6 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		PreferenceManager.getDefaultSharedPreferences(getActivity()).unregisterOnSharedPreferenceChangeListener(this);
 
 	}
-
-	private ChartSettings chartSettingsDialog;
-	private void showSettings(){
-		if(chartSettingsDialog == null){
-			chartSettingsDialog = new ChartSettings();
-		}
-		Bundle args = new Bundle();
-		args.putString(CHART_NAME, currentChartName);
-		chartSettingsDialog.setArguments(args);
-		chartSettingsDialog.show(getFragmentManager(), "test");
-	}
 	
 	private GrouppedDataListAdapter lvAdapter;
 	private void displayDataList(Context context){
@@ -216,7 +205,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		MyGestureDetectorListener.DownSwipe callback = new MyGestureDetectorListener.DownSwipe() {			
 			@Override
 			public void onDown() {
-				showSettings();
+				((MainActivity)getActivity()).showSettings(currentChartName);
 			}
 		};
 	
@@ -266,6 +255,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 			}		
 			if(result.isEmpty()){
 				Toast.makeText(getActivity(), "No data is returned from server.", Toast.LENGTH_LONG).show();
+				((MainActivity)getActivity()).showSettings(currentChartName);
 			}				
 		}
 
