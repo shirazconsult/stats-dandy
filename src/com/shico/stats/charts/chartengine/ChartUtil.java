@@ -64,11 +64,15 @@ public class ChartUtil {
 	    	barWidth = 7f;
 	    	break;
     	case XHIGH:
-	    	barWidth = 12f;
+	    	barWidth = 10f;
 	    	break;
 	    }
     	if(data.allTitles != null && data.allTitles.size() >= 10){
-    		barWidth -= 4f;
+    		if(data.allXLabels.size() >= 5){
+    			barWidth = 2f;
+    		}else{
+    			barWidth -= 4f;
+    		}
 	    }
     	if(DisplayUtil.getOritentation(context) == Configuration.ORIENTATION_LANDSCAPE){
     		barWidth += 4f;
@@ -163,7 +167,8 @@ public class ChartUtil {
 	    renderer.setFitLegend(true);
 	    renderer.setApplyBackgroundColor(true);
 	    renderer.setLegendHeight(100);
-
+	    renderer.setZoomEnabled(true);
+	    
 	    return renderer;
 	}
 
@@ -193,8 +198,8 @@ public class ChartUtil {
 	    renderer.setFitLegend(true);
 	    renderer.setApplyBackgroundColor(true);
 		
-		renderer.setPanEnabled(false, false);
-//	    renderer.setZoomEnabled(true, true);
+		renderer.setPanEnabled(true, true);
+	    renderer.setZoomEnabled(true, true);
 //	    renderer.setZoomButtonsVisible(true);
 
 		return renderer;

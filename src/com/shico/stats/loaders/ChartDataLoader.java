@@ -142,8 +142,9 @@ public class ChartDataLoader {
 			
 			@Override
 			public void onFailure(Throwable t, String content) {
-				Log.e("ChartDataLoader", t.getMessage());
-				callback.failure(new RuntimeException("Connection Failure. "+t.getMessage()));
+				String msg = t.getCause() != null ? t.getCause().getMessage() : t.getMessage();
+				Log.e("ChartDataLoader", msg );
+				callback.failure(new RuntimeException("Connection Failure. "+msg));
 			}			
 			
 		});		
@@ -182,8 +183,9 @@ public class ChartDataLoader {
 			
 			@Override
 			public void onFailure(Throwable t, String content) {
-				Log.e("ChartDataLoader", t.getMessage());
-				callback.failure(new RuntimeException("Connection Failure. "+t.getMessage()));
+				String msg = t.getCause() != null ? t.getCause().getMessage() : t.getMessage();
+				Log.e("ChartDataLoader", msg );
+				callback.failure(new RuntimeException("Connection Failure. "+msg));
 			}			
 		});
 	}
