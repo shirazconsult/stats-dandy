@@ -42,6 +42,7 @@ public class ChartDataLoader {
 	private String baseUrl;
 	private String host;
 	private int port;
+	private int timeout;
 	private Callback callback;
 	
 	private List<List<String>> currentRows;
@@ -138,6 +139,13 @@ public class ChartDataLoader {
 				Log.e("ChartDataLoader", "Failed to retrieve data for "+url+". "+(t != null ? t.getMessage() : ""));
 				callback.failure(new RuntimeException("Failed to retrieve data. "+t.getMessage()));
 			}
+			
+			@Override
+			public void onFailure(Throwable t, String content) {
+				Log.e("ChartDataLoader", t.getMessage());
+				callback.failure(new RuntimeException("Connection Failure. "+t.getMessage()));
+			}			
+			
 		});		
 	}
 	
@@ -171,6 +179,12 @@ public class ChartDataLoader {
 				Log.e("ChartDataLoader", "Failed to retrieve data for "+url+". "+(t != null ? t.getMessage() : ""));
 				callback.failure(new RuntimeException("Failed to retrieve data. "+t.getMessage()));
 			}
+			
+			@Override
+			public void onFailure(Throwable t, String content) {
+				Log.e("ChartDataLoader", t.getMessage());
+				callback.failure(new RuntimeException("Connection Failure. "+t.getMessage()));
+			}			
 		});
 	}
 		
@@ -215,7 +229,9 @@ public class ChartDataLoader {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 		host = prefs.getString("host", "10.0.2.2");
 		port = Integer.parseInt(prefs.getString("port", "9119"));		
+		timeout = Integer.parseInt(prefs.getString("connectionTimeout", "5"));
 		
 		baseUrl = new StringBuilder("http://").append(host).append(":").append(port).append(REST_PATH).toString();
+		client.setTimeout(timeout * 1000);
 	}
 }

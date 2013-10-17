@@ -25,12 +25,15 @@
     <!-- ########### -->
     <string name="global_settings_title">Global Settings</string>
     <string name="server_settings_title">Server Settings</string>
-    <string name="server_addr_dialog_title">Server Address</string>
-    <string name="server_addr_title">Host Name/IP</string>
-    <string name="server_addr_sum">Name or IP address of the statistics REST service</string>
-    <string name="server_port_dialog_title">Server Port</string>
-    <string name="server_port_title">Port</string>
-    <string name="server_port_sum">Port number of the statistics REST service</string>
+    <string name="server_addr_dialog_title">Host Name/IP</string>
+    <string name="server_addr_title">Server Address</string>
+    <string name="server_addr_sum">Name or IP address of the statistics server</string>
+    <string name="server_port_dialog_title">Port</string>
+    <string name="server_port_title">Server Port</string>
+    <string name="server_port_sum">Port number of the statistics server</string>
+    <string name="server_timeout_dialog_title">Connection Timeout</string>
+    <string name="server_timeout_title">Connection Timeout</string>
+    <string name="server_timeout_sum">Number of seconds to wait for the server to respond</string>
     <string name="user_creds_title">User Credentials</string>
     <string name="user_id">User name</string>
     <string name="user_pwd">Password</string>

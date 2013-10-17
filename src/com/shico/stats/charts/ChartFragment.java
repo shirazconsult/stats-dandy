@@ -261,6 +261,9 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 
 		@Override
 		public void failure(Exception ex) {
+			if(progressDiag != null){
+				progressDiag.dismiss();
+			}
 			Toast.makeText(getActivity(), ex.getMessage(), Toast.LENGTH_LONG).show();
 		}	
 	}

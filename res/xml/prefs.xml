@@ -33,6 +33,17 @@
             android:persistent="true"
             android:title="@string/server_port_title" 
             android:summary="@string/server_port_sum"/>
+		<EditTextPreference
+            android:defaultValue="5"
+            android:dialogTitle="@string/server_timeout_dialog_title"
+            android:key="connectionTimeout"
+            android:order="3"
+            android:numeric="integer"
+            android:inputType="number"
+    		android:maxLength="2"
+            android:persistent="true"
+            android:title="@string/server_timeout_title" 
+            android:summary="@string/server_timeout_sum"/>        
 	</PreferenceCategory>
     <PreferenceCategory
         android:key="user_creds_settings"
