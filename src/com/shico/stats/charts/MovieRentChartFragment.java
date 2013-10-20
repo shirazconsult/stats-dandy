@@ -27,6 +27,7 @@ public class MovieRentChartFragment extends ChartFragment {
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
 		StringBuilder titleBuilder = new StringBuilder().
+				append(getChartTitle()).append("\n").
 				append(currentFrom).append(" / ").append(currentTo).append(" (").
 				append(Character.toUpperCase(topBottomOption.charAt(0))+topBottomOption.substring(1)).
 				append(" ").append(numberOption).append(")");
@@ -34,10 +35,10 @@ public class MovieRentChartFragment extends ChartFragment {
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.viewersIdx, 
-					new ChartTitles("", "Number of Rentals", "Movie Rentals\n"+titleBuilder.toString()));
+					new ChartTitles("", "Number of Rentals", titleBuilder.toString()));
 		case SECOND_PAGE_WITH_PIE_CHART:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
-					"Movie Rentals\n"+titleBuilder.toString());
+					titleBuilder.toString());
 		}
 		return null;
 	}
@@ -50,6 +51,10 @@ public class MovieRentChartFragment extends ChartFragment {
 		default:
 			return ChartType.PIE_CHART;
 		}
-	}  		
+	}
 
+	@Override
+	protected String getChartTitle() {
+		return "Movie Rentals";
+	}  		
 }

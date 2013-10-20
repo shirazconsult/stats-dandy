@@ -43,6 +43,7 @@ public class LiveUsageChartFragment extends ChartFragment {
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
 		StringBuilder titleBuilder = new StringBuilder().
+				append(getChartTitle()).append("\n").
 				append(currentFrom).append(" / ").append(currentTo).append(" (").
 				append(Character.toUpperCase(topBottomOption.charAt(0))+topBottomOption.substring(1)).
 				append(" ").append(numberOption).append(")");
@@ -50,17 +51,17 @@ public class LiveUsageChartFragment extends ChartFragment {
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.viewersIdx, 
-					new ChartTitles("", "Number of Viewers", "TV Channels\n"+titleBuilder.toString()));
+					new ChartTitles("", "Number of Viewers", titleBuilder.toString()));
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.durationIdx, 
-					new ChartTitles("", "Total Watched Hours", "TV Channels\n"+titleBuilder.toString()));
+					new ChartTitles("", "Total Watched Hours", titleBuilder.toString()));
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
-					"TV Channels - Number of Viewers\n"+titleBuilder.toString());
+					titleBuilder.toString());
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.durationIdx, 
-					"TV Channels - Total Watched Hours\n"+titleBuilder.toString());
+					titleBuilder.toString());
 		}
 		return null;
 	}
@@ -74,6 +75,19 @@ public class LiveUsageChartFragment extends ChartFragment {
 		default:
 			return ChartType.PIE_CHART;
 		}
+	}
+
+	@Override
+	protected String getChartTitle() {
+		switch(viewpage){
+		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
+		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
+			return "TV Channels";
+		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
+			return "TV Channels - Total Number of Viewers";
+		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
+			return "TV Channels - Total Watched Hours";
+		}
+		return "";
 	}  	
-		
 }

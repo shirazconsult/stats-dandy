@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,9 +81,10 @@ public class MainActivity extends Activity {
 			}
 		};
 		mDrawerLayout.setDrawerListener(mDrawerToggle);
+		mMenuDrawer.expandGroup(0);
 
 		if (savedInstanceState == null) {
-			mMenuDrawer.performItemClick(mMenuDrawer, 3, mMenuDrawer.getItemIdAtPosition(3));
+			getFragmentManager().beginTransaction().replace(R.id.container_frame, new AboutFragment()).commit();
 		}else{
 			lastSelectedGroupPosition = savedInstanceState.getInt(ARG_MENU_ITEM_IDX);
 			lastSelectedChildItem = savedInstanceState.getString(ARG_MENU_CHART_ITEM_NAME);
@@ -117,16 +119,25 @@ public class MainActivity extends Activity {
 		super.onSaveInstanceState(outState);
 	}
 
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.main, menu);
+		getMenuInflater().inflate(R.menu.menu, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+			case R.id.settings_option:
+				getFragmentManager().beginTransaction().replace(R.id.container_frame, new SettingsFragment()).commit();
+				return true;
+			case R.id.help_option:
+				getFragmentManager().beginTransaction().replace(R.id.container_frame, new HelpFragment()).commit();
+				return true;
+			case R.id.about_option:
+				getFragmentManager().beginTransaction().replace(R.id.container_frame, new AboutFragment()).commit();
+				return true;
+		}
 		// The action bar home/up action should open or close the drawer.
 		// ActionBarDrawerToggle will take care of this.
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -172,13 +183,13 @@ public class MainActivity extends Activity {
 				int groupPosition, long id) {
 			switch (groupPosition) {
 			case MenuAdapter.CHARTS_MENU_IDX:
-				if (mMenuDrawer.isGroupExpanded(groupPosition)) {
-					mMenuDrawer.collapseGroup(groupPosition);
-				} else {
-					mMenuDrawer.expandGroup(groupPosition);
-				}
+//				if (mMenuDrawer.isGroupExpanded(groupPosition)) {
+//					mMenuDrawer.collapseGroup(groupPosition);
+//				} else {
+//					mMenuDrawer.expandGroup(groupPosition);
+//				}
 				mMenuDrawer.setItemChecked(groupPosition, true);
-				return true;
+				return true;				
 			case MenuAdapter.SETTINGS_MENU_IDX:
 				getFragmentManager().beginTransaction().replace(R.id.container_frame, new SettingsFragment()).commit();
 				break;
@@ -242,5 +253,9 @@ public class MainActivity extends Activity {
 		chartSettingsDialog.setArguments(args);
 		chartSettingsDialog.show(getFragmentManager(), "ChartSettingsDialog");
 	}
-
+	
+	public void onMyClick(MenuItem item) {
+		Log.d("ChartFragment", "<<onMyClick at Main Activity>>");
+	}
+	
 }

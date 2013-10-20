@@ -74,6 +74,19 @@ public class ProgramChartFragment extends ChartFragment {
 		default:
 			return ChartType.PIE_CHART;
 		}
-	}  		
+	}
 
+	@Override
+	protected String getChartTitle() {
+		switch(viewpage){
+		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
+		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
+			return "TV Programs";
+		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
+			return "TV Programs - Number of Viewers";
+		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
+			return "TV Programs - Total Watched Hours";
+		}  		
+		return "";
+	}
 }

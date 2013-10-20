@@ -1,5 +1,8 @@
 package com.shico.stats.charts.chartengine;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -15,9 +18,13 @@ import org.achartengine.renderer.XYSeriesRenderer;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
 import android.graphics.Typeface;
+import android.util.Log;
+import android.view.View.MeasureSpec;
 
 import com.shico.stats.R;
 import com.shico.stats.loaders.ChartDataLoader;
@@ -86,7 +93,7 @@ public class ChartUtil {
 	    GraphicalView barChartView = ChartFactory.getBarChartView(context, buildBarDataset(data), renderer, Type.DEFAULT);
 	    return barChartView;
 	}
-
+	private static GraphicalView v;
 	private static GraphicalView createPieChartView(Context context, List<List<String>> rows, int valueIdx, String title, boolean forPrograms){
 		DefaultRenderer renderer = buildPieRenderer();
 		
@@ -121,6 +128,7 @@ public class ChartUtil {
 	    	series.add(cat, val);
 		}
 	    renderer.setDisplayValues(true);
+	    
 	    GraphicalView pieChartView = ChartFactory.getPieChartView(context, series, renderer);
 	    return pieChartView;
 	}
@@ -198,8 +206,8 @@ public class ChartUtil {
 	    renderer.setFitLegend(true);
 	    renderer.setApplyBackgroundColor(true);
 		
-		renderer.setPanEnabled(true, true);
-	    renderer.setZoomEnabled(true, true);
+		renderer.setPanEnabled(false, false);
+//	    renderer.setZoomEnabled(true, true);
 //	    renderer.setZoomButtonsVisible(true);
 
 		return renderer;
@@ -269,4 +277,31 @@ public class ChartUtil {
 		return colorScheme;
 	}
 	
+	public static void writeToFile(Context ctx, GraphicalView view) throws IOException{
+		v.setDrawingCacheEnabled(true);
+		v.layout(0, 0,v.getMeasuredWidth(),v.getMeasuredHeight());
+		
+		view.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), 
+	            MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+
+	      view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+	      v.buildDrawingCache(true);
+		Bitmap b = Bitmap.createBitmap(v.getDrawingCache());
+        v.setDrawingCacheEnabled(false);
+
+        FileOutputStream fos = null;
+        try{
+        	File f = new File(ctx.getFilesDir()+"/chart.jpg");
+        	if(f.exists()){
+        		f.delete();
+        	}
+        	fos = new FileOutputStream(f);
+        	boolean compress = b.compress(CompressFormat.JPEG, 90, fos);
+        	Log.d("ChartUtil", compress ? "Successfuly compressed" : "Failed to Compress");
+        }finally{
+        	if(fos != null){
+        		fos.close();
+        	}
+        }
+	}
 }

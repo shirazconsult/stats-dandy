@@ -51,5 +51,10 @@ public class WidgetShowChartFragment extends ChartFragment {
 		default:
 			return ChartType.PIE_CHART;
 		}
-	} 	
+	}
+
+	@Override
+	protected String getChartTitle() {
+		return "Widget Activations";
+	} 
 }

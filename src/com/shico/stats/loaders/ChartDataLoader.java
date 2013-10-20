@@ -143,7 +143,7 @@ public class ChartDataLoader {
 			@Override
 			public void onFailure(Throwable t, String content) {
 				String msg = t.getCause() != null ? t.getCause().getMessage() : t.getMessage();
-				Log.e("ChartDataLoader", msg );
+				Log.e("ChartDataLoader", "Connection Failure. "+msg);
 				callback.failure(new RuntimeException("Connection Failure. "+msg));
 			}			
 			
@@ -184,12 +184,32 @@ public class ChartDataLoader {
 			@Override
 			public void onFailure(Throwable t, String content) {
 				String msg = t.getCause() != null ? t.getCause().getMessage() : t.getMessage();
-				Log.e("ChartDataLoader", msg );
+				Log.e("ChartDataLoader", "Connection Failure. "+msg);
 				callback.failure(new RuntimeException("Connection Failure. "+msg));
 			}			
 		});
 	}
 		
+	public String toXml(List<List<String>> result, String spec){
+		if(result == null){
+			return "<data spec=\""+spec+"\"></data>";
+		}
+		StringBuilder res = new StringBuilder().append("<data spec=\""+spec+"\">");
+		for (List<String> row : result) {
+			res.append("\n    <row>");
+			int idx = 0;
+			for (String elem : row) {
+				String col = ChartDataLoader.topViewColumnNames[idx++];
+				res.append("\n        <").append(col).append(">").
+				append(elem == null ? "" : elem).
+				append("</").append(col).append(">");
+			}
+			res.append("\n    </row>");
+		}
+		res.append("\n</data>");
+		return res.toString();
+	}
+	
 	private final String getBaseUrl() {
 		if(baseUrl == null){
 			baseUrl = new StringBuilder("http://").append(host).append(":").append(port).append(REST_PATH).toString();

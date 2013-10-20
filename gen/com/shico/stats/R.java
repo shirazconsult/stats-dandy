@@ -20,6 +20,12 @@ public final class R {
         public static final int choose_date=0x7f090007;
         public static final int dataload_options=0x7f090005;
         public static final int menu_chart_items=0x7f090001;
+        /**  
+        <item>Settings</item>
+        <item>Help</item>
+        <item>About</item>
+         
+         */
         public static final int menu_items=0x7f090000;
         public static final int months=0x7f090006;
         public static final int num_of_score_items=0x7f090004;
@@ -229,34 +235,39 @@ public final class R {
         public static final int simple_border=0x7f02000d;
     }
     public static final class id {
-        public static final int chart_menu_item=0x7f0b001b;
-        public static final int chart_pager=0x7f0b000d;
-        public static final int chartview=0x7f0b000e;
-        public static final int choose_date_spinner=0x7f0b0008;
-        public static final int container_frame=0x7f0b0005;
-        public static final int dataload_options_spinner=0x7f0b0007;
-        public static final int drawer_layout=0x7f0b0004;
-        public static final int drawer_menu_item=0x7f0b0010;
-        public static final int duration=0x7f0b001a;
-        public static final int event_name=0x7f0b0011;
-        public static final int event_time=0x7f0b0012;
-        public static final int from_month_spinner=0x7f0b0009;
-        public static final int from_year_spinner=0x7f0b000a;
-        public static final int groupped_data_list=0x7f0b000f;
-        public static final int help_chart_btn=0x7f0b0016;
-        public static final int help_chartsettings_btn=0x7f0b0018;
-        public static final int help_page_intro=0x7f0b0015;
-        public static final int help_pie_btn=0x7f0b0017;
-        public static final int help_scrollview=0x7f0b0014;
-        public static final int menu_drawer=0x7f0b0006;
-        public static final int nordija_stats_title=0x7f0b0000;
-        public static final int powered_by=0x7f0b0002;
-        public static final int shico_writer=0x7f0b0003;
-        public static final int to_month_spinner=0x7f0b000b;
-        public static final int to_year_spinner=0x7f0b000c;
-        public static final int topic_help_textview=0x7f0b0019;
-        public static final int version_title=0x7f0b0001;
-        public static final int viewers=0x7f0b0013;
+        public static final int about_option=0x7f0c0020;
+        public static final int chart_menu_item=0x7f0c001b;
+        public static final int chart_pager=0x7f0c000d;
+        public static final int chartview=0x7f0c000e;
+        public static final int choose_date_spinner=0x7f0c0008;
+        public static final int container_frame=0x7f0c0005;
+        public static final int dataload_options_spinner=0x7f0c0007;
+        public static final int drawer_layout=0x7f0c0004;
+        public static final int drawer_menu_item=0x7f0c0010;
+        public static final int duration=0x7f0c001a;
+        public static final int event_name=0x7f0c0011;
+        public static final int event_time=0x7f0c0012;
+        public static final int from_month_spinner=0x7f0c0009;
+        public static final int from_year_spinner=0x7f0c000a;
+        public static final int groupped_data_list=0x7f0c000f;
+        public static final int help_chart_btn=0x7f0c0016;
+        public static final int help_chartsettings_btn=0x7f0c0018;
+        public static final int help_option=0x7f0c001f;
+        public static final int help_page_intro=0x7f0c0015;
+        public static final int help_pie_btn=0x7f0c0017;
+        public static final int help_scrollview=0x7f0c0014;
+        public static final int menu_drawer=0x7f0c0006;
+        public static final int menu_item_search=0x7f0c001c;
+        public static final int menu_item_share=0x7f0c001d;
+        public static final int nordija_stats_title=0x7f0c0000;
+        public static final int powered_by=0x7f0c0002;
+        public static final int settings_option=0x7f0c001e;
+        public static final int shico_writer=0x7f0c0003;
+        public static final int to_month_spinner=0x7f0c000b;
+        public static final int to_year_spinner=0x7f0c000c;
+        public static final int topic_help_textview=0x7f0c0019;
+        public static final int version_title=0x7f0c0001;
+        public static final int viewers=0x7f0c0013;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -272,6 +283,10 @@ public final class R {
         public static final int liveusage_groupped_data_list=0x7f03000a;
         public static final int menu_chart_item=0x7f03000b;
         public static final int month_chooser=0x7f03000c;
+    }
+    public static final class menu {
+        public static final int chart_menu=0x7f0b0000;
+        public static final int menu=0x7f0b0001;
     }
     public static final class string {
         public static final int action_websearch=0x7f080004;

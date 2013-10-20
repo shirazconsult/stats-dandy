@@ -1,5 +1,8 @@
 package com.shico.stats.charts;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import org.achartengine.GraphicalView;
@@ -11,13 +14,19 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.ActionProvider;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,9 +38,6 @@ import android.widget.Toast;
 
 import com.shico.stats.MainActivity;
 import com.shico.stats.R;
-import com.shico.stats.R.anim;
-import com.shico.stats.R.id;
-import com.shico.stats.R.layout;
 import com.shico.stats.adapters.GrouppedDataListAdapter;
 import com.shico.stats.charts.chartengine.ChartType;
 import com.shico.stats.loaders.ChartDataLoader;
@@ -108,6 +114,8 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		if(currentChartName != null){
 			loadChartView();
 		}
+		
+		setHasOptionsMenu(true);
 		
 		return v;
 	}
@@ -190,6 +198,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	protected abstract void loadChartData();
 	protected abstract GraphicalView createChartView(List<List<String>> dataRows);
 	protected abstract ChartType getChartType(int position); 
+	protected abstract String getChartTitle();
 	
 	protected String getLoadOptions(){
 		return "viewers,"+currentChartOptions;
@@ -221,6 +230,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		}
 	}
 
+	private List<List<String>> currentResult = null;
 	public class MyCallback implements ChartDataLoader.Callback {
 		@Override
 		public void success(List<List<String>> result) {
@@ -256,7 +266,8 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 			if(result.isEmpty()){
 				Toast.makeText(getActivity(), "No data is returned from server.", Toast.LENGTH_LONG).show();
 				((MainActivity)getActivity()).showSettings(currentChartName);
-			}				
+			}	
+			currentResult = result;
 		}
 
 		@Override
@@ -286,5 +297,72 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 			return false;
 		}
 		return true;
+	}
+	
+	private ActionProvider menuActionProvider;
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.chart_menu, menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_item_search:
+			((MainActivity)getActivity()).showSettings(currentChartName);
+			break;
+		case R.id.menu_item_share:
+			if(getUserVisibleHint()){
+				String title = buildShareTitle();
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.putExtra(android.content.Intent.EXTRA_SUBJECT, title);
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_TEXT, getChartDataLoader().toXml(currentResult, title));
+				// Comment out the following if sharing image chart
+//				View chart = chartview.getChildAt(0);
+//				if(chart != null){
+//					try {
+//						ChartUtil.writeToFile(getActivity(), (GraphicalView)chart);
+//						exportView(chartview.getChildAt(0));
+//					} catch (IOException e) {
+//						Toast.makeText(getActivity(), "Failed to export chart.", Toast.LENGTH_SHORT).show();
+//						return false;
+//					}
+//				}
+//			      intent.setType("image/jpg");
+//			      File f = new File(getActivity().getFilesDir()+"/chart.jpg");
+//			      intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
+			      startActivity(Intent.createChooser(intent , "Share Chart Data"));				
+			}
+			break;
+		}
+		return false;
+	}
+	
+	private String buildShareTitle(){
+		return new StringBuilder().
+				append(getChartTitle()).append(" - ").
+				append(currentFrom).append(" / ").append(currentTo).append(" (").
+				append(Character.toUpperCase(topBottomOption.charAt(0))+topBottomOption.substring(1)).
+				append(" ").append(numberOption).append(")").toString();
+	}
+	
+	private void exportView(View view) throws IOException{
+		view.setDrawingCacheEnabled(true);
+		Bitmap b = view.getDrawingCache();
+        FileOutputStream fos = null;
+        try{
+        	File f = new File(getActivity().getFilesDir()+"/chart.jpg");
+        	if(f.exists()){
+        		f.delete();
+        	}
+        	fos = new FileOutputStream(f);
+        	boolean compress = b.compress(CompressFormat.JPEG, 90, fos);
+        	Log.d("ChartUtil", compress ? "Successfuly compressed" : "Failed to Compress");
+        }finally{
+        	if(fos != null){
+        		fos.close();
+        	}
+        }
 	}
 }

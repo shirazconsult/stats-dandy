@@ -7,9 +7,11 @@
     <string name="settings_title">Settings</string>
     <string-array name="menu_items">
         <item>Charts</item>
+        <!-- 
         <item>Settings</item>
         <item>Help</item>
         <item>About</item>
+         -->
     </string-array>
     <string-array name="menu_chart_items">
         <item>Channels</item>
