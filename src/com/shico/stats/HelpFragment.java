@@ -3,11 +3,16 @@ package com.shico.stats;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class HelpFragment extends Fragment implements OnClickListener {
 	public static final String ARG_TEXT_ID = "ARG_TEXT_ID";
@@ -25,12 +30,34 @@ public class HelpFragment extends Fragment implements OnClickListener {
 
 		((ImageButton)view.findViewById(R.id.help_chart_btn)).setOnClickListener(this);
 		((ImageButton)view.findViewById(R.id.help_pie_btn)).setOnClickListener(this);
-		((ImageButton)view.findViewById(R.id.help_chartsettings_btn)).setOnClickListener(this);
+		((ImageButton)view.findViewById(R.id.help_settings_btn)).setOnClickListener(this);
 		
 
+		TextView v1 = (TextView)view.findViewById(R.id.help_page_intro);
+		TextView v2 = (TextView)view.findViewById(R.id.barchart_help_intro);
+		TextView v3 = (TextView)view.findViewById(R.id.piechart_help_intro);
+		TextView v4 = (TextView)view.findViewById(R.id.settings_help_intro);
+		
+		v1.setMovementMethod(LinkMovementMethod.getInstance());
+		v2.setMovementMethod(LinkMovementMethod.getInstance());
+		v3.setMovementMethod(LinkMovementMethod.getInstance());
+		v4.setMovementMethod(LinkMovementMethod.getInstance());
+		
+		v1.setText(Html.fromHtml(getString(R.string.help_page_intro)));
+		v2.setText(Html.fromHtml(getString(R.string.barchart_help_intro)));
+		v3.setText(Html.fromHtml(getString(R.string.piechart_help_intro)));
+		v4.setText(Html.fromHtml(getString(R.string.settings_help_intro)));
+
+		setHasOptionsMenu(true);
+		
 		return view;
 	}
 
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		menu.removeItem(R.id.menu_item_share);
+		menu.removeItem(R.id.menu_item_search);
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -48,9 +75,9 @@ public class HelpFragment extends Fragment implements OnClickListener {
 			title = getResources().getString(R.string.piechart_help_title);
 			iconId = R.drawable.ic_piechart_help;
 			break;
-		case R.id.help_chartsettings_btn:
-			textId = R.string.chartsettings_help_topic;
-			title = getResources().getString(R.string.chartsettings_help_title);
+		case R.id.help_settings_btn:
+			textId = R.string.settings_help_topic;
+			title = getResources().getString(R.string.settings_help_title);
 			iconId = R.drawable.ic_settings;
 			break;
 		default:

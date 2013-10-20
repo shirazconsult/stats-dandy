@@ -130,75 +130,103 @@
     
     <!-- Help page -->
     <string name="help_title">Help</string>
-    <string name="help_page_intro">The position parameter indicates where a given page is located 
-        relative to the center of the screen. It is a dynamic property that changes as the user 
-        scrolls through the pages. When a page fills the screen, its position value is 0. When 
-        a page is drawn just off the right side of the screen, its position value is 1.</string>
-     <string name="barchart_help_intro">This section explains the various bar charts and how to
-         understand them. This section explains the various bar charts and how to
-         understand them.</string>
+    <string name="help_page_intro">
+         <![CDATA[
+         <p>
+         This application retrieves statistics information from Nordija\'s backend services and can only be used with the
+         statistics services infrastructure provided by Nordija.
+         Nordija\'s statistics services provide various information regarding the end user\'s behaviour on <i>TV set-top 
+         boxes</i> and <i>Nordija\'s second screen applications</i>.
+         <p>
+         This application presents data in charts and tables for various time frames for the recent year. For each time frame
+         you may choose to see the top 3, 5 and 10 or the bottom 3, 5, and 10 events. By &quot;top&quot; we mean the most popular 
+         and by &quot;bottom&quot; we mean the least popular.
+         </p>
+         <p> 
+         The current version processes statistics with respect to <i>TV channels</i>, <i>TV programs</i>, <i>movie rentals</i> and
+         <i>widget activations</i>.
+         </p>
+         ]]>          
+    </string>
+     <string name="barchart_help_intro">
+         <![CDATA[
+         Depending on the type of event (channel or program, movie rentals etc.) there may be one or two different column 
+         charts. For channels and programs we usually have two column charts, one that shows ...
+         ]]>
+         </string>
      <string name="barchart_help_title">Bar Charts</string>
-     <string name="piechart_help_intro">This section explains the various pie charts and how to
-         understand them. This section explains the various pie charts and how to
-         understand them.</string>
+     <string name="piechart_help_intro">         
+         <![CDATA[
+         Depending on the type of event (channel or program, movie rentals etc.) there may be one or two different pie 
+         charts. For channels and programs we usually have two pie charts, one that shows ...
+         ]]>
+     </string>
      <string name="piechart_help_title">Pie Charts</string>
-     <string name="chartsettings_help_intro">This section explains how you may define the chart data which
-         are to be retrieved from the server. This section explains how you may define the chart data which
-         are to be retrieved from the server.</string>
-     <string name="chartsettings_help_title">Chart Settings</string>
+     <string name="settings_help_intro">
+         <![CDATA[
+         The settings page contains information which is necessary to set correctly up before the application can work properly.
+         The main part of the settings is about the <i>server address</i> and <i>port</i> where the Nordija statistics ...
+         ]]>
+     </string>
+     <string name="settings_help_title">Chart Settings</string>
      <string name="barchart_help_topic">
-		 <![CDATA[
-		 <p>
-		 You can display simple forms of Html in a text view.
-		 You use the Html class and its fromHtml static method.
-		 See
-		 <a href="http://developer.android.com/reference/android/text/Html.html">Html
-		  on Android Developers</a>.
-		 </p>
-		 <p>
-		 As shown here, paragraphs are supported,
-		 as are <b>bold text</b> and <i>italics</i>.
-		 The preceding paragraph has a link in it.
-		 </p>
-		 <p><b>Return to the previous screen by touching the Back button.</b>
-		 </p>
-		 ]]>
+         <![CDATA[
+         <p>
+         Depending on the type of event (channel or program, movie rentals etc.) there may be one or two different column 
+         charts. For channels and programs we usually have two column charts, one that shows the number of viewers and one that 
+         shows the total number of watched hours. For movie rentals and widget activations theres only one column chart showing
+         the total number of happenings.  
+         </p>
+         <p>
+         Bar charts or column charts show data for various time intervals. 
+         </p>
+         <p>
+         If the chart time spans over a day (e.g. current day), then the chart shows data for each hour since midnight. 
+         </p>
+         <p>
+         If the chart time spans over a week (e.g. current week), then the chart shows data for each day since sunday. 
+         </p>         
+         <p>
+         If the chart time spans over a month or less, then the chart shows data for each week in the month. 
+         </p>
+         <p>
+         If the chart time spans over several months (e.g. current year) then the chart shows data for each months.
+         </p>
+         ]]>
 	 </string>
      <string name="piechart_help_topic">
-		 <![CDATA[
-		 <p>
-		 You can display simple forms of Html in a text view.
-		 You use the Html class and its fromHtml static method.
-		 See
-		 <a href="http://developer.android.com/reference/android/text/Html.html">Html
-		  on Android Developers</a>.
-		 </p>
-		 <p>
-		 As shown here, paragraphs are supported,
-		 as are <b>bold text</b> and <i>italics</i>.
-		 The preceding paragraph has a link in it.
-		 </p>
-		 <p><b>Return to the previous screen by touching the Back button.</b>
-		 </p>
-		 ]]>
+         <![CDATA[
+         <p>
+         Depending on the type of event (channel or program, movie rentals etc.) there may be one or two different pie 
+         charts. For channels and programs we usually have two pie charts, one that shows the number of viewers and one that 
+         shows the total number of watched hours. For movie rentals and widget activations theres only one column chart showing
+         the total number of happenings.  
+         </p>
+         <p>
+         Contrary to the column charts pie charts show data for the whole period of time. Here we don\'t divide the data into
+         smaller intervals. 
+         </p>
+         <p>
+         Pie charts show both the exact number and the percentage of the happenings in each slice.
+         </p>
+         ]]>
 	 </string>
-     <string name="chartsettings_help_topic">
-		 <![CDATA[
-		 <p>
-		 You can display simple forms of Html in a text view.
-		 You use the Html class and its fromHtml static method.
-		 See
-		 <a href="http://developer.android.com/reference/android/text/Html.html">Html
-		  on Android Developers</a>.
-		 </p>
-		 <p>
-		 As shown here, paragraphs are supported,
-		 as are <b>bold text</b> and <i>italics</i>.
-		 The preceding paragraph has a link in it.
-		 </p>
-		 <p><b>Return to the previous screen by touching the Back button.</b>
-		 </p>
-		 ]]>
+     <string name="settings_help_topic">
+         <![CDATA[
+         <p>
+         The settings page contains information which is necessary to set correctly up before the application can work properly.
+         The main part of the settings is about the <i>server address</i> and <i>port</i> where the Nordija statistics services 
+         run and the <i>user credentials</i> which are necessary to authenticate against those services.     
+         </p>
+         <p>
+         &#8226; <li>Server Address</li>: Must be the name or the IP address of the server running the <i>Nordija\'s Statistics REST Services</i>.<br/><br/>
+         &#8226; <li>Server Port</li>: Must be the port number of the <i>Nordija\'s Statistics REST Services</i>. It is 9119 per default.<br/><br/>
+         &#8226; <li>Connection Timeout</li>: Number of seconds the application should wait for responses from server before giving up. Default is 5 seconds.<br/><br/>
+         &#8226; <li>User name</li>: The User id which is required to authenticate when connecting to the <i>Nordija\'s Statistics REST Services</i>.<br/><br/>
+         &#8226; <li>Password</li>: The password which is required to authenticate when connecting to the <i>Nordija\'s Statistics REST Services</i>.<br/><br/>
+         &#8226; <li>Only WiFi</li>: Indicates whether the appication is allowed to fetch data from server when not on WiFi.
+         </p>
+         ]]>
 	 </string>
      
      

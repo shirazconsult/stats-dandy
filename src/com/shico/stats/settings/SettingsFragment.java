@@ -3,6 +3,8 @@ package com.shico.stats.settings;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,8 +27,16 @@ public class SettingsFragment extends PreferenceFragment {
 		
 		getActivity().getActionBar().setTitle(R.string.settings_title);
 		getActivity().getActionBar().setIcon(R.drawable.ic_settings);
-		
+
+		setHasOptionsMenu(true);
+
 		return v;
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		menu.removeItem(R.id.menu_item_share);
+		menu.removeItem(R.id.menu_item_search);
 	}
 	
 }

@@ -3,6 +3,8 @@ package com.shico.stats;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -36,7 +38,15 @@ public class AboutFragment extends Fragment {
 			setTexts(view);
 		}
 		
+		setHasOptionsMenu(true);
+
 		return view;
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		menu.removeItem(R.id.menu_item_share);
+		menu.removeItem(R.id.menu_item_search);
 	}
 
 	private ScaleAnimation newScaleAnimation(long startOffset, float startScale, final AnimStartCallback startCallback, final AnimEndCallback endCallback){

@@ -234,8 +234,9 @@ public final class R {
         public static final int simple_border=0x7f02000d;
     }
     public static final class id {
-        public static final int about_option=0x7f0c0020;
-        public static final int chart_menu_item=0x7f0c001b;
+        public static final int about_option=0x7f0c0023;
+        public static final int barchart_help_intro=0x7f0c0017;
+        public static final int chart_menu_item=0x7f0c001e;
         public static final int chart_pager=0x7f0c000d;
         public static final int chartview=0x7f0c000e;
         public static final int choose_date_spinner=0x7f0c0008;
@@ -243,28 +244,30 @@ public final class R {
         public static final int dataload_options_spinner=0x7f0c0007;
         public static final int drawer_layout=0x7f0c0004;
         public static final int drawer_menu_item=0x7f0c0010;
-        public static final int duration=0x7f0c001a;
+        public static final int duration=0x7f0c001d;
         public static final int event_name=0x7f0c0011;
         public static final int event_time=0x7f0c0012;
         public static final int from_month_spinner=0x7f0c0009;
         public static final int from_year_spinner=0x7f0c000a;
         public static final int groupped_data_list=0x7f0c000f;
         public static final int help_chart_btn=0x7f0c0016;
-        public static final int help_chartsettings_btn=0x7f0c0018;
-        public static final int help_option=0x7f0c001f;
+        public static final int help_option=0x7f0c0022;
         public static final int help_page_intro=0x7f0c0015;
-        public static final int help_pie_btn=0x7f0c0017;
+        public static final int help_pie_btn=0x7f0c0018;
         public static final int help_scrollview=0x7f0c0014;
+        public static final int help_settings_btn=0x7f0c001a;
         public static final int menu_drawer=0x7f0c0006;
-        public static final int menu_item_search=0x7f0c001c;
-        public static final int menu_item_share=0x7f0c001d;
+        public static final int menu_item_search=0x7f0c001f;
+        public static final int menu_item_share=0x7f0c0020;
         public static final int nordija_stats_title=0x7f0c0000;
+        public static final int piechart_help_intro=0x7f0c0019;
         public static final int powered_by=0x7f0c0002;
-        public static final int settings_option=0x7f0c001e;
+        public static final int settings_help_intro=0x7f0c001b;
+        public static final int settings_option=0x7f0c0021;
         public static final int shico_writer=0x7f0c0003;
         public static final int to_month_spinner=0x7f0c000b;
         public static final int to_year_spinner=0x7f0c000c;
-        public static final int topic_help_textview=0x7f0c0019;
+        public static final int topic_help_textview=0x7f0c001c;
         public static final int version_title=0x7f0c0001;
         public static final int viewers=0x7f0c0013;
     }
@@ -298,9 +301,6 @@ public final class R {
         public static final int bottom=0x7f08001f;
         public static final int cancel=0x7f08002d;
         public static final int chart_settings_title=0x7f080016;
-        public static final int chartsettings_help_intro=0x7f08003c;
-        public static final int chartsettings_help_title=0x7f08003d;
-        public static final int chartsettings_help_topic=0x7f080040;
         public static final int currentDay=0x7f080029;
         public static final int currentMonth=0x7f08002b;
         public static final int currentWeek=0x7f08002a;
@@ -352,6 +352,9 @@ public final class R {
         public static final int server_timeout_dialog_title=0x7f08000d;
         public static final int server_timeout_sum=0x7f08000f;
         public static final int server_timeout_title=0x7f08000e;
+        public static final int settings_help_intro=0x7f08003c;
+        public static final int settings_help_title=0x7f08003d;
+        public static final int settings_help_topic=0x7f080040;
         public static final int settings_title=0x7f080001;
         /**  About page 
          */
