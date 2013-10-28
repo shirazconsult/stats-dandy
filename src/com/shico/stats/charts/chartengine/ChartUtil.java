@@ -75,14 +75,16 @@ public class ChartUtil {
 	    	break;
 	    }
     	if(data.allTitles != null && data.allTitles.size() >= 10){
-    		if(data.allXLabels.size() >= 5){
+    		if(data.allXLabels.size() >= 7){
     			barWidth = 2f;
+    		}else if(data.allXLabels.size() >= 5){
+    			barWidth = 4f;
     		}else{
-    			barWidth -= 4f;
+    			barWidth -= 2f;
     		}
 	    }
     	if(DisplayUtil.getOritentation(context) == Configuration.ORIENTATION_LANDSCAPE){
-    		barWidth += 4f;
+    		barWidth += 5f;
     	}
 	    renderer.setBarWidth(barWidth);
 	    renderer.setXLabels(0);

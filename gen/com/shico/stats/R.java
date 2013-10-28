@@ -16,20 +16,11 @@ public final class R {
         public static final int slide_up_dialog=0x7f040004;
     }
     public static final class array {
-        public static final int choose_date=0x7f090007;
-        public static final int dataload_options=0x7f090005;
+        public static final int choose_date=0x7f090004;
+        public static final int dataload_options=0x7f090002;
         public static final int menu_chart_items=0x7f090001;
-        /**  
-        <item>Settings</item>
-        <item>Help</item>
-        <item>About</item>
-         
-         */
         public static final int menu_items=0x7f090000;
-        public static final int months=0x7f090006;
-        public static final int num_of_score_items=0x7f090004;
-        public static final int scoreType=0x7f090003;
-        public static final int y_axis=0x7f090002;
+        public static final int months=0x7f090003;
     }
     public static final class attr {
     }
@@ -291,57 +282,79 @@ public final class R {
     }
     public static final class string {
         public static final int action_websearch=0x7f080004;
+        public static final int addUsage_cell_disp=0x7f08002b;
+        public static final int addUsage_title=0x7f08002a;
+        public static final int addUsage_y_title=0x7f080029;
         /**  Main Menu 
  ######### 
          */
         public static final int app_name=0x7f080000;
-        public static final int barchart_help_intro=0x7f080038;
-        public static final int barchart_help_title=0x7f080039;
-        public static final int barchart_help_topic=0x7f08003e;
-        public static final int bottom=0x7f08001f;
-        public static final int cancel=0x7f08002d;
+        public static final int barchart_help_intro=0x7f08006a;
+        public static final int barchart_help_title=0x7f08006b;
+        public static final int barchart_help_topic=0x7f080070;
+        public static final int bottom=0x7f08001a;
+        public static final int cancel=0x7f08005f;
+        public static final int channels_title_column_chart=0x7f08002e;
+        public static final int channels_title_pie_chart1=0x7f08002f;
+        public static final int channels_title_pie_chart2=0x7f080030;
+        public static final int channels_y_title1=0x7f08002c;
+        public static final int channels_y_title2=0x7f08002d;
         public static final int chart_settings_title=0x7f080016;
-        public static final int currentDay=0x7f080029;
-        public static final int currentMonth=0x7f08002b;
-        public static final int currentWeek=0x7f08002a;
+        public static final int currentDay=0x7f080024;
+        public static final int currentMonth=0x7f080026;
+        public static final int currentWeek=0x7f080025;
         public static final int drawer_close=0x7f080003;
         public static final int drawer_open=0x7f080002;
-        public static final int duration=0x7f08001d;
+        public static final int duration=0x7f080018;
+        public static final int dvr_cell_disp=0x7f080036;
+        public static final int dvr_title_column_chart=0x7f080033;
+        public static final int dvr_title_pie_chart1=0x7f080034;
+        public static final int dvr_title_pie_chart2=0x7f080035;
+        public static final int dvr_y_title1=0x7f080031;
+        public static final int dvr_y_title2=0x7f080032;
         /**  Buttons 
  ####### 
          */
-        public static final int fetch=0x7f08002c;
-        public static final int five=0x7f080021;
+        public static final int fetch=0x7f08005e;
+        public static final int five=0x7f08001c;
         /**  miscalaneous 
          */
-        public static final int from=0x7f08002f;
+        public static final int from=0x7f080061;
         /**  Preferences 
  ########### 
          */
         public static final int global_settings_title=0x7f080005;
-        public static final int help_page_intro=0x7f080037;
+        public static final int help_page_intro=0x7f080069;
         /**  Help page 
          */
-        public static final int help_title=0x7f080036;
-        public static final int nordija_logo=0x7f080035;
-        public static final int nordija_stats=0x7f080032;
-        public static final int num_of_score_items_title=0x7f08001b;
+        public static final int help_title=0x7f080068;
+        public static final int movierent_cell_disp=0x7f080039;
+        public static final int movierent_title=0x7f080038;
+        public static final int movierent_y_title=0x7f080037;
+        public static final int nordija_logo=0x7f080067;
+        public static final int nordija_stats=0x7f080064;
         public static final int only_wifi=0x7f080015;
-        public static final int piechart_help_intro=0x7f08003a;
-        public static final int piechart_help_title=0x7f08003b;
-        public static final int piechart_help_topic=0x7f08003f;
-        public static final int popular=0x7f080028;
-        public static final int powered_by=0x7f080034;
+        public static final int piechart_help_intro=0x7f08006c;
+        public static final int piechart_help_title=0x7f08006d;
+        public static final int piechart_help_topic=0x7f080071;
+        public static final int popular=0x7f080023;
+        public static final int powered_by=0x7f080066;
+        public static final int programs_title_column_chart=0x7f08003c;
+        public static final int programs_title_pie_chart1=0x7f08003d;
+        public static final int programs_title_pie_chart2=0x7f08003e;
+        public static final int programs_y_title1=0x7f08003a;
+        public static final int programs_y_title2=0x7f08003b;
         /**  reset preference dialog 
          */
-        public static final int reset_msg=0x7f080023;
-        public static final int reset_negativ=0x7f080024;
-        public static final int reset_positiv=0x7f080025;
-        public static final int reset_summery=0x7f080026;
-        public static final int reset_title=0x7f080027;
-        public static final int save=0x7f08002e;
-        public static final int score_type_sum=0x7f08001a;
-        public static final int score_type_title=0x7f080019;
+        public static final int reset_msg=0x7f08001e;
+        public static final int reset_negativ=0x7f08001f;
+        public static final int reset_positiv=0x7f080020;
+        public static final int reset_summery=0x7f080021;
+        public static final int reset_title=0x7f080022;
+        public static final int save=0x7f080060;
+        public static final int selfcaresub_cell_disp=0x7f080041;
+        public static final int selfcaresub_title=0x7f080040;
+        public static final int selfcaresub_y_title=0x7f08003f;
         public static final int server_addr_dialog_title=0x7f080007;
         public static final int server_addr_sum=0x7f080009;
         public static final int server_addr_title=0x7f080008;
@@ -352,26 +365,57 @@ public final class R {
         public static final int server_timeout_dialog_title=0x7f08000d;
         public static final int server_timeout_sum=0x7f08000f;
         public static final int server_timeout_title=0x7f08000e;
-        public static final int settings_help_intro=0x7f08003c;
-        public static final int settings_help_title=0x7f08003d;
-        public static final int settings_help_topic=0x7f080040;
+        public static final int settings_help_intro=0x7f08006e;
+        public static final int settings_help_title=0x7f08006f;
+        public static final int settings_help_topic=0x7f080072;
         public static final int settings_title=0x7f080001;
         /**  About page 
          */
-        public static final int shiraz_consult=0x7f080031;
-        public static final int ten=0x7f080022;
-        public static final int three=0x7f080020;
-        public static final int to=0x7f080030;
-        public static final int top=0x7f08001e;
+        public static final int shiraz_consult=0x7f080063;
+        public static final int shopview_cell_disp=0x7f080044;
+        public static final int shopview_title=0x7f080043;
+        public static final int shopview_y_title=0x7f080042;
+        public static final int startover_cell_disp=0x7f080047;
+        public static final int startover_title=0x7f080046;
+        public static final int startover_y_title=0x7f080045;
+        public static final int ten=0x7f08001d;
+        public static final int three=0x7f08001b;
+        /**  Charts 
+ ###### 
+         */
+        public static final int time_cell_disp=0x7f080027;
+        public static final int timeshift_title_column_chart=0x7f08004a;
+        public static final int timeshift_title_pie_chart1=0x7f08004b;
+        public static final int timeshift_title_pie_chart2=0x7f08004c;
+        public static final int timeshift_y_title1=0x7f080048;
+        public static final int timeshift_y_title2=0x7f080049;
+        public static final int to=0x7f080062;
+        public static final int top=0x7f080019;
         public static final int user_creds_title=0x7f080010;
         public static final int user_id=0x7f080011;
         public static final int user_id_sum=0x7f080013;
         public static final int user_pwd=0x7f080012;
         public static final int user_pwd_sum=0x7f080014;
-        public static final int version=0x7f080033;
-        public static final int viewers=0x7f08001c;
-        public static final int y_axis_sum=0x7f080018;
-        public static final int y_axis_title=0x7f080017;
+        public static final int version=0x7f080065;
+        public static final int viewers=0x7f080017;
+        public static final int viewers_cell_disp=0x7f080028;
+        public static final int vodmovie_cell_disp=0x7f080052;
+        public static final int vodmovie_title_column_chart=0x7f08004f;
+        public static final int vodmovie_title_pie_chart1=0x7f080050;
+        public static final int vodmovie_title_pie_chart2=0x7f080051;
+        public static final int vodmovie_y_title1=0x7f08004d;
+        public static final int vodmovie_y_title2=0x7f08004e;
+        public static final int vodtrailer_title_column_chart=0x7f080055;
+        public static final int vodtrailer_title_pie_chart1=0x7f080056;
+        public static final int vodtrailer_title_pie_chart2=0x7f080057;
+        public static final int vodtrailer_y_title1=0x7f080053;
+        public static final int vodtrailer_y_title2=0x7f080054;
+        public static final int webtvlogin_cell_disp=0x7f08005a;
+        public static final int webtvlogin_title=0x7f080059;
+        public static final int webtvlogin_y_title=0x7f080058;
+        public static final int widgetshow_cell_disp=0x7f08005d;
+        public static final int widgetshow_title=0x7f08005c;
+        public static final int widgetshow_y_title=0x7f08005b;
     }
     public static final class style {
         /** 

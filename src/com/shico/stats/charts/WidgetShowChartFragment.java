@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.achartengine.GraphicalView;
 
+import com.shico.stats.R;
 import com.shico.stats.charts.chartengine.ChartTitles;
 import com.shico.stats.charts.chartengine.ChartType;
 import com.shico.stats.charts.chartengine.ChartUtil;
@@ -18,10 +19,10 @@ public class WidgetShowChartFragment extends ChartFragment {
 	protected void loadChartData() {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
-			getChartDataLoader().getTopViewInBatch("/viewbatch/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
+			getChartDataLoader().getTopViewInBatch(EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 			break;
 		default:
-			getChartDataLoader().getTopView("/view/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
+			getChartDataLoader().getTopView(EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 		}		
 	}
 
@@ -35,10 +36,10 @@ public class WidgetShowChartFragment extends ChartFragment {
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.viewersIdx, 
-					new ChartTitles("", "Number of Activations", "Widget Activations\n"+titleBuilder.toString()));
+					new ChartTitles("", getString(R.string.widgetshow_y_title), getString(R.string.widgetshow_title)+"\n"+titleBuilder.toString()));
 		case SECOND_PAGE_WITH_PIE_CHART:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
-					"Widget Activations\n"+titleBuilder.toString());
+					getString(R.string.widgetshow_title)+"\n"+titleBuilder.toString());
 		}
 		return null;
 	}	
@@ -55,6 +56,11 @@ public class WidgetShowChartFragment extends ChartFragment {
 
 	@Override
 	protected String getChartTitle() {
-		return "Widget Activations";
+		return getString(R.string.widgetshow_title);
 	} 
+	
+	@Override
+	public String[] getCellDisplayStrings() {
+		return new String[]{"", getString(R.string.widgetshow_cell_disp)};
+	} 			
 }

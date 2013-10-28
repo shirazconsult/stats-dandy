@@ -7,16 +7,20 @@
     <string name="settings_title">Settings</string>
     <string-array name="menu_items">
         <item>Charts</item>
-        <!-- 
-        <item>Settings</item>
-        <item>Help</item>
-        <item>About</item>
-         -->
     </string-array>
     <string-array name="menu_chart_items">
+        <item>Advertisements</item>
         <item>Channels</item>
+        <item>DVR Recordings</item>
         <item>Movies</item>
         <item>Programs</item>
+        <item>Selfcare Sub.</item>
+        <item>Shop Views</item>
+        <item>Start Overs</item>
+        <item>Timeshift</item>
+        <item>VoD Movies</item>
+        <item>VoD Trailers</item>
+        <item>WebTV Logins</item>
         <item>Widgets</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
@@ -41,31 +45,12 @@
     <string name="user_pwd">Password</string>
     <string name="user_id_sum">User ID or name</string>
     <string name="user_pwd_sum">User Password</string>
-    <string name="only_wifi">Only Wifi</string>
+    <string name="only_wifi">Wifi Only</string>
     <string name="chart_settings_title">Default Chart Settings</string>
-    <string name="y_axis_title">Y Axis</string>
-    <string name="y_axis_sum">Whether data should be retrieved based on the number of viewers or the total usage time</string>
-    <string name="score_type_title">Score Type</string>
-    <string name="score_type_sum">Top \'x\' viewers or duration or bottom \'x\' viewers or duration ?</string>
-    <string name="num_of_score_items_title">Number of items</string>
     <string name="viewers">Viewers</string>
     <string name="duration">Duration</string>
     <string name="top">Top</string>
     <string name="bottom">Buttom</string>
-    <string-array name="y_axis">
-        <item>Viewers</item>
-        <item>Duration</item>
-    </string-array>
-    <string-array name="scoreType">
-        <item>Top</item>
-        <item>Bottom</item>
-    </string-array>
-    <string-array name="num_of_score_items">
-        <item>3</item>
-        <item>5</item>
-        <item>7</item>
-        <item>10</item>
-    </string-array>
     <string name="three">Three</string>
     <string name="five">Five</string>
     <string name="ten">Ten</string>
@@ -103,6 +88,65 @@
 	    <item>November</item>
 	    <item>December</item>
 	</string-array>
+	
+	<!-- Charts -->
+	<!-- ###### -->
+	<string name="time.cell.disp">hours of total time</string>
+	<string name="viewers.cell.disp">viewers</string>
+	
+	<string name="addUsage.y_title">Number of Advertisement Views</string>
+	<string name="addUsage.title">Advertisement Views</string>
+	<string name="addUsage.cell.disp">ad. views</string>
+	<string name="channels.y_title1">Number of Viewers</string>
+	<string name="channels.y_title2">Total Watched Hours</string>
+	<string name="channels.title.column.chart">TV Channels</string>
+	<string name="channels.title.pie.chart1">TV Channels - Total Number of Viewers</string>
+	<string name="channels.title.pie.chart2">TV Channels - Total Watched Hours</string>
+	<string name="dvr.y_title1">Number of Viewers</string>
+	<string name="dvr.y_title2">Total Watched Hours</string>
+	<string name="dvr.title.column.chart">DVR Recordings</string>
+	<string name="dvr.title.pie.chart1">DVR Recordings - Total Number of Recordings</string>
+	<string name="dvr.title.pie.chart2">DVR Recordings - Total Recorded Hours</string>
+	<string name="dvr.cell.disp">recordings</string>
+	<string name="movierent.y_title">Number of Rentals</string>
+	<string name="movierent.title">Movie Rentals</string>
+	<string name="movierent.cell.disp">rentals</string>
+	<string name="programs.y_title1">Number of Viewers</string>
+	<string name="programs.y_title2">Total Watched Hours</string>
+	<string name="programs.title.column.chart">TV Programs</string>
+	<string name="programs.title.pie.chart1">TV Programs - Number of Viewers</string>
+	<string name="programs.title.pie.chart2">TV Programs - Total Watched Hours</string>
+	<string name="selfcaresub.y_title">Number of Selfcare Subscriptions</string>
+	<string name="selfcaresub.title">Selfcare Subscriptions</string>
+	<string name="selfcaresub.cell.disp">subscriptions</string>
+	<string name="shopview.y_title">Number of Shop Views</string>
+	<string name="shopview.title">Shop Views</string>
+	<string name="shopview.cell.disp">shop views</string>
+	<string name="startover.y_title">Number of Start-Overs</string>
+	<string name="startover.title">Start Over Usage</string>
+	<string name="startover.cell.disp">start overs</string>
+	<string name="timeshift.y_title1">Number of Viewers</string>
+	<string name="timeshift.y_title2">Total Watched Hours</string>
+	<string name="timeshift.title.column.chart">Timeshift Views</string>
+	<string name="timeshift.title.pie.chart1">Timeshift Views - Total Number of Viewers</string>
+	<string name="timeshift.title.pie.chart2">Timeshift Views - Total Watched Hours</string>
+	<string name="vodmovie.y_title1">Number of Viewers</string>
+	<string name="vodmovie.y_title2">Total Watched Hours</string>
+	<string name="vodmovie.title.column.chart">VoD Movies</string>
+	<string name="vodmovie.title.pie.chart1">VoD Movies - Total Number of Viewers</string>
+	<string name="vodmovie.title.pie.chart2">VoD Movies - Total Watched Hours</string>
+	<string name="vodmovie.cell.disp">VoD uses</string>
+	<string name="vodtrailer.y_title1">Number of Viewers</string>
+	<string name="vodtrailer.y_title2">Total Watched Hours</string>
+	<string name="vodtrailer.title.column.chart">VoD Trailers</string>
+	<string name="vodtrailer.title.pie.chart1">VoD Trailers - Total Number of Viewers</string>
+	<string name="vodtrailer.title.pie.chart2">VoD Trailers - Total Watched Hours</string>
+	<string name="webtvlogin.y_title">Number of WebTV Logins</string>
+	<string name="webtvlogin.title">WebTV Logins</string>
+	<string name="webtvlogin.cell.disp">webtv logins</string>
+	<string name="widgetshow.y_title">Number of Activations</string>
+	<string name="widgetshow.title">Widget Activations</string>
+	<string name="widgetshow.cell.disp">widget activations</string>
 	
     <!-- Buttons -->
     <!-- ####### -->
@@ -218,14 +262,13 @@
          The main part of the settings is about the <i>server address</i> and <i>port</i> where the Nordija statistics services 
          run and the <i>user credentials</i> which are necessary to authenticate against those services.     
          </p>
-         <p>
+         <br/><br/>
          &#8226; <li>Server Address</li>: Must be the name or the IP address of the server running the <i>Nordija\'s Statistics REST Services</i>.<br/><br/>
          &#8226; <li>Server Port</li>: Must be the port number of the <i>Nordija\'s Statistics REST Services</i>. It is 9119 per default.<br/><br/>
          &#8226; <li>Connection Timeout</li>: Number of seconds the application should wait for responses from server before giving up. Default is 5 seconds.<br/><br/>
          &#8226; <li>User name</li>: The User id which is required to authenticate when connecting to the <i>Nordija\'s Statistics REST Services</i>.<br/><br/>
          &#8226; <li>Password</li>: The password which is required to authenticate when connecting to the <i>Nordija\'s Statistics REST Services</i>.<br/><br/>
          &#8226; <li>Only WiFi</li>: Indicates whether the appication is allowed to fetch data from server when not on WiFi.
-         </p>
          ]]>
 	 </string>
      

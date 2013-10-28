@@ -27,10 +27,19 @@ public class MainActivity extends Activity {
 	public final static String ARG_MENU_CHART_ITEM_NAME = "menu.chart.item.name";
 	
 	// Chart ids should correspond to their position inside the charts-list
-	public final static int CHANNELS_FRAGMENT_ID = 0;
-	public final static int MOVIES_FRAGMENT_ID = 1;
-	public final static int PROGRAMS_FRAGMENT_ID = 2;
-	public final static int WIDGETS_FRAGMENT_ID = 3;
+	public final static int ADD_FRAGMENT_ID = 0;
+	public final static int CHANNELS_FRAGMENT_ID = 1;
+	public final static int DVR_REC_FRAGMENT_ID = 2;
+	public final static int MOVIES_FRAGMENT_ID = 3;
+	public final static int PROGRAMS_FRAGMENT_ID = 4;
+	public final static int SEFLCARE_SUB_FRAGMENT_ID = 5;
+	public final static int SHOPVIEWS_FRAGMENT_ID = 6;
+	public final static int STARTOVERS_FRAGMENT_ID = 7;
+	public final static int TIMESHIFT_FRAGMENT_ID = 8;
+	public final static int VOD_MOVIE_FRAGMENT_ID = 9;
+	public final static int VOD_TRAILER_FRAGMENT_ID = 10;
+	public final static int WEBTV_LOGIN_FRAGMENT_ID = 11;
+	public final static int WIDGETS_FRAGMENT_ID = 12;
 	
 	private DrawerLayout mDrawerLayout;
 	private ExpandableListView mMenuDrawer;
@@ -252,10 +261,6 @@ public class MainActivity extends Activity {
 		args.putString(ChartFragment.CHART_NAME, chartName);
 		chartSettingsDialog.setArguments(args);
 		chartSettingsDialog.show(getFragmentManager(), "ChartSettingsDialog");
-	}
-	
-	public void onMyClick(MenuItem item) {
-		Log.d("ChartFragment", "<<onMyClick at Main Activity>>");
 	}
 	
 }

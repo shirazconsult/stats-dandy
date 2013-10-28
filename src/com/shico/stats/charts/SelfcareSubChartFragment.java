@@ -10,11 +10,12 @@ import com.shico.stats.charts.chartengine.ChartType;
 import com.shico.stats.charts.chartengine.ChartUtil;
 import com.shico.stats.loaders.ChartDataLoader;
 
-public class MovieRentChartFragment extends ChartFragment {	
-	private static final String EVENT_TYPE = "movieRent";
+public class SelfcareSubChartFragment extends ChartFragment {	
+	private static final String EVENT_TYPE = "SelfCareSUBSCRIBE";	
 	protected static final int FIRST_PAGE_WITH_GROUPED_COLUMN_CHART = 0;
-	protected static final int SECOND_PAGE_WITH_PIE_CHART = 1;
-
+	protected static final int SECOND_PAGE_WITH_PIE_CHART = 1;	
+			
+	@Override
 	protected void loadChartData() {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
@@ -28,7 +29,6 @@ public class MovieRentChartFragment extends ChartFragment {
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
 		StringBuilder titleBuilder = new StringBuilder().
-				append(getChartTitle()).append("\n").
 				append(currentFrom).append(" / ").append(currentTo).append(" (").
 				append(Character.toUpperCase(topBottomOption.charAt(0))+topBottomOption.substring(1)).
 				append(" ").append(numberOption).append(")");
@@ -36,13 +36,13 @@ public class MovieRentChartFragment extends ChartFragment {
 		case FIRST_PAGE_WITH_GROUPED_COLUMN_CHART:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.viewersIdx, 
-					new ChartTitles("", getString(R.string.movierent_y_title), titleBuilder.toString()));
+					new ChartTitles("", getString(R.string.selfcaresub_y_title), getString(R.string.selfcaresub_title)+"\n"+titleBuilder.toString()));
 		case SECOND_PAGE_WITH_PIE_CHART:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
-					titleBuilder.toString());
+					"Selfcare Subscriptions\n"+titleBuilder.toString());
 		}
 		return null;
-	}
+	}	
 	
 	@Override
 	protected ChartType getChartType(int pos) {
@@ -56,12 +56,11 @@ public class MovieRentChartFragment extends ChartFragment {
 
 	@Override
 	protected String getChartTitle() {
-		return getString(R.string.movierent_title);
-	}  	
+		return getString(R.string.selfcaresub_title);
+	} 
 	
 	@Override
 	public String[] getCellDisplayStrings() {
-		return new String[]{"", getString(R.string.movierent_cell_disp)};
-	} 
-	
+		return new String[]{"", getString(R.string.selfcaresub_cell_disp)};
+	} 	
 }

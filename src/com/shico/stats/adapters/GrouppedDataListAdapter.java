@@ -43,7 +43,7 @@ public class GrouppedDataListAdapter extends ArrayAdapter<List<String>> {
 			rowView = inflater.inflate(R.layout.liveusage_groupped_data_list, parent, false);
 			duration = (TextView)rowView.findViewById(R.id.duration);
 			long hours = Long.parseLong(data.get(position).get(ChartDataLoader.durationIdx))/3600000;
-			duration.setText(numberFormatter.format(hours)+" hours of total time");
+			duration.setText(numberFormatter.format(hours)+" "+chartFragment.getCellDisplayStrings()[0]);
 		}else{
 			rowView = inflater.inflate(R.layout.groupped_data_list, parent, false);
 		}
@@ -59,7 +59,7 @@ public class GrouppedDataListAdapter extends ArrayAdapter<List<String>> {
 		}
 		evTime.setText((String)data.get(position).get(ChartDataLoader.timeIdx));
 		int numOfViewers = Integer.parseInt(data.get(position).get(ChartDataLoader.viewersIdx));
-		viewers.setText(numberFormatter.format(numOfViewers)+" viewers");
+		viewers.setText(numberFormatter.format(numOfViewers)+" "+chartFragment.getCellDisplayStrings()[1]);
 		
 		if(position % 2 == 0){
 			rowView.setBackgroundColor(context.getResources().getColor(R.color.DarkGray));

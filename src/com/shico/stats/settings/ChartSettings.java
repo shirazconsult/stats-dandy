@@ -3,18 +3,15 @@ package com.shico.stats.settings;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,29 +121,38 @@ public class ChartSettings extends DialogFragment {
 						// Take the date from month-chooser
 						Spinner fromMonth = (Spinner)thisView.findViewById(R.id.from_month_spinner);
 						Spinner fromYear = (Spinner)thisView.findViewById(R.id.from_year_spinner);
-						editor.putString(dateFromPref, fromYear.getSelectedItem()+"-"+(fromMonth.getSelectedItemPosition()+1));
+						String fromStr = fromYear.getSelectedItem()+"-"+(fromMonth.getSelectedItemPosition()+1);
+						editor.putString(dateFromPref, fromStr);
 
 						Spinner toMonth = (Spinner)thisView.findViewById(R.id.to_month_spinner);
 						Spinner toYear = (Spinner)thisView.findViewById(R.id.to_year_spinner);
-						editor.putString(dateToPref, toYear.getSelectedItem()+"-"+(toMonth.getSelectedItemPosition()+1));
+						String toStr = toYear.getSelectedItem()+"-"+(toMonth.getSelectedItemPosition()+1);
+						editor.putString(dateToPref, toStr);
 
 						editor.putString(dateSpecPref, DEFAULT_DATE_SPEC);
+						if(fromStr.equals(toStr)){
+							editor.putString(ChartPref.timeunit.name(), Timeunit.weekly.name());
+						}
 						break;
 					case 1:
 						// current day
 						editor.putString(dateSpecPref, "currentDay");
+						editor.putString(ChartPref.timeunit.name(), Timeunit.hourly.name());							
 						break;
 					case 2:
 						// current week
 						editor.putString(dateSpecPref, "currentWeek");
+						editor.putString(ChartPref.timeunit.name(), Timeunit.daily.name());							
 						break;
 					case 3:
 						// current month
 						editor.putString(dateSpecPref, "currentMonth");
+						editor.putString(ChartPref.timeunit.name(), Timeunit.weekly.name());							
 						break;
 					case 4:
 						// current month
 						editor.putString(dateSpecPref, "currentYear");
+						editor.putString(ChartPref.timeunit.name(), Timeunit.monthly.name());
 						break;						
 					}
 					
@@ -195,7 +201,7 @@ public class ChartSettings extends DialogFragment {
 		String numPref = UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : chartName + "." + ChartPref.number.name();
 		String posPref = UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : chartName + "." + ChartPref.position.name();
 		String dateSpecPref = UNIFIED_CHART_SETTINGS ? ChartPref.date_spec.name() : chartName + "." + ChartPref.date_spec.name();
-
+		
 		Spinner optSpinner = (Spinner)view.findViewById(R.id.dataload_options_spinner);
 		int num = prefs.getInt(numPref, 3);
 		String topBot = prefs.getString(posPref, "top");		
@@ -305,10 +311,14 @@ public class ChartSettings extends DialogFragment {
 		// pref keys
 		String numPref = UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : chart + "." + ChartPref.number.name();
 		String posPref = UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : chart + "." + ChartPref.position.name();
+		String timeunitPref = UNIFIED_CHART_SETTINGS ? ChartPref.timeunit.name() : chart + "." + ChartPref.timeunit.name();
 
-		int num = prefs.getInt(numPref, 3);
-		String topBot = prefs.getString(posPref, "top");		
-		return topBot+","+num;
+		String timeunit = prefs.getString(timeunitPref, "");
+		StringBuilder optBuilder = new StringBuilder().
+				append(prefs.getString(posPref, "top")).
+				append(",").append(prefs.getInt(numPref, 3)).
+				append(timeunit.trim().equals("") ? "" : ","+timeunit);
+		return optBuilder.toString();
 	}
 	
 	public static String[] getDates(SharedPreferences prefs, String chart){

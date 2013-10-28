@@ -60,6 +60,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	protected String currentFrom;
 	protected String currentTo;
 	protected String topBottomOption;
+	protected String timeunit;
 	protected int numberOption;
 	private ProgressDialog progressDiag;
 	
@@ -174,12 +175,15 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 		// pref keys
 		String numPref = ChartSettings.UNIFIED_CHART_SETTINGS ? ChartPref.number.name() : currentChartName + "." + ChartPref.number.name();
 		String posPref = ChartSettings.UNIFIED_CHART_SETTINGS ? ChartPref.position.name() : currentChartName + "." + ChartPref.position.name();
+		String timeunitPref = ChartSettings.UNIFIED_CHART_SETTINGS ? ChartPref.timeunit.name() : currentChartName + "." + ChartPref.timeunit.name();
 
 		topBottomOption = prefs.getString(posPref, "top");
 		numberOption = prefs.getInt(numPref, 5);
+		timeunit = prefs.getString(timeunitPref, "");
 		String topOrBottom = topBottomOption.equals("bottom") ? "low" : "top";
 		currentChartOptions = new StringBuilder().append(topOrBottom).
-				append(",").append(numberOption).toString();
+				append(",").append(numberOption).
+				append(timeunit.trim().equals("") ? "" : ","+timeunit).toString();
 		
 		String[] dates = ChartSettings.getDates(prefs, currentChartName);
 		currentFrom = dates[0];
@@ -199,6 +203,7 @@ public abstract class ChartFragment extends Fragment implements OnSharedPreferen
 	protected abstract GraphicalView createChartView(List<List<String>> dataRows);
 	protected abstract ChartType getChartType(int position); 
 	protected abstract String getChartTitle();
+	public abstract String[] getCellDisplayStrings();
 	
 	protected String getLoadOptions(){
 		return "viewers,"+currentChartOptions;

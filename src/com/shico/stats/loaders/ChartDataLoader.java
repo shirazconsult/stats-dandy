@@ -19,6 +19,7 @@ import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
+import com.shico.stats.settings.Timeunit;
 
 public class ChartDataLoader {
 	private static final String CHART_CACHE = "chart_cache";
@@ -59,19 +60,20 @@ public class ChartDataLoader {
 		setTemporaryCache((ConcurrentMap<String, List<List<String>>>) inState.get(CHART_CACHE));
 	}
 		
-	public void getTopView(String restCmd, String from, String to, String options){
+	public void getTopView(String eventType, String from, String to, String options){
 		String url = new StringBuilder(getBaseUrl()).
-				append(restCmd).
+				append(from.equals(to) ? "/viewontime/": "/view/").
+				append(eventType).
 				append("/").append(from).
-				append("/").append(to).
-				append("/").append(options).
+				append(from.equals(to) ? "" : "/"+to).
+				append("/").append(correctChartOptionsForTopviewInvokation(options)).
 				toString();
 		
 		List<List<String>> cached = getTemporaryCache().get(url);
 		if(cached == null){
 			Log.d("ChartDataLoader", "Loading data from server: "+url);
 			try{
-			loadChartTopViewData(url);
+				loadChartTopViewData(url);
 			}catch(Throwable t){
 				Log.e("ChartDataLoader", "****** Client error ****");				
 			}
@@ -82,11 +84,12 @@ public class ChartDataLoader {
 		}
 	}
 
-	public void getTopViewInBatch(String restCmd, String from, String to, String options){
+	public void getTopViewInBatch(String eventType, String from, String to, String options){
 		String url = new StringBuilder(getBaseUrl()).
-				append(restCmd).
+				append("/viewbatch/").
+				append(eventType).
 				append("/").append(from).
-				append("/").append(to).
+				append(from.equals(to) ? "" : "/"+to).
 				append("/").append(options).
 				toString();
 		
@@ -94,7 +97,7 @@ public class ChartDataLoader {
 		if(cached == null){
 			Log.d("ChartDataLoader", "Loading data from server: "+url);
 			try{
-			loadChartTopViewDataInBatch(url);
+				loadChartTopViewDataInBatch(url);
 			}catch(Throwable t){
 				Log.e("ChartDataLoader", "****** Client error ****");
 			}
@@ -255,5 +258,22 @@ public class ChartDataLoader {
 		
 		baseUrl = new StringBuilder("http://").append(host).append(":").append(port).append(REST_PATH).toString();
 		client.setTimeout(timeout * 1000);
+	}
+	
+	// ChartSettings dialog sets the timeunit prefs. from the viewpoint of bar-charts in which we divide the entire
+	// tiem period (form-to) into smaller intervals. For pie-charts where we show the totals, we need to use the 
+	// timeunit for the entire date-interval (from-to), why we here modify the options.
+	private String correctChartOptionsForTopviewInvokation(String options){
+		String newOpts = options;
+		if(options.contains(Timeunit.hourly.name())){
+			newOpts = options.replace(Timeunit.hourly.name(), Timeunit.daily.name());
+		}else if(options.contains(Timeunit.daily.name())){
+			newOpts = options.replace(Timeunit.daily.name(), Timeunit.weekly.name());
+		}else if(options.contains(Timeunit.weekly.name())){
+			newOpts = options.replace(Timeunit.weekly.name(), Timeunit.monthly.name());
+		}else if(options.contains(Timeunit.monthly.name())){
+			newOpts = options.replace(Timeunit.monthly.name(), Timeunit.yearly.name());
+		}
+		return newOpts;
 	}
 }

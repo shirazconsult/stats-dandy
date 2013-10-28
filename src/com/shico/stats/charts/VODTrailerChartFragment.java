@@ -10,8 +10,8 @@ import com.shico.stats.charts.chartengine.ChartType;
 import com.shico.stats.charts.chartengine.ChartUtil;
 import com.shico.stats.loaders.ChartDataLoader;
 
-public class ProgramChartFragment extends ChartFragment {	
-	private static final String EVENT_TYPE = "LiveUsage";
+public class VODTrailerChartFragment extends ChartFragment {	
+	private static final String EVENT_TYPE = "VodUsageTRAILER";
 	protected static final int FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS = 0;
 	protected static final int SECOND_PAGE_WITH_COLUMN_CHART_DURATION = 1;
 	protected static final int THIRD_PAGE_WITH_PIE_CHART_VIEWERS = 2;	
@@ -33,39 +33,40 @@ public class ProgramChartFragment extends ChartFragment {
 	public String getLoadOptions(){
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
-			return "viewers,title,"+currentChartOptions;
+			return "viewers,"+currentChartOptions;
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			return "duration,title,"+currentChartOptions;
+			return "duration,"+currentChartOptions;
 		default:
-			return currentChartOptions+",title";
+			return currentChartOptions;
 		}
 	}
 	
 	@Override
 	protected GraphicalView createChartView(List<List<String>> dataRows) {
 		StringBuilder titleBuilder = new StringBuilder().
+				append(getChartTitle()).append("\n").
 				append(currentFrom).append(" / ").append(currentTo).append(" (").
 				append(Character.toUpperCase(topBottomOption.charAt(0))+topBottomOption.substring(1)).
 				append(" ").append(numberOption).append(")");
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
-			return ChartUtil.createGroupedBarChartViewForPrograms(getActivity(), dataRows, 
+			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.viewersIdx, 
-					new ChartTitles("", getString(R.string.programs_y_title1), getString(R.string.programs_title_column_chart)+"\n"+titleBuilder.toString()));
+					new ChartTitles("", getString(R.string.vodtrailer_y_title1), titleBuilder.toString()));
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			return ChartUtil.createGroupedBarChartViewForPrograms(getActivity(), dataRows, 
+			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.durationIdx, 
-					new ChartTitles("", getString(R.string.programs_y_title2), getString(R.string.programs_title_column_chart)+"\n"+titleBuilder.toString()));
+					new ChartTitles("", getString(R.string.vodtrailer_y_title2), titleBuilder.toString()));
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
-			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
-					"TV Programs - Number of Viewers\n"+titleBuilder.toString());
+			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
+					titleBuilder.toString());
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
-			return ChartUtil.createPieChartViewForPrograms(getActivity(), dataRows, ChartDataLoader.durationIdx, 
-					"TV Programs - Total Watched Hours\n"+titleBuilder.toString());
+			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.durationIdx, 
+					titleBuilder.toString());
 		}
 		return null;
-	}  
-	
+	}
+
 	@Override
 	protected ChartType getChartType(int pos) {
 		switch(pos){
@@ -82,18 +83,18 @@ public class ProgramChartFragment extends ChartFragment {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			return getString(R.string.programs_title_column_chart);
+			return getString(R.string.vodtrailer_title_column_chart);
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
-			return getString(R.string.programs_title_pie_chart1);
+			return getString(R.string.vodtrailer_title_pie_chart1);
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
-			return getString(R.string.programs_title_pie_chart2);
-		}  		
+			return getString(R.string.vodtrailer_title_pie_chart2);
+		}
 		return "";
-	}
+	} 
 	
 	@Override
 	public String[] getCellDisplayStrings() {
-		return new String[]{getString(R.string.time_cell_disp), getString(R.string.viewers_cell_disp)};
-	} 
+		return new String[]{getString(R.string.time_cell_disp), getString(R.string.vodmovie_cell_disp)};
+	} 		
 	
 }

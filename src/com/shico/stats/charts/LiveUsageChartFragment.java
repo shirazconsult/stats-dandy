@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.achartengine.GraphicalView;
 
+import com.shico.stats.R;
 import com.shico.stats.charts.chartengine.ChartTitles;
 import com.shico.stats.charts.chartengine.ChartType;
 import com.shico.stats.charts.chartengine.ChartUtil;
@@ -21,10 +22,10 @@ public class LiveUsageChartFragment extends ChartFragment {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			getChartDataLoader().getTopViewInBatch("/viewbatch/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
+			getChartDataLoader().getTopViewInBatch(EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 			break;
 		default:
-			getChartDataLoader().getTopView("/view/"+EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
+			getChartDataLoader().getTopView(EVENT_TYPE, currentFrom, currentTo, getLoadOptions());
 		}		
 	}
 
@@ -51,11 +52,11 @@ public class LiveUsageChartFragment extends ChartFragment {
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.viewersIdx, 
-					new ChartTitles("", "Number of Viewers", titleBuilder.toString()));
+					new ChartTitles("", getString(R.string.channels_y_title1), titleBuilder.toString()));
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
 			return ChartUtil.createGroupedBarChartViewForChannels(getActivity(), dataRows, 
 					ChartDataLoader.durationIdx, 
-					new ChartTitles("", "Total Watched Hours", titleBuilder.toString()));
+					new ChartTitles("", getString(R.string.channels_y_title2), titleBuilder.toString()));
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
 			return ChartUtil.createPieChartView(getActivity(), dataRows, ChartDataLoader.viewersIdx, 
 					titleBuilder.toString());
@@ -82,12 +83,18 @@ public class LiveUsageChartFragment extends ChartFragment {
 		switch(viewpage){
 		case FIRST_PAGE_WITH_COLUMN_CHART_VIEWERS:
 		case SECOND_PAGE_WITH_COLUMN_CHART_DURATION:
-			return "TV Channels";
+			return getString(R.string.channels_title_column_chart);
 		case THIRD_PAGE_WITH_PIE_CHART_VIEWERS:
-			return "TV Channels - Total Number of Viewers";
+			return getString(R.string.channels_title_pie_chart1);
 		case FOURTH_PAGE_WITH_PIE_CHART_DURATION:
-			return "TV Channels - Total Watched Hours";
+			return getString(R.string.channels_title_pie_chart2);
 		}
 		return "";
-	}  	
+	}  
+	
+	@Override
+	public String[] getCellDisplayStrings() {
+		return new String[]{getString(R.string.time_cell_disp), getString(R.string.viewers_cell_disp)};
+	} 
+
 }
