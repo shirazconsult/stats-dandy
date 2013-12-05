@@ -66,7 +66,11 @@ public class GroupedData {
 		int size = allTitles.size();
 		int[] res = new int[size];
 		for (int i=0; i<size; i++) {
-			res[i] = ChartUtil.getColorScheme(ctx)[i];
+			if(i >= ChartUtil.getColorScheme(ctx).length){
+				res[i] = ChartUtil.getColorScheme(ctx)[i % ChartUtil.getColorScheme(ctx).length];
+			}else{
+				res[i] = ChartUtil.getColorScheme(ctx)[i];
+			}
 		}
 		return res;
 	}
