@@ -13,7 +13,7 @@
         <item>Channels</item>
         <item>DVR Recordings</item>
         <item>Movies</item>
-<!--         <item>Programs</item> -->
+<!--         <item>Programs</item>  Programs are excluded because of incorrect results returned from the rest service -->
         <item>Selfcare Sub.</item>
         <item>Shop Views</item>
         <item>Start Overs</item>
@@ -185,12 +185,21 @@
          This application presents data in charts and tables for various time frames for the recent year. For each time frame
          you may choose to see the top 3, 5 and 10 or the bottom 3, 5, and 10 events. By &quot;top&quot; we mean the most popular 
          and by &quot;bottom&quot; we mean the least popular.
-         </p>
-         <p> 
-         The current version processes statistics with respect to <i>TV channels</i>, <i>TV programs</i>, <i>movie rentals</i> and
-         <i>widget activations</i>.
-         </p>
-         ]]>          
+         The current version processes statistics with respect to:
+         </p>         
+         &#8226; <li>Advertisements</li><br/>
+         &#8226; <li>TV channels</li><br/>
+         &#8226; <li>DVR Recordings</li><br/>
+		 &#8226; <li>Movie rentals</li><br/>
+         &#8226; <li>Selfcare Subscriptions</li><br/> 
+         &#8226; <li>Shop Views</li><br/>
+         &#8226; <li>Start Over</li><br/>
+         &#8226; <li>Timeshift</li><br/>
+         &#8226; <li>VoD Movies</li><br/>
+         &#8226; <li>VoD Trailers</li><br/>
+         &#8226; <li>WebTV Logins</li><br/>
+         &#8226; <li>Widget activations</li>
+         ]]>             
     </string>
      <string name="barchart_help_intro">
          <![CDATA[
@@ -262,7 +271,6 @@
          The main part of the settings is about the <i>server address</i> and <i>port</i> where the Nordija statistics services 
          run and the <i>user credentials</i> which are necessary to authenticate against those services.     
          </p>
-         <br/><br/>
          &#8226; <li>Server Address</li>: Must be the name or the IP address of the server running the <i>Nordija\'s Statistics REST Services</i>.<br/><br/>
          &#8226; <li>Server Port</li>: Must be the port number of the <i>Nordija\'s Statistics REST Services</i>. It is 9119 per default.<br/><br/>
          &#8226; <li>Connection Timeout</li>: Number of seconds the application should wait for responses from server before giving up. Default is 5 seconds.<br/><br/>
